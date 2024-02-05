@@ -12,10 +12,7 @@ import library.components.BookItem;
 import library.event.EventItem;
 import library.model.ModelItem;
 
-/**
- *
- * @author USER
- */
+
 public class MyLibrary extends javax.swing.JPanel {
 
    
@@ -39,8 +36,7 @@ private EventItem event;
           public void mousePressed(MouseEvent e) {
          if (SwingUtilities.isLeftMouseButton(e)) {
                     event.itemClick(item, data);
-                }
-                
+                }               
                 super.mousePressed(e);
           
           }

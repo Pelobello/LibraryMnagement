@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package library.components;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -30,35 +27,31 @@ public class PictureBox extends JLayeredPane{
 
     @Override
     protected void paintComponent(Graphics grphcs) {
-        if (image != null) {
-            Graphics2D g2 = (Graphics2D) grphcs;
-            Rectangle size = getAutoSize(image);
-            g2.fillArc(0, 0, getWidth(), getHeight(), 20, 20);
-            g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-            g2.drawImage(toImage(image), size.getLocation().x, size.getLocation().y, size.getSize().width, size.getSize().height, null);
-        }
-        super.paintComponent(grphcs);
+    if (image != null) {
+        Graphics2D g2 = (Graphics2D) grphcs;
+        g2.setColor(getBackground());
+        g2.fillRect(0, 0, getWidth(), getHeight());
+        
+        Rectangle size = getAutoSize(image);
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2.drawImage(toImage(image), size.getLocation().x, size.getLocation().y, size.getSize().width,size.getSize().height, null);
+    }
+    super.paintComponent(grphcs);
     }
 
     private Rectangle getAutoSize(Icon image) {
-        int w = getWidth();
-        int h = getHeight();
-        if (w > image.getIconWidth()) {
-            w = image.getIconWidth();
-        }
-        if (h > image.getIconHeight()) {
-            h = image.getIconHeight();
-        }
-        int iw = image.getIconWidth();
-        int ih = image.getIconHeight();
-        double xScale = (double) w / iw;
-        double yScale = (double) h / ih;
-        double scale = Math.max(xScale, yScale);
-        int width = (int) (scale * iw);
-        int height = (int) (scale * ih);
-        int x = getWidth() / 2 - (width / 2);
-        int y = getHeight() / 2 - (height / 2);
-        return new Rectangle(new Point(x, y), new Dimension(width, height));
+    int w = getWidth();
+    int h = getHeight();
+    int iw = image.getIconWidth();
+    int ih = image.getIconHeight();
+    double xScale = (double) w / iw;
+    double yScale = (double) h / ih;
+    double scale = Math.max(xScale, yScale);
+    int width = (int) (scale * iw);
+    int height = (int) (scale * ih);
+    int x = (w - width) / 2; 
+    int y = (h - height) / 2; 
+    return new Rectangle(new Point(x, y), new Dimension(width, height));
     }
 
     private Image toImage(Icon icon) {

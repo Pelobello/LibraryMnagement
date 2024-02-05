@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package library.main;
 
 import java.awt.BorderLayout;
@@ -40,7 +37,7 @@ public class Main extends javax.swing.JFrame {
          addBooks = new AddBooks();
          setting = new Settings();
          roundPanel4.setLayout(new BorderLayout());
-         
+         bookDescription.setBackground(new Color(15,4,76,255));
         
          initMoving(this);
          testData();
@@ -58,6 +55,8 @@ public class Main extends javax.swing.JFrame {
       repaint();
       revalidate();
   }
+  
+  
   
   private int x;
   private int y;
@@ -81,7 +80,9 @@ public class Main extends javax.swing.JFrame {
             }
         });
     }
-    
+   public void populateTable(){
+      
+   }
     public void testData(){
         myLibrary.setEvent(new EventItem() {
             @Override
@@ -112,8 +113,7 @@ public class Main extends javax.swing.JFrame {
        bookTitle.setText(data.getBookTitle());
        bookAuthor.setText(data.getBookAuthor());
        bookDescription.setText(data.getBookDescription());
-       
-       
+     
    }
    
    
@@ -226,6 +226,7 @@ public class Main extends javax.swing.JFrame {
         });
 
         id.setForeground(new java.awt.Color(102, 102, 102));
+        id.setText("132");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
@@ -303,7 +304,10 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        bookDescription.setBackground(new java.awt.Color(255, 204, 0));
         bookDescription.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        bookDescription.setOpaque(false);
+        bookDescription.setPreferredSize(new java.awt.Dimension(17, 24));
         jScrollPane2.setViewportView(bookDescription);
 
         jScrollPane1.setViewportView(jScrollPane2);
