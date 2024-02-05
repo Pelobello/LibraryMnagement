@@ -26,21 +26,30 @@ import library.database.DatabaseConnection;
 import library.main.Main;
 import java.sql.PreparedStatement;
 import java.util.Base64;
+import javax.swing.SwingUtilities;
 import library.controller.AddBooksController;
+import library.controller.PopulateBooksController;
 
 
 
 public class AddBooks extends javax.swing.JPanel {
    private AddBooksController addBooksControll;
    private Main main;
+   private PopulateBooksController populateBooks;
+   private MyLibrary library;
     Connection MyCon;
-//    PreparedStatement ps;
+    
    private DateChooser dateChooser = new DateChooser();
     public AddBooks() {
         initComponents();
         setOpaque(false);
         dateChooser.setTextField(bDate);
         dateChooser.setDateFormat(new SimpleDateFormat("yyyy-MM-dd"));
+        library = new MyLibrary();
+        populateBooks = new PopulateBooksController(library);
+        
+        
+        
         init();
         
     }
@@ -95,42 +104,7 @@ public class AddBooks extends javax.swing.JPanel {
     }
 }
     }
-   
-    public void addBooksData(){
-         try {
-            PreparedStatement p= DatabaseConnection.getInstance().getConnection().prepareStatement(
-                    "insert into library_table (userId,bookTitle,bookAuthor,bookImage)values(?,?,?,?)");
-            Class.forName("com.mysql.cj.jdbc.Driver");
-
-            p.setString(1,userId.getText());
-            p.setString(2, bTitle.getText());
-            p.setString(3, bAuthor.getText());
-            
-            Icon picIcon = pic.getImage();
-            byte[] imageBytes = convertImageIconToByteArray(picIcon);
-    
-   
-    ByteArrayInputStream inputStream = new ByteArrayInputStream(imageBytes);
-    p.setBlob(4, inputStream);
-    p.executeUpdate();
-    inputStream.close();
-    p.close();
-    
-    JOptionPane.showMessageDialog(this, "Data input success!");
-           
-     
-         } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(this, ex, "ERROR",JOptionPane.ERROR_MESSAGE );
-    
-        } catch (IOException ex) {
-           Logger.getLogger(AddBooks.class.getName()).log(Level.SEVERE, null, ex);
-       } catch (ClassNotFoundException ex) {
-           Logger.getLogger(AddBooks.class.getName()).log(Level.SEVERE, null, ex);
-       }
-    }                                       
-
-    
-
+ 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -163,6 +137,8 @@ public class AddBooks extends javax.swing.JPanel {
         bDescription = new javax.swing.JTextPane();
         quantity = new textfield.TextField();
         pCount = new textfield.TextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
         bTitle.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
@@ -261,9 +237,13 @@ public class AddBooks extends javax.swing.JPanel {
 
         jScrollPane1.setViewportView(jScrollPane2);
 
-        quantity.setText("Quantity");
+        quantity.setText("0");
 
-        pCount.setText("page Count");
+        pCount.setText("0");
+
+        jLabel6.setText("PageCount:");
+
+        jLabel9.setText("Quantity:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -283,13 +263,17 @@ public class AddBooks extends javax.swing.JPanel {
                             .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(pCount, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(quantity, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(51, 51, 51))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pCount, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(quantity, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -380,7 +364,9 @@ public class AddBooks extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(quantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(pCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(pCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel9))
                                 .addGap(18, 18, 18)))
                         .addComponent(bCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
@@ -428,14 +414,26 @@ public class AddBooks extends javax.swing.JPanel {
             byte[] imageBytes;
        try {
            imageBytes = convertImageIconToByteArray(picIcon);
-            ByteArrayInputStream inputStream = new ByteArrayInputStream(imageBytes);
+//            ByteArrayInputStream inputStream = new ByteArrayInputStream(imageBytes);
       
        addBooksControll = new AddBooksController(userId.getText(),bTitle.getText(), bAuthor.getText(), bPublisher.getText(),bDate.getText(),
                bDescription.getText(), selectCategory, selectLangugae,
                selectFormat, selectEdition, addPageCount, addQuantity, new ImageIcon(imageBytes));
+       
        addBooksControll.addBookToDatabase();
        
+       
+       
+       SwingUtilities.invokeLater(() -> {
+          
+            populateBooks.populate();
+            library.repaint();
+            library.revalidate();
+        });
+       
+  
        JOptionPane.showMessageDialog(this, "Succesfully Added!");
+      
        } catch (IOException ex) {
            Logger.getLogger(AddBooks.class.getName()).log(Level.SEVERE, null, ex);
        } catch (SQLException ex) {
@@ -443,9 +441,11 @@ public class AddBooks extends javax.swing.JPanel {
        } catch (ClassNotFoundException ex) {
            Logger.getLogger(AddBooks.class.getName()).log(Level.SEVERE, null, ex);
        }
-    
-   
-   
+        catch (Exception ex) {
+    ex.printStackTrace();  
+}
+       System.out.println("On EDT: " + SwingUtilities.isEventDispatchThread());
+
     }//GEN-LAST:event_addBookActionPerformed
 
     private void addImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addImageActionPerformed
@@ -478,8 +478,10 @@ public class AddBooks extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private textfield.TextField pCount;

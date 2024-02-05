@@ -4,11 +4,23 @@ package library.main;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import library.controller.AddBooksController;
+import library.controller.PopulateBooksController;
+import library.database.DatabaseConnection;
 import library.event.EventItem;
 import library.forms.AddBooks;
 import library.forms.Discovery;
@@ -17,35 +29,45 @@ import library.forms.Settings;
 import library.model.ModelItem;
 
 
-/**
- *
- * @author USER
- */
+
 public class Main extends javax.swing.JFrame {
 
       private Discovery discover;
       private MyLibrary myLibrary;
       private AddBooks addBooks;
       private Settings setting;
-    public Main() {
+      private AddBooksController addBooksController ;
+      private PopulateBooksController populateBooks;
+    public Main()  {
       
-        initComponents();
+    initComponents();
+        
         setBackground(new Color(0,0,0,0));
-       
+       Font poppinsFont = new Font("Khula", Font.ITALIC, 16);
+       bookDescription.setFont(poppinsFont);
          discover = new Discovery();
          myLibrary = new MyLibrary();
          addBooks = new AddBooks();
          setting = new Settings();
+         
+        
+         
+         populateBooks = new PopulateBooksController(myLibrary);
+         populateBooks.populate();
+     
          roundPanel4.setLayout(new BorderLayout());
          bookDescription.setBackground(new Color(15,4,76,255));
         
          initMoving(this);
+        
          testData();
+         
 
          roundPanel4.setLayout(new BorderLayout());
          String data = id.getText();
          addBooks.userId.setText(data);
     }
+
     
     
     
@@ -80,11 +102,9 @@ public class Main extends javax.swing.JFrame {
             }
         });
     }
-   public void populateTable(){
-      
-   }
     public void testData(){
-        myLibrary.setEvent(new EventItem() {
+       
+  myLibrary.setEvent(new EventItem() {
             @Override
             public void itemClick(Component com, ModelItem item) {
              myLibrary.setSelected(com);
@@ -93,22 +113,8 @@ public class Main extends javax.swing.JFrame {
             }
  
        });
-  myLibrary.addBooks(new ModelItem("Calculus", "Oda", "Toei Animatio", "1995","pirate", "fiction", "English", 
-          "comics","1st Edition", 300, 3, new ImageIcon(getClass().getResource("/library/image/calculusBook.png"))));
-  myLibrary.addBooks(new ModelItem("Calculus", "Oda", "Toei Animatio", "1995","pirate", "fiction", "English", 
-          "comics","1st Edition", 300, 3, new ImageIcon(getClass().getResource("/library/image/calculusBook.png"))));
-   myLibrary.addBooks(new ModelItem("One Piece", "Oda", "Toei Animatio", "1995","pirate", "fiction", "English", 
-          "comics","1st Edition", 300, 3, new ImageIcon(getClass().getResource("/library/image/calculusBook.png"))));
-  myLibrary.addBooks(new ModelItem("Calculus", "Oda", "Toei Animatio", "1995","the prirate that rooms"
-          + " the sea, treasures"
-          + " to be found", "fiction", "English", 
-          "comics","1st Edition", 300, 3, new ImageIcon(getClass().getResource("/library/image/calculusBook.png"))));
-   myLibrary.addBooks(new ModelItem("One Piece", "Oda", "Toei Animatio", "1995","pirate", "fiction", "English", 
-          "comics","1st Edition", 300, 3, new ImageIcon(getClass().getResource("/library/image/calculusBook.png"))));
-  myLibrary.addBooks(new ModelItem("Calculus", "Kashimoto", "Toei Animatio", "1995","pirate", "fiction", "English", 
-          "comics","1st Edition", 300, 3, new ImageIcon(getClass().getResource("/library/image/calculusBook.png"))));
-      
-    }
+}
+
    public void showItem(ModelItem data){
        bookTitle.setText(data.getBookTitle());
        bookAuthor.setText(data.getBookAuthor());
@@ -137,8 +143,7 @@ public class Main extends javax.swing.JFrame {
         roundPanel2 = new library.components.RoundPanel();
         pictureBox1 = new library.components.PictureBox();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        bookDescription = new javax.swing.JTextPane();
+        bookDescription = new library.swing.TextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -226,7 +231,7 @@ public class Main extends javax.swing.JFrame {
         });
 
         id.setForeground(new java.awt.Color(102, 102, 102));
-        id.setText("132");
+        id.setText("142");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
@@ -272,12 +277,12 @@ public class Main extends javax.swing.JFrame {
         roundPanel5.setBackground(new java.awt.Color(15, 4, 76));
         roundPanel5.setRoundBottomRight(25);
 
-        bookTitle.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        bookTitle.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         bookTitle.setForeground(new java.awt.Color(255, 255, 255));
         bookTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         bookTitle.setText("Title");
 
-        bookAuthor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        bookAuthor.setFont(new java.awt.Font("Segoe UI", 2, 17)); // NOI18N
         bookAuthor.setForeground(new java.awt.Color(255, 255, 255));
         bookAuthor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         bookAuthor.setText("Author");
@@ -304,13 +309,12 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        bookDescription.setBackground(new java.awt.Color(255, 204, 0));
-        bookDescription.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        bookDescription.setOpaque(false);
-        bookDescription.setPreferredSize(new java.awt.Dimension(17, 24));
-        jScrollPane2.setViewportView(bookDescription);
-
-        jScrollPane1.setViewportView(jScrollPane2);
+        bookDescription.setEditable(false);
+        bookDescription.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        bookDescription.setForeground(new java.awt.Color(255, 255, 255));
+        bookDescription.setMargin(new java.awt.Insets(10, 20, 20, 10));
+        bookDescription.setPreferredSize(new java.awt.Dimension(25, 25));
+        jScrollPane1.setViewportView(bookDescription);
 
         javax.swing.GroupLayout roundPanel5Layout = new javax.swing.GroupLayout(roundPanel5);
         roundPanel5.setLayout(roundPanel5Layout);
@@ -323,10 +327,10 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(bookAuthor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(roundPanel5Layout.createSequentialGroup()
                         .addGroup(roundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(roundPanel5Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(roundPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(roundPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addContainerGap())))
         );
         roundPanel5Layout.setVerticalGroup(
@@ -338,9 +342,9 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(bookTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(bookAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-                .addGap(156, 156, 156))
+                .addGap(59, 59, 59)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(110, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout roundPanel1Layout = new javax.swing.GroupLayout(roundPanel1);
@@ -399,6 +403,9 @@ public class Main extends javax.swing.JFrame {
 
     private void button3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button3ActionPerformed
         Forms(myLibrary);
+        
+        
+    
     }//GEN-LAST:event_button3ActionPerformed
 
     private void button4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button4ActionPerformed
@@ -444,7 +451,7 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bookAuthor;
-    private javax.swing.JTextPane bookDescription;
+    private library.swing.TextPane bookDescription;
     private javax.swing.JLabel bookTitle;
     private button.Button button1;
     private button.Button button3;
@@ -453,7 +460,6 @@ public class Main extends javax.swing.JFrame {
     public javax.swing.JLabel id;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private library.components.RoundPanel panelMoving;
     private library.components.PictureBox pictureBox1;
     private library.components.RoundPanel roundPanel1;
