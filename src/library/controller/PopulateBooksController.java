@@ -8,7 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import library.forms.AddBooks;
 import library.main.Main;
 import library.model.ModelItem;
 
@@ -20,16 +22,35 @@ public class PopulateBooksController {
         this.library = library;
        
     }
-    public void populate(){
+
+    
+    private AddBooks addBooks;
+    public PopulateBooksController() {
+        
+    }
+    
+    public void populate(String userId){
          
+        addBooks= new AddBooks();
+         library.panelItem1.removeAll();
+        library.panelItem1.repaint();
+        library.panelItem1.revalidate();
+        
         try {
-            PreparedStatement p = DatabaseConnection.getInstance().getConnection().prepareStatement("SELECT * FROM library_data WHERE userId = 142");
-            ResultSet rs = p.executeQuery();
+           String sql = "SELECT * FROM library_data WHERE userId = ?";
+            try (PreparedStatement p = DatabaseConnection.getInstance().getConnection().prepareStatement(sql)) {
+                p.setString(1, userId);
+                ResultSet rs = p.executeQuery();
+              
+     
+
+               
             while (rs.next()) {                
                 
                  byte[] blobData = rs.getBytes("CoverImage");
             ImageIcon icon = new ImageIcon(blobData);
-
+                  
+                
                 
                    library.addBooks(new ModelItem(
                            rs.getString("BTitle")
@@ -44,12 +65,13 @@ public class PopulateBooksController {
                            rs.getInt("PageCount"),
                            rs.getInt("Quantity"), 
                            icon));
-                   
-                }
-            SwingUtilities.invokeLater(() -> {
-                library.revalidate();
-                library.repaint();
-            });
+                  
+            
+
+                }     
+             
+            }
+            
     
         } catch (Exception e) {
             e.printStackTrace();

@@ -25,10 +25,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import library.database.DatabaseConnection;
 import library.main.Main;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Base64;
 import javax.swing.SwingUtilities;
 import library.controller.AddBooksController;
 import library.controller.PopulateBooksController;
+import library.model.ModelItem;
 
 
 
@@ -46,6 +48,7 @@ public class AddBooks extends javax.swing.JPanel {
         dateChooser.setTextField(bDate);
         dateChooser.setDateFormat(new SimpleDateFormat("yyyy-MM-dd"));
         library = new MyLibrary();
+        
         populateBooks = new PopulateBooksController(library);
         
         
@@ -53,7 +56,7 @@ public class AddBooks extends javax.swing.JPanel {
         init();
         
     }
-
+ 
     private void init() {
        try {
            DatabaseConnection.getInstance().ConnectToDatabase();
@@ -61,8 +64,46 @@ public class AddBooks extends javax.swing.JPanel {
           e.printStackTrace();
        }
     }
+    
 
-   
+  public void addBooksButton() {
+    Icon picIcon = pic.getImage();
+    
+    String selectCategory = bCategory.getSelectedItem().toString();
+    String selectLanguage = bLanguage.getSelectedItem().toString();
+    String selectFormat = bFormat.getSelectedItem().toString();
+    String selectEdition = bEdition.getSelectedItem().toString();
+    int addPageCount = Integer.parseInt(pCount.getText());
+    int addQuantity = Integer.parseInt(quantity.getText());
+    byte[] imageBytes;
+
+    try {
+       
+
+        imageBytes = convertImageIconToByteArray(picIcon);
+
+        addBooksControll = new AddBooksController(userId.getText(), bTitle.getText(), bAuthor.getText(),
+                bPublisher.getText(), bDate.getText(), bDescription.getText(), selectCategory, selectLanguage,
+                selectFormat, selectEdition, addPageCount, addQuantity, new ImageIcon(imageBytes));
+
+        addBooksControll.addBookToDatabase();
+      
+        
+
+        JOptionPane.showMessageDialog(this, "Successfully Added!");
+    } catch (IOException | SQLException | ClassNotFoundException ex) {
+        try {
+            DatabaseConnection.getInstance().getConnection().rollback();
+        } catch (SQLException rollbackException) {
+            rollbackException.printStackTrace();
+        }
+
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error adding book: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    } 
+    
+}
+
     private byte[] convertImageIconToByteArray(Icon icon) throws IOException {
     BufferedImage bufferedImage = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
     icon.paintIcon(null, bufferedImage.getGraphics(), 0, 0);
@@ -104,6 +145,7 @@ public class AddBooks extends javax.swing.JPanel {
     }
 }
     }
+    
  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -143,21 +185,21 @@ public class AddBooks extends javax.swing.JPanel {
         bTitle.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Book Title");
+        jLabel1.setText("Book Title*");
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("Book Author");
+        jLabel2.setText("Book Author*");
 
         bAuthor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel3.setText("Publisher");
+        jLabel3.setText("Publisher*");
 
         bPublisher.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel4.setText("Publication Date");
+        jLabel4.setText("Publication Date*");
 
         bDate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
@@ -190,7 +232,7 @@ public class AddBooks extends javax.swing.JPanel {
         jLabel7.setText("Category");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel8.setText("Select Book Category");
+        jLabel8.setText("Select Book Category*");
 
         bCategory.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         bCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -202,7 +244,7 @@ public class AddBooks extends javax.swing.JPanel {
         bLanguage.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel13.setText("Select Format");
+        jLabel13.setText("Select Format*");
 
         bFormat.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         bFormat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -211,7 +253,7 @@ public class AddBooks extends javax.swing.JPanel {
         bEdition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel14.setText("Edition");
+        jLabel14.setText("Edition*");
 
         userId.setText("userId");
 
@@ -241,9 +283,9 @@ public class AddBooks extends javax.swing.JPanel {
 
         pCount.setText("0");
 
-        jLabel6.setText("PageCount:");
+        jLabel6.setText("PageCount:*");
 
-        jLabel9.setText("Quantity:");
+        jLabel9.setText("Quantity:*");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -403,48 +445,9 @@ public class AddBooks extends javax.swing.JPanel {
 
     private void addBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBookActionPerformed
       
-        Icon picIcon = pic.getImage();
-        
-        String selectCategory = bCategory.getSelectedItem().toString();
-         String selectLangugae = bLanguage.getSelectedItem().toString();
-          String selectFormat = bFormat.getSelectedItem().toString();
-           String selectEdition = bEdition.getSelectedItem().toString();
-           int addPageCount = Integer.parseInt(pCount.getText());
-           int addQuantity = Integer.parseInt(quantity.getText());
-            byte[] imageBytes;
-       try {
-           imageBytes = convertImageIconToByteArray(picIcon);
-//            ByteArrayInputStream inputStream = new ByteArrayInputStream(imageBytes);
-      
-       addBooksControll = new AddBooksController(userId.getText(),bTitle.getText(), bAuthor.getText(), bPublisher.getText(),bDate.getText(),
-               bDescription.getText(), selectCategory, selectLangugae,
-               selectFormat, selectEdition, addPageCount, addQuantity, new ImageIcon(imageBytes));
-       
-       addBooksControll.addBookToDatabase();
+       addBooksButton();
        
        
-       
-       SwingUtilities.invokeLater(() -> {
-          
-            populateBooks.populate();
-            library.repaint();
-            library.revalidate();
-        });
-       
-  
-       JOptionPane.showMessageDialog(this, "Succesfully Added!");
-      
-       } catch (IOException ex) {
-           Logger.getLogger(AddBooks.class.getName()).log(Level.SEVERE, null, ex);
-       } catch (SQLException ex) {
-           Logger.getLogger(AddBooks.class.getName()).log(Level.SEVERE, null, ex);
-       } catch (ClassNotFoundException ex) {
-           Logger.getLogger(AddBooks.class.getName()).log(Level.SEVERE, null, ex);
-       }
-        catch (Exception ex) {
-    ex.printStackTrace();  
-}
-       System.out.println("On EDT: " + SwingUtilities.isEventDispatchThread());
 
     }//GEN-LAST:event_addBookActionPerformed
 

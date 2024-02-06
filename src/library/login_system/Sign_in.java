@@ -140,8 +140,6 @@ public class Sign_in extends javax.swing.JFrame {
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
    
         main.setVisible(true);
-       String id = "2341";
-       main.id.setText(id);
        setVisible(false);
     }//GEN-LAST:event_button1ActionPerformed
 

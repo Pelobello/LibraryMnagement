@@ -7,26 +7,35 @@ package library.forms;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import library.components.BookItem;
+import library.controller.PopulateBooksController;
+import library.database.DatabaseConnection;
 import library.event.EventItem;
+import library.main.Main;
 import library.model.ModelItem;
 
 
 public class MyLibrary extends javax.swing.JPanel {
-
-   
- 
-
     public void setEvent(EventItem event) {
         this.event = event;
     }
 
+   private PopulateBooksController populateControll;
+   
+    private Main main;
    
     public MyLibrary() {
         initComponents();
+      
         setOpaque(false);
     }
+    
+   
 private EventItem event;
   public void addBooks(ModelItem data){
       BookItem item = new BookItem();
@@ -41,11 +50,16 @@ private EventItem event;
           
           }
       });
+
       panelItem1.add(item);
+      
+          
+      
       repaint();
       revalidate();
  
   }
+
   public void setSelected(Component item){
         for (Component com : panelItem1.getComponents()) {
             BookItem i =(BookItem)com;
@@ -75,13 +89,13 @@ private EventItem event;
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 758, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 779, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private library.swing.PanelItem panelItem1;
+    public library.swing.PanelItem panelItem1;
     // End of variables declaration//GEN-END:variables
 }

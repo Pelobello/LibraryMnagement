@@ -9,22 +9,25 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import library.database.DatabaseConnection;
 import library.forms.AddBooks;
 import library.forms.MyLibrary;
+import library.main.Main;
+import library.model.ModelItem;
 
 
 public class AddBooksController {
 
-   
-    public String getAdduserId() {
+public String getAdduserId() {
         return adduserId;
     }
 
@@ -169,11 +172,17 @@ public class AddBooksController {
     return outputStream.toByteArray();
 }
   
-    
-    public AddBooksController() {
+    private PopulateBooksController populatedata;
+   private MyLibrary library;
+  
+    public AddBooksController(Main main) {
+          populatedata = new PopulateBooksController();
+       
           
         
     }
+    
+   
      public void addBookToDatabase() throws SQLException, IOException, ClassNotFoundException {
     Icon picIcon = addCoverImage;
     byte[] imageBytes = convertImageIconToByteArray(picIcon);
@@ -182,9 +191,11 @@ public class AddBooksController {
     String addPageCount_toString = Integer.toString(addPageCount);
     String addQuantity_toString = Integer.toString(addQuantity);
     
-    try (PreparedStatement p = DatabaseConnection.getInstance().getConnection().prepareStatement(
+    try (
+            PreparedStatement p = DatabaseConnection.getInstance().getConnection().prepareStatement(
             "insert into library_data (userId,BTitle,BAuthor,Publisher,PublicationDate,BookDescription,BookCategory,Language,Format,Edition,PageCount,Quantity,CoverImage)values(?,?,?,?,?,?,?,?,?,?,?,?,?)")) {
-
+        
+      
         p.setString(1, adduserId);
         p.setString(2, addBookTitle);
         p.setString(3, addBookAuthor);
@@ -198,11 +209,19 @@ public class AddBooksController {
         p.setString(11, addPageCount_toString);
         p.setString(12, addQuantity_toString);
         p.setBlob(13, inputStream);
-
-        p.executeUpdate();
+       
+      
+        p.execute();
+     
+    
+        
     }finally {
         inputStream.close();
     }
+    
+   
+  
+
 }
 
     private String adduserId;

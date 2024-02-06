@@ -25,7 +25,7 @@ import library.event.EventItem;
 import library.forms.AddBooks;
 import library.forms.Discovery;
 import library.forms.MyLibrary;
-import library.forms.Settings;
+import library.forms.AddCustomer;
 import library.model.ModelItem;
 
 
@@ -35,7 +35,7 @@ public class Main extends javax.swing.JFrame {
       private Discovery discover;
       private MyLibrary myLibrary;
       private AddBooks addBooks;
-      private Settings setting;
+      private AddCustomer setting;
       private AddBooksController addBooksController ;
       private PopulateBooksController populateBooks;
     public Main()  {
@@ -48,34 +48,40 @@ public class Main extends javax.swing.JFrame {
          discover = new Discovery();
          myLibrary = new MyLibrary();
          addBooks = new AddBooks();
-         setting = new Settings();
+         setting = new AddCustomer();
+      
          
-        
-         
-         populateBooks = new PopulateBooksController(myLibrary);
-         populateBooks.populate();
-     
+             
+            populateBooks = new PopulateBooksController(myLibrary);
+            populateBooks.populate(id.getText()); 
+           
+
          roundPanel4.setLayout(new BorderLayout());
          bookDescription.setBackground(new Color(15,4,76,255));
         
          initMoving(this);
-        
+    
          testData();
-         
-
+  
          roundPanel4.setLayout(new BorderLayout());
-         String data = id.getText();
-         addBooks.userId.setText(data);
+    
+         addBooks.userId.setText(id.getText());
+
+         
+    }
+    public void refreshUI(){
+          myLibrary.panelItem1.removeAll();
+        myLibrary.panelItem1.repaint();
+        myLibrary.panelItem1.revalidate();
+        populateBooks.populate(id.getText());
     }
 
-    
-    
-    
   private void Forms(Component com){
       roundPanel4.removeAll();
       roundPanel4.add(com);
       repaint();
       revalidate();
+      
   }
   
   
@@ -163,7 +169,7 @@ public class Main extends javax.swing.JFrame {
         roundPanel3.setLayout(roundPanel3Layout);
         roundPanel3Layout.setHorizontalGroup(
             roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 1291, Short.MAX_VALUE)
         );
         roundPanel3Layout.setVerticalGroup(
             roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,7 +226,7 @@ public class Main extends javax.swing.JFrame {
 
         button5.setBackground(new java.awt.Color(245, 238, 230));
         button5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/button/icons8_mobile_home_45px.png"))); // NOI18N
-        button5.setText("Insights");
+        button5.setText("Add Customers");
         button5.setFont(new java.awt.Font("Segoe UI", 0, 27)); // NOI18N
         button5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         button5.setIconTextGap(20);
@@ -403,9 +409,9 @@ public class Main extends javax.swing.JFrame {
 
     private void button3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button3ActionPerformed
         Forms(myLibrary);
+        refreshUI();
         
-        
-    
+
     }//GEN-LAST:event_button3ActionPerformed
 
     private void button4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button4ActionPerformed
