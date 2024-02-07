@@ -18,6 +18,7 @@ import library.database.DatabaseConnection;
 import library.event.EventItem;
 import library.main.Main;
 import library.model.ModelItem;
+import library.model.ModelRentData;
 
 
 public class MyLibrary extends javax.swing.JPanel {
@@ -37,6 +38,7 @@ public class MyLibrary extends javax.swing.JPanel {
     
    
 private EventItem event;
+ 
   public void addBooks(ModelItem data){
       BookItem item = new BookItem();
       item.setData(data);
@@ -74,22 +76,46 @@ private EventItem event;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        roundPanel2 = new library.components.RoundPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         panelItem1 = new library.swing.PanelItem();
+
+        roundPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        roundPanel2.setRoundBottomLeft(40);
+        roundPanel2.setRoundBottomRight(40);
+        roundPanel2.setRoundTopLeft(40);
+        roundPanel2.setRoundTopRight(40);
 
         jScrollPane1.setBorder(null);
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setViewportView(panelItem1);
 
+        javax.swing.GroupLayout roundPanel2Layout = new javax.swing.GroupLayout(roundPanel2);
+        roundPanel2.setLayout(roundPanel2Layout);
+        roundPanel2Layout.setHorizontalGroup(
+            roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 944, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        roundPanel2Layout.setVerticalGroup(
+            roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(roundPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 767, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 956, Short.MAX_VALUE)
+            .addComponent(roundPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 779, Short.MAX_VALUE)
+            .addComponent(roundPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -97,5 +123,6 @@ private EventItem event;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     public library.swing.PanelItem panelItem1;
+    private library.components.RoundPanel roundPanel2;
     // End of variables declaration//GEN-END:variables
 }

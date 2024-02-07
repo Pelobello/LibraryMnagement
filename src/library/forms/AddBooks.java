@@ -45,8 +45,9 @@ public class AddBooks extends javax.swing.JPanel {
     public AddBooks() {
         initComponents();
         setOpaque(false);
+        dateChooser.setDateFormat(new SimpleDateFormat("MMMM dd, yyyy"));
         dateChooser.setTextField(bDate);
-        dateChooser.setDateFormat(new SimpleDateFormat("yyyy-MM-dd"));
+        
         library = new MyLibrary();
         
         populateBooks = new PopulateBooksController(library);
@@ -64,7 +65,12 @@ public class AddBooks extends javax.swing.JPanel {
           e.printStackTrace();
        }
     }
-    
+    public void setTextFieldToNone(){
+        bTitle.setText("");
+        bAuthor.setText("");
+        bPublisher.setText("");
+        bDescription.setText("");
+    }
 
   public void addBooksButton() {
     Icon picIcon = pic.getImage();
@@ -78,8 +84,7 @@ public class AddBooks extends javax.swing.JPanel {
     byte[] imageBytes;
 
     try {
-       
-
+  
         imageBytes = convertImageIconToByteArray(picIcon);
 
         addBooksControll = new AddBooksController(userId.getText(), bTitle.getText(), bAuthor.getText(),
@@ -87,7 +92,7 @@ public class AddBooks extends javax.swing.JPanel {
                 selectFormat, selectEdition, addPageCount, addQuantity, new ImageIcon(imageBytes));
 
         addBooksControll.addBookToDatabase();
-      
+        setTextFieldToNone();
         
 
         JOptionPane.showMessageDialog(this, "Successfully Added!");

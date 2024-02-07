@@ -23,19 +23,23 @@ import library.controller.PopulateBooksController;
 import library.database.DatabaseConnection;
 import library.event.EventItem;
 import library.forms.AddBooks;
-import library.forms.Discovery;
+import library.forms.DashBoard;
 import library.forms.MyLibrary;
 import library.forms.AddCustomer;
+import library.forms.RentBooks;
 import library.model.ModelItem;
+import library.model.ModelRentData;
 
 
 
 public class Main extends javax.swing.JFrame {
 
-      private Discovery discover;
+      private DashBoard discover;
       private MyLibrary myLibrary;
       private AddBooks addBooks;
       private AddCustomer setting;
+      private RentBooks rentBooks;
+      private ModelRentData modelRentData;
       private AddBooksController addBooksController ;
       private PopulateBooksController populateBooks;
     public Main()  {
@@ -45,13 +49,14 @@ public class Main extends javax.swing.JFrame {
         setBackground(new Color(0,0,0,0));
        Font poppinsFont = new Font("Khula", Font.ITALIC, 16);
        bookDescription.setFont(poppinsFont);
-         discover = new Discovery();
+         discover = new DashBoard();
          myLibrary = new MyLibrary();
          addBooks = new AddBooks();
          setting = new AddCustomer();
-      
+         rentBooks = new RentBooks();
+        
          
-             
+   
             populateBooks = new PopulateBooksController(myLibrary);
             populateBooks.populate(id.getText()); 
            
@@ -66,7 +71,7 @@ public class Main extends javax.swing.JFrame {
          roundPanel4.setLayout(new BorderLayout());
     
          addBooks.userId.setText(id.getText());
-
+      bookQuantity.setVisible(false);
          
     }
     public void refreshUI(){
@@ -122,11 +127,17 @@ public class Main extends javax.swing.JFrame {
 }
 
    public void showItem(ModelItem data){
+       String quantityToString = Integer.toString(data.getQuantity());
        bookTitle.setText(data.getBookTitle());
        bookAuthor.setText(data.getBookAuthor());
        bookDescription.setText(data.getBookDescription());
+       bookQuantity.setText(quantityToString);
      
    }
+   
+   
+   
+   
    
    
     @SuppressWarnings("unchecked")
@@ -150,6 +161,8 @@ public class Main extends javax.swing.JFrame {
         pictureBox1 = new library.components.PictureBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         bookDescription = new library.swing.TextPane();
+        bookQuantity = new javax.swing.JLabel();
+        button2 = new button.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -177,10 +190,10 @@ public class Main extends javax.swing.JFrame {
         );
 
         roundPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        roundPanel4.setRoundBottomLeft(20);
-        roundPanel4.setRoundBottomRight(20);
-        roundPanel4.setRoundTopLeft(20);
-        roundPanel4.setRoundTopRight(20);
+        roundPanel4.setRoundBottomLeft(40);
+        roundPanel4.setRoundBottomRight(40);
+        roundPanel4.setRoundTopLeft(40);
+        roundPanel4.setRoundTopRight(40);
         roundPanel4.setLayout(new java.awt.BorderLayout());
 
         panelMoving.setBackground(new java.awt.Color(255, 255, 255));
@@ -188,9 +201,10 @@ public class Main extends javax.swing.JFrame {
         panelMoving.setRoundTopLeft(25);
 
         button1.setBackground(new java.awt.Color(245, 238, 230));
+        button1.setBorder(null);
         button1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/button/icons8_mobile_home_45px.png"))); // NOI18N
-        button1.setText("Discover");
-        button1.setFont(new java.awt.Font("Segoe UI", 0, 27)); // NOI18N
+        button1.setText("Dashboard");
+        button1.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         button1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         button1.setIconTextGap(20);
         button1.setRippleColor(new java.awt.Color(255, 102, 153));
@@ -322,6 +336,16 @@ public class Main extends javax.swing.JFrame {
         bookDescription.setPreferredSize(new java.awt.Dimension(25, 25));
         jScrollPane1.setViewportView(bookDescription);
 
+        bookQuantity.setForeground(new java.awt.Color(255, 255, 255));
+
+        button2.setText("Rent");
+        button2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        button2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout roundPanel5Layout = new javax.swing.GroupLayout(roundPanel5);
         roundPanel5.setLayout(roundPanel5Layout);
         roundPanel5Layout.setHorizontalGroup(
@@ -338,6 +362,14 @@ public class Main extends javax.swing.JFrame {
                                 .addComponent(roundPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bookQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
+            .addGroup(roundPanel5Layout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         roundPanel5Layout.setVerticalGroup(
             roundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,9 +380,13 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(bookTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(bookAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59)
+                .addGap(25, 25, 25)
+                .addComponent(bookQuantity)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout roundPanel1Layout = new javax.swing.GroupLayout(roundPanel1);
@@ -422,6 +458,15 @@ public class Main extends javax.swing.JFrame {
         Forms(setting);
     }//GEN-LAST:event_button5ActionPerformed
 
+    private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
+        Forms(rentBooks);
+        int newQuantity = Integer.parseInt(bookQuantity.getText());
+        modelRentData = new ModelRentData(bookTitle.getText(), newQuantity);
+        rentBooks.showBookData(modelRentData);
+      
+        
+    }//GEN-LAST:event_button2ActionPerformed
+
    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -458,8 +503,10 @@ public class Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bookAuthor;
     private library.swing.TextPane bookDescription;
+    private javax.swing.JLabel bookQuantity;
     private javax.swing.JLabel bookTitle;
     private button.Button button1;
+    private button.Button button2;
     private button.Button button3;
     private button.Button button4;
     private button.Button button5;
