@@ -52,9 +52,9 @@ public class Sign_in extends javax.swing.JFrame {
 
         panelMoving = new library.components.RoundPanel();
         roundPanel1 = new library.components.RoundPanel();
-        userName = new textfield.TextField();
-        passWord = new textfield.TextField();
-        button1 = new button.Button();
+        userName = new library.textfield.TextField();
+        passWord = new library.textfield.TextField();
+        button1 = new library.button.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -153,10 +153,10 @@ public class Sign_in extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private button.Button button1;
+    private library.button.Button button1;
     private library.components.RoundPanel panelMoving;
-    private textfield.TextField passWord;
+    private library.textfield.TextField passWord;
     private library.components.RoundPanel roundPanel1;
-    private textfield.TextField userName;
+    private library.textfield.TextField userName;
     // End of variables declaration//GEN-END:variables
 }

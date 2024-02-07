@@ -1,5 +1,5 @@
 
-package swing.shadow;
+package library.shadow;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 

@@ -104,21 +104,21 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="textfield.TextField" name="userName">
+            <Component class="library.textfield.TextField" name="userName">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="18" style="0"/>
                 </Property>
               </Properties>
             </Component>
-            <Component class="textfield.TextField" name="passWord">
+            <Component class="library.textfield.TextField" name="passWord">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="18" style="0"/>
                 </Property>
               </Properties>
             </Component>
-            <Component class="button.Button" name="button1">
+            <Component class="library.button.Button" name="button1">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Sign in"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">

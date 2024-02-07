@@ -1,5 +1,5 @@
 
-package textfield;
+package library.textfield;
 
 import com.raven.datechooser.DateChooser;
 import java.awt.Color;
@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicTextFieldUI;
-import swing.shadow.ShadowRenderer;
+import library.shadow.ShadowRenderer;
 
 public class TextField extends JTextField {
 

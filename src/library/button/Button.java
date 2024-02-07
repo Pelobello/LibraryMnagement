@@ -1,5 +1,5 @@
 
-package button;
+package library.button;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -11,8 +11,8 @@ import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import javax.swing.JButton;
 import javax.swing.border.EmptyBorder;
-import swing.shadow.ShadowRenderer;
-import swing.shadow.util.RippleEffect;
+import library.shadow.ShadowRenderer;
+import library.shadowutil.RippleEffect;
 
 public class Button extends JButton {
 

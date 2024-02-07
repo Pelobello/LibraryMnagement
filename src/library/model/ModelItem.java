@@ -99,6 +99,7 @@ public class ModelItem {
     public ModelItem() {
     }
 
+    
     public ModelItem(String bookTitle, String bookAuthor, String publisher, String publicationDate, String bookDescription, String bookCategory, String language, String format, String edition, int pageCount, int quantity, Icon coverImage) {
         this.bookTitle = bookTitle;
         this.bookAuthor = bookAuthor;

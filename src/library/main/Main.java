@@ -45,42 +45,42 @@ public class Main extends javax.swing.JFrame {
     public Main()  {
       
     initComponents();
+        discover = new DashBoard();
+        myLibrary = new MyLibrary();
+        addBooks = new AddBooks();
+        setting = new AddCustomer();
+        rentBooks = new RentBooks();
         
-        setBackground(new Color(0,0,0,0));
-       Font poppinsFont = new Font("Khula", Font.ITALIC, 16);
-       bookDescription.setFont(poppinsFont);
-         discover = new DashBoard();
-         myLibrary = new MyLibrary();
-         addBooks = new AddBooks();
-         setting = new AddCustomer();
-         rentBooks = new RentBooks();
-        
-         
-   
-            populateBooks = new PopulateBooksController(myLibrary);
-            populateBooks.populate(id.getText()); 
-           
-
-         roundPanel4.setLayout(new BorderLayout());
-         bookDescription.setBackground(new Color(15,4,76,255));
         
          initMoving(this);
     
          testData();
-  
-         roundPanel4.setLayout(new BorderLayout());
-    
-         addBooks.userId.setText(id.getText());
-      bookQuantity.setVisible(false);
+  initMainComponents();
+        
          
     }
+    public void initMainComponents(){
+        setBackground(new Color(0,0,0,0));
+        Font poppinsFont = new Font("Khula", Font.ITALIC, 16);
+        bookDescription.setFont(poppinsFont);
+        populateBooks = new PopulateBooksController(myLibrary);
+        populateBooks.populate(id.getText()); 
+        roundPanel4.setLayout(new BorderLayout());
+        bookDescription.setBackground(new Color(15,4,76,255));
+        roundPanel4.setLayout(new BorderLayout());
+        addBooks.userId.setText(id.getText());
+        bookQuantity.setVisible(false);
+    }
+    
+    //Populate and refresh data from Books shelf
     public void refreshUI(){
-          myLibrary.panelItem1.removeAll();
+        myLibrary.panelItem1.removeAll();
         myLibrary.panelItem1.repaint();
         myLibrary.panelItem1.revalidate();
         populateBooks.populate(id.getText());
     }
 
+   //ChangePanel Forms
   private void Forms(Component com){
       roundPanel4.removeAll();
       roundPanel4.add(com);
@@ -148,10 +148,10 @@ public class Main extends javax.swing.JFrame {
         roundPanel3 = new library.components.RoundPanel();
         roundPanel4 = new library.components.RoundPanel();
         panelMoving = new library.components.RoundPanel();
-        button1 = new button.Button();
-        button3 = new button.Button();
-        button4 = new button.Button();
-        button5 = new button.Button();
+        button1 = new library.button.Button();
+        button3 = new library.button.Button();
+        button4 = new library.button.Button();
+        button5 = new library.button.Button();
         id = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         roundPanel5 = new library.components.RoundPanel();
@@ -162,7 +162,7 @@ public class Main extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         bookDescription = new library.swing.TextPane();
         bookQuantity = new javax.swing.JLabel();
-        button2 = new button.Button();
+        button2 = new library.button.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -202,7 +202,7 @@ public class Main extends javax.swing.JFrame {
 
         button1.setBackground(new java.awt.Color(245, 238, 230));
         button1.setBorder(null);
-        button1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/button/icons8_mobile_home_45px.png"))); // NOI18N
+        button1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/library/button/icons8_mobile_home_45px.png"))); // NOI18N
         button1.setText("Dashboard");
         button1.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         button1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -215,7 +215,7 @@ public class Main extends javax.swing.JFrame {
         });
 
         button3.setBackground(new java.awt.Color(245, 238, 230));
-        button3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/button/icons8_mobile_home_45px.png"))); // NOI18N
+        button3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/library/button/icons8_mobile_home_45px.png"))); // NOI18N
         button3.setText("My Library");
         button3.setFont(new java.awt.Font("Segoe UI", 0, 27)); // NOI18N
         button3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -227,7 +227,7 @@ public class Main extends javax.swing.JFrame {
         });
 
         button4.setBackground(new java.awt.Color(245, 238, 230));
-        button4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/button/icons8_mobile_home_45px.png"))); // NOI18N
+        button4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/library/button/icons8_mobile_home_45px.png"))); // NOI18N
         button4.setText("Add Books");
         button4.setFont(new java.awt.Font("Segoe UI", 0, 27)); // NOI18N
         button4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -239,7 +239,7 @@ public class Main extends javax.swing.JFrame {
         });
 
         button5.setBackground(new java.awt.Color(245, 238, 230));
-        button5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/button/icons8_mobile_home_45px.png"))); // NOI18N
+        button5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/library/button/icons8_mobile_home_45px.png"))); // NOI18N
         button5.setText("Add Customers");
         button5.setFont(new java.awt.Font("Segoe UI", 0, 27)); // NOI18N
         button5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -505,11 +505,11 @@ public class Main extends javax.swing.JFrame {
     private library.swing.TextPane bookDescription;
     private javax.swing.JLabel bookQuantity;
     private javax.swing.JLabel bookTitle;
-    private button.Button button1;
-    private button.Button button2;
-    private button.Button button3;
-    private button.Button button4;
-    private button.Button button5;
+    private library.button.Button button1;
+    private library.button.Button button2;
+    private library.button.Button button3;
+    private library.button.Button button4;
+    private library.button.Button button5;
     public javax.swing.JLabel id;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

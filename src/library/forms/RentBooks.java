@@ -33,23 +33,23 @@ private DateChooser dateChooserReturn = new DateChooser();
 
         roundPanel1 = new library.components.RoundPanel();
         jLabel1 = new javax.swing.JLabel();
-        textField1 = new textfield.TextField();
+        textField1 = new library.textfield.TextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        textField2 = new textfield.TextField();
+        textField2 = new library.textfield.TextField();
         jLabel4 = new javax.swing.JLabel();
-        date = new textfield.TextField();
+        date = new library.textfield.TextField();
         jLabel5 = new javax.swing.JLabel();
-        returnDate = new textfield.TextField();
+        returnDate = new library.textfield.TextField();
         jLabel9 = new javax.swing.JLabel();
-        bookTitle = new textfield.TextField();
+        bookTitle = new library.textfield.TextField();
         jLabel10 = new javax.swing.JLabel();
-        bookQuantity = new textfield.TextField();
+        bookQuantity = new library.textfield.TextField();
         jLabel11 = new javax.swing.JLabel();
-        textField10 = new textfield.TextField();
+        textField10 = new library.textfield.TextField();
         jLabel12 = new javax.swing.JLabel();
-        textField11 = new textfield.TextField();
-        button1 = new button.Button();
+        textField11 = new library.textfield.TextField();
+        button1 = new library.button.Button();
 
         roundPanel1.setBackground(new java.awt.Color(84, 208, 206));
         roundPanel1.setRoundBottomLeft(40);
@@ -235,10 +235,10 @@ private DateChooser dateChooserReturn = new DateChooser();
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private textfield.TextField bookQuantity;
-    private textfield.TextField bookTitle;
-    private button.Button button1;
-    private textfield.TextField date;
+    private library.textfield.TextField bookQuantity;
+    private library.textfield.TextField bookTitle;
+    private library.button.Button button1;
+    private library.textfield.TextField date;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -248,11 +248,11 @@ private DateChooser dateChooserReturn = new DateChooser();
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;
-    private textfield.TextField returnDate;
+    private library.textfield.TextField returnDate;
     private library.components.RoundPanel roundPanel1;
-    private textfield.TextField textField1;
-    private textfield.TextField textField10;
-    private textfield.TextField textField11;
-    private textfield.TextField textField2;
+    private library.textfield.TextField textField1;
+    private library.textfield.TextField textField10;
+    private library.textfield.TextField textField11;
+    private library.textfield.TextField textField2;
     // End of variables declaration//GEN-END:variables
 }

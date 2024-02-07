@@ -205,7 +205,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="textfield.TextField" name="bTitle">
+    <Component class="library.textfield.TextField" name="bTitle">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>
@@ -231,7 +231,7 @@
         <Property name="text" type="java.lang.String" value="Book Author*"/>
       </Properties>
     </Component>
-    <Component class="textfield.TextField" name="bAuthor">
+    <Component class="library.textfield.TextField" name="bAuthor">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>
@@ -246,7 +246,7 @@
         <Property name="text" type="java.lang.String" value="Publisher*"/>
       </Properties>
     </Component>
-    <Component class="textfield.TextField" name="bPublisher">
+    <Component class="library.textfield.TextField" name="bPublisher">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>
@@ -261,7 +261,7 @@
         <Property name="text" type="java.lang.String" value="Publication Date*"/>
       </Properties>
     </Component>
-    <Component class="textfield.TextField" name="bDate">
+    <Component class="library.textfield.TextField" name="bDate">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>
@@ -287,7 +287,7 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Component class="button.Button" name="button1">
+    <Component class="library.button.Button" name="button1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="7a" green="67" red="61" type="rgb"/>
@@ -304,7 +304,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button1ActionPerformed"/>
       </Events>
     </Component>
-    <Component class="button.Button" name="addBook">
+    <Component class="library.button.Button" name="addBook">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="7a" green="67" red="61" type="rgb"/>
@@ -441,7 +441,7 @@
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
     </Component>
-    <Component class="button.Button" name="addImage">
+    <Component class="library.button.Button" name="addImage">
       <Properties>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="9f" green="7a" red="38" type="rgb"/>
@@ -485,12 +485,12 @@
         </Container>
       </SubComponents>
     </Container>
-    <Component class="textfield.TextField" name="quantity">
+    <Component class="library.textfield.TextField" name="quantity">
       <Properties>
         <Property name="text" type="java.lang.String" value="0"/>
       </Properties>
     </Component>
-    <Component class="textfield.TextField" name="pCount">
+    <Component class="library.textfield.TextField" name="pCount">
       <Properties>
         <Property name="text" type="java.lang.String" value="0"/>
       </Properties>

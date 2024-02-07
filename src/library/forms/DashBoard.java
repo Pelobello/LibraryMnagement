@@ -4,6 +4,7 @@
  */
 package library.forms;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -18,6 +19,10 @@ public class DashBoard extends javax.swing.JPanel {
     public DashBoard() {
         initComponents();
         setOpaque(false);
+        chart.setTitle("Chart Data");
+        chart.addLegend("Total Sales", Color.black, Color.black);
+        chart.addLegend("Books Rented", Color.black, Color.black);
+        
     }
 
 
@@ -30,7 +35,7 @@ public class DashBoard extends javax.swing.JPanel {
     private void initComponents() {
 
         roundPanel1 = new library.components.RoundPanel();
-        jLabel1 = new javax.swing.JLabel();
+        chart = new library.chart.CurveLineChart();
         roundPanel2 = new library.components.RoundPanel();
         roundPanel4 = new library.components.RoundPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -41,29 +46,32 @@ public class DashBoard extends javax.swing.JPanel {
         roundPanel3 = new library.components.RoundPanel();
         jLabel2 = new javax.swing.JLabel();
 
-        roundPanel1.setBackground(new java.awt.Color(105, 139, 172));
+        roundPanel1.setBackground(new java.awt.Color(255, 255, 255));
         roundPanel1.setRoundBottomLeft(40);
         roundPanel1.setRoundBottomRight(40);
         roundPanel1.setRoundTopLeft(40);
         roundPanel1.setRoundTopRight(40);
 
-        jLabel1.setText("Statistics");
+        chart.setBackground(new java.awt.Color(0, 0, 0));
+        chart.setForeground(new java.awt.Color(51, 51, 51));
+        chart.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        chart.setTitleFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         javax.swing.GroupLayout roundPanel1Layout = new javax.swing.GroupLayout(roundPanel1);
         roundPanel1.setLayout(roundPanel1Layout);
         roundPanel1Layout.setHorizontalGroup(
             roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundPanel1Layout.createSequentialGroup()
-                .addGap(79, 79, 79)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(chart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         roundPanel1Layout.setVerticalGroup(
             roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(roundPanel1Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(207, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(chart, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         roundPanel2.setBackground(new java.awt.Color(151, 77, 77));
@@ -219,7 +227,7 @@ public class DashBoard extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private library.chart.CurveLineChart chart;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

@@ -60,29 +60,29 @@ private DateChooser dateChooser = new DateChooser();
     private void initComponents() {
 
         roundPanel1 = new library.components.RoundPanel();
-        lName = new textfield.TextField();
+        lName = new library.textfield.TextField();
         lbLastName = new javax.swing.JLabel();
         lbfName = new javax.swing.JLabel();
-        fName = new textfield.TextField();
-        bDate = new textfield.TextField();
+        fName = new library.textfield.TextField();
+        bDate = new library.textfield.TextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        age = new textfield.TextField();
+        age = new library.textfield.TextField();
         jLabel5 = new javax.swing.JLabel();
-        contactNo = new textfield.TextField();
+        contactNo = new library.textfield.TextField();
         jLabel7 = new javax.swing.JLabel();
-        province = new textfield.TextField();
-        city = new textfield.TextField();
+        province = new library.textfield.TextField();
+        city = new library.textfield.TextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        barangay = new textfield.TextField();
+        barangay = new library.textfield.TextField();
         jLabel10 = new javax.swing.JLabel();
-        postalCode = new textfield.TextField();
-        button1 = new button.Button();
-        button2 = new button.Button();
-        button3 = new button.Button();
+        postalCode = new library.textfield.TextField();
+        button1 = new library.button.Button();
+        button2 = new library.button.Button();
+        button3 = new library.button.Button();
         jLabel6 = new javax.swing.JLabel();
-        country = new textfield.TextField();
+        country = new library.textfield.TextField();
 
         roundPanel1.setBackground(new java.awt.Color(245, 238, 230));
         roundPanel1.setRoundBottomLeft(60);
@@ -337,16 +337,16 @@ private DateChooser dateChooser = new DateChooser();
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private textfield.TextField age;
-    private textfield.TextField bDate;
-    private textfield.TextField barangay;
-    private button.Button button1;
-    private button.Button button2;
-    private button.Button button3;
-    private textfield.TextField city;
-    private textfield.TextField contactNo;
-    private textfield.TextField country;
-    private textfield.TextField fName;
+    private library.textfield.TextField age;
+    private library.textfield.TextField bDate;
+    private library.textfield.TextField barangay;
+    private library.button.Button button1;
+    private library.button.Button button2;
+    private library.button.Button button3;
+    private library.textfield.TextField city;
+    private library.textfield.TextField contactNo;
+    private library.textfield.TextField country;
+    private library.textfield.TextField fName;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -355,11 +355,11 @@ private DateChooser dateChooser = new DateChooser();
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private textfield.TextField lName;
+    private library.textfield.TextField lName;
     private javax.swing.JLabel lbLastName;
     private javax.swing.JLabel lbfName;
-    private textfield.TextField postalCode;
-    private textfield.TextField province;
+    private library.textfield.TextField postalCode;
+    private library.textfield.TextField province;
     private library.components.RoundPanel roundPanel1;
     // End of variables declaration//GEN-END:variables
 }
