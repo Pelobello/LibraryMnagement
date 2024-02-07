@@ -18,7 +18,7 @@ public class Sign_in extends javax.swing.JFrame {
         initComponents();
         setBackground(new Color(0,0,0,0));
         main = new Main();
-        System.out.println("hello");
+       
         initMoving(this);
     }
 
