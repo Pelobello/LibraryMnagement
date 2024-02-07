@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import library.controller.AddBooksController;
 import library.controller.PopulateBooksController;
@@ -337,6 +338,7 @@ public class Main extends javax.swing.JFrame {
         jScrollPane1.setViewportView(bookDescription);
 
         bookQuantity.setForeground(new java.awt.Color(255, 255, 255));
+        bookQuantity.setText("0");
 
         button2.setText("Rent");
         button2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -382,8 +384,8 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(bookAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25)
                 .addComponent(bookQuantity)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(57, Short.MAX_VALUE))
@@ -459,10 +461,17 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_button5ActionPerformed
 
     private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
-        Forms(rentBooks);
+        if (bookQuantity.equals("" )||bookTitle.getText().equals(" ")) {
+            JOptionPane.showMessageDialog(this, "No Books Selected");
+        }
+        else{
+             Forms(rentBooks);
         int newQuantity = Integer.parseInt(bookQuantity.getText());
         modelRentData = new ModelRentData(bookTitle.getText(), newQuantity);
         rentBooks.showBookData(modelRentData);
+        }
+        
+       
       
         
     }//GEN-LAST:event_button2ActionPerformed
