@@ -183,7 +183,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="button.Button" name="button1">
+            <Component class="library.button.Button" name="button1">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="e6" green="ee" red="f5" type="rgb"/>
@@ -192,7 +192,7 @@
                   <Border info="null"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/button/icons8_mobile_home_45px.png"/>
+                  <Image iconType="3" name="/library/button/icons8_mobile_home_45px.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Dashboard"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -208,13 +208,13 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button1ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="button.Button" name="button3">
+            <Component class="library.button.Button" name="button3">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="e6" green="ee" red="f5" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/button/icons8_mobile_home_45px.png"/>
+                  <Image iconType="3" name="/library/button/icons8_mobile_home_45px.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="My Library"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -227,13 +227,13 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button3ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="button.Button" name="button4">
+            <Component class="library.button.Button" name="button4">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="e6" green="ee" red="f5" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/button/icons8_mobile_home_45px.png"/>
+                  <Image iconType="3" name="/library/button/icons8_mobile_home_45px.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Add Books"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -246,13 +246,13 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button4ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="button.Button" name="button5">
+            <Component class="library.button.Button" name="button5">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="e6" green="ee" red="f5" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/button/icons8_mobile_home_45px.png"/>
+                  <Image iconType="3" name="/library/button/icons8_mobile_home_45px.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Add Customers"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -444,7 +444,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="button.Button" name="button2">
+            <Component class="library.button.Button" name="button2">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Rent"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">

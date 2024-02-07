@@ -74,7 +74,6 @@ public class AddBooks extends javax.swing.JPanel {
 
   public void addBooksButton() {
     Icon picIcon = pic.getImage();
-    
     String selectCategory = bCategory.getSelectedItem().toString();
     String selectLanguage = bLanguage.getSelectedItem().toString();
     String selectFormat = bFormat.getSelectedItem().toString();
@@ -87,9 +86,9 @@ public class AddBooks extends javax.swing.JPanel {
   
         imageBytes = convertImageIconToByteArray(picIcon);
 
-        addBooksControll = new AddBooksController(userId.getText(), bTitle.getText(), bAuthor.getText(),
-                bPublisher.getText(), bDate.getText(), bDescription.getText(), selectCategory, selectLanguage,
-                selectFormat, selectEdition, addPageCount, addQuantity, new ImageIcon(imageBytes));
+        addBooksControll = new AddBooksController(userId.getText(), bTitle.getText(), bAuthor.getText(), bPublisher.getText()
+                                        , bDate.getText(), bDescription.getText(), selectCategory, selectLanguage,
+                                                selectFormat, selectEdition, addPageCount, addQuantity, new ImageIcon(imageBytes));
 
         addBooksControll.addBookToDatabase();
         setTextFieldToNone();
@@ -156,18 +155,18 @@ public class AddBooks extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        bTitle = new textfield.TextField();
+        bTitle = new library.textfield.TextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        bAuthor = new textfield.TextField();
+        bAuthor = new library.textfield.TextField();
         jLabel3 = new javax.swing.JLabel();
-        bPublisher = new textfield.TextField();
+        bPublisher = new library.textfield.TextField();
         jLabel4 = new javax.swing.JLabel();
-        bDate = new textfield.TextField();
+        bDate = new library.textfield.TextField();
         jLabel5 = new javax.swing.JLabel();
         pic = new library.components.PictureBox();
-        button1 = new button.Button();
-        addBook = new button.Button();
+        button1 = new library.button.Button();
+        addBook = new library.button.Button();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         bCategory = new javax.swing.JComboBox<>();
@@ -178,12 +177,12 @@ public class AddBooks extends javax.swing.JPanel {
         bEdition = new javax.swing.JComboBox<>();
         jLabel14 = new javax.swing.JLabel();
         userId = new javax.swing.JLabel();
-        addImage = new button.Button();
+        addImage = new library.button.Button();
         jScrollPane1 = new javax.swing.JScrollPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         bDescription = new javax.swing.JTextPane();
-        quantity = new textfield.TextField();
-        pCount = new textfield.TextField();
+        quantity = new library.textfield.TextField();
+        pCount = new library.textfield.TextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
 
@@ -466,18 +465,18 @@ public class AddBooks extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private button.Button addBook;
-    private button.Button addImage;
-    private textfield.TextField bAuthor;
+    private library.button.Button addBook;
+    private library.button.Button addImage;
+    private library.textfield.TextField bAuthor;
     private javax.swing.JComboBox<String> bCategory;
-    private textfield.TextField bDate;
+    private library.textfield.TextField bDate;
     private javax.swing.JTextPane bDescription;
     private javax.swing.JComboBox<String> bEdition;
     private javax.swing.JComboBox<String> bFormat;
     private javax.swing.JComboBox<String> bLanguage;
-    private textfield.TextField bPublisher;
-    private textfield.TextField bTitle;
-    private button.Button button1;
+    private library.textfield.TextField bPublisher;
+    private library.textfield.TextField bTitle;
+    private library.button.Button button1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -492,9 +491,9 @@ public class AddBooks extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private textfield.TextField pCount;
+    private library.textfield.TextField pCount;
     private library.components.PictureBox pic;
-    private textfield.TextField quantity;
+    private library.textfield.TextField quantity;
     public javax.swing.JLabel userId;
     // End of variables declaration//GEN-END:variables
 }
