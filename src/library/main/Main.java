@@ -35,7 +35,7 @@ import library.model.ModelRentData;
 
 public class Main extends javax.swing.JFrame {
 
-      private DashBoard discover;
+      private DashBoard dashboard;
       private MyLibrary myLibrary;
       private AddBooks addBooks;
       private AddCustomer setting;
@@ -46,19 +46,15 @@ public class Main extends javax.swing.JFrame {
     public Main()  {
       
     initComponents();
-        discover = new DashBoard();
+        dashboard = new DashBoard();
         myLibrary = new MyLibrary();
         addBooks = new AddBooks();
         setting = new AddCustomer();
-        rentBooks = new RentBooks();
-        
-        
-         initMoving(this);
-    
-         testData();
-  initMainComponents();
-        
-         
+        rentBooks = new RentBooks();      
+//         initMoving(this);  
+        testData();
+        initMainComponents();
+   
     }
     public void initMainComponents(){
         setBackground(new Color(0,0,0,0));
@@ -71,7 +67,22 @@ public class Main extends javax.swing.JFrame {
         roundPanel4.setLayout(new BorderLayout());
         addBooks.userId.setText(id.getText());
         bookQuantity.setVisible(false);
-        Forms(discover);
+        Forms(dashboard);
+         if (this.getExtendedState()==Main.MAXIMIZED_BOTH) {
+            this.setExtendedState(Main.NORMAL);
+        }
+        else{
+            this.setExtendedState(Main.MAXIMIZED_BOTH);
+        }
+         textRemover();
+          
+    }
+    public void refreshDashBoard(){
+        dashboard.removeAll();
+       dashboard.repaint();
+       dashboard.revalidate();
+       dashboard.testData();
+        Forms(dashboard);
     }
     
     //Populate and refresh data from Books shelf
@@ -90,9 +101,19 @@ public class Main extends javax.swing.JFrame {
       revalidate();
       
   }
-  
-  
-  
+  private void textRemover(){
+      bookTitle.setText("");
+      bookAuthor.setText("");
+      bookDescription.setText("");
+      pictureImage.setImage(null);
+      pictureImage.repaint();
+      bookTitle.setVisible(false);
+      bookAuthor.setVisible(false);
+      bookDescription.setVisible(false);
+      rentButton.setVisible(false);
+      scrollBookDes.setVisible(false);
+  }
+
   private int x;
   private int y;
 
@@ -122,13 +143,19 @@ public class Main extends javax.swing.JFrame {
             public void itemClick(Component com, ModelItem item) {
              myLibrary.setSelected(com);
                 showItem(item);
-            
+             scrollBookDes.setVisible(true);
+              rentButton.setVisible(true);
+               bookTitle.setVisible(true);
+                 bookAuthor.setVisible(true);
+            bookDescription.setVisible(true);
             }
  
        });
 }
 
    public void showItem(ModelItem data){
+       pictureImage.setImage(data.getCoverImage());
+       pictureImage.repaint();
        String quantityToString = Integer.toString(data.getQuantity());
        bookTitle.setText(data.getBookTitle());
        bookAuthor.setText(data.getBookAuthor());
@@ -136,11 +163,7 @@ public class Main extends javax.swing.JFrame {
        bookQuantity.setText(quantityToString);
      
    }
-   
-   
-   
-   
-   
+
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -148,23 +171,23 @@ public class Main extends javax.swing.JFrame {
 
         roundPanel1 = new library.components.RoundPanel();
         roundPanel3 = new library.components.RoundPanel();
+        jButton1 = new javax.swing.JButton();
         roundPanel4 = new library.components.RoundPanel();
         panelMoving = new library.components.RoundPanel();
-        button1 = new library.button.Button();
         button3 = new library.button.Button();
         button4 = new library.button.Button();
         button5 = new library.button.Button();
         id = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        button6 = new library.button.Button();
         roundPanel5 = new library.components.RoundPanel();
         bookTitle = new javax.swing.JLabel();
         bookAuthor = new javax.swing.JLabel();
-        roundPanel2 = new library.components.RoundPanel();
-        pictureBox1 = new library.components.PictureBox();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        scrollBookDes = new javax.swing.JScrollPane();
         bookDescription = new library.swing.TextPane();
         bookQuantity = new javax.swing.JLabel();
-        button2 = new library.button.Button();
+        rentButton = new library.button.Button();
+        pictureImage = new library.components.PictureBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -180,15 +203,29 @@ public class Main extends javax.swing.JFrame {
         roundPanel3.setRoundBottomRight(25);
         roundPanel3.setRoundTopRight(25);
 
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton1.setText("x");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout roundPanel3Layout = new javax.swing.GroupLayout(roundPanel3);
         roundPanel3.setLayout(roundPanel3Layout);
         roundPanel3Layout.setHorizontalGroup(
             roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1291, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(40, 40, 40))
         );
         roundPanel3Layout.setVerticalGroup(
             roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 104, Short.MAX_VALUE)
+            .addGroup(roundPanel3Layout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addComponent(jButton1)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         roundPanel4.setBackground(new java.awt.Color(255, 255, 255));
@@ -202,24 +239,10 @@ public class Main extends javax.swing.JFrame {
         panelMoving.setRoundBottomLeft(25);
         panelMoving.setRoundTopLeft(25);
 
-        button1.setBackground(new java.awt.Color(245, 238, 230));
-        button1.setBorder(null);
-        button1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/library/button/icons8_mobile_home_45px.png"))); // NOI18N
-        button1.setText("Dashboard");
-        button1.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
-        button1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        button1.setIconTextGap(20);
-        button1.setRippleColor(new java.awt.Color(255, 102, 153));
-        button1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button1ActionPerformed(evt);
-            }
-        });
-
         button3.setBackground(new java.awt.Color(245, 238, 230));
-        button3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/library/button/icons8_mobile_home_45px.png"))); // NOI18N
+        button3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/library/image/icons8_Books_40px.png"))); // NOI18N
         button3.setText("My Library");
-        button3.setFont(new java.awt.Font("Segoe UI", 0, 27)); // NOI18N
+        button3.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         button3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         button3.setIconTextGap(20);
         button3.addActionListener(new java.awt.event.ActionListener() {
@@ -229,9 +252,9 @@ public class Main extends javax.swing.JFrame {
         });
 
         button4.setBackground(new java.awt.Color(245, 238, 230));
-        button4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/library/button/icons8_mobile_home_45px.png"))); // NOI18N
+        button4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/library/image/icons8_Add_Book_40px.png"))); // NOI18N
         button4.setText("Add Books");
-        button4.setFont(new java.awt.Font("Segoe UI", 0, 27)); // NOI18N
+        button4.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         button4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         button4.setIconTextGap(20);
         button4.addActionListener(new java.awt.event.ActionListener() {
@@ -241,9 +264,9 @@ public class Main extends javax.swing.JFrame {
         });
 
         button5.setBackground(new java.awt.Color(245, 238, 230));
-        button5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/library/button/icons8_mobile_home_45px.png"))); // NOI18N
-        button5.setText("Add Customers");
-        button5.setFont(new java.awt.Font("Segoe UI", 0, 27)); // NOI18N
+        button5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/library/image/icons8_customer_40px.png"))); // NOI18N
+        button5.setText("Add Customer");
+        button5.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         button5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         button5.setIconTextGap(20);
         button5.addActionListener(new java.awt.event.ActionListener() {
@@ -259,6 +282,18 @@ public class Main extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("userId:");
 
+        button6.setBackground(new java.awt.Color(245, 238, 230));
+        button6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/library/image/icons8_combo_chart_40px.png"))); // NOI18N
+        button6.setText("Dashboard");
+        button6.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
+        button6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        button6.setIconTextGap(20);
+        button6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelMovingLayout = new javax.swing.GroupLayout(panelMoving);
         panelMoving.setLayout(panelMovingLayout);
         panelMovingLayout.setHorizontalGroup(
@@ -269,9 +304,9 @@ public class Main extends javax.swing.JFrame {
                         .addGap(14, 14, 14)
                         .addGroup(panelMovingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(button5, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(button6, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelMovingLayout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
@@ -285,14 +320,14 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(panelMovingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(106, 106, 106)
-                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(110, 110, 110)
+                .addComponent(button6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(button5, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(button5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -309,43 +344,21 @@ public class Main extends javax.swing.JFrame {
         bookAuthor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         bookAuthor.setText("Author");
 
-        roundPanel2.setRoundBottomLeft(20);
-        roundPanel2.setRoundBottomRight(20);
-        roundPanel2.setRoundTopLeft(20);
-        roundPanel2.setRoundTopRight(20);
-
-        javax.swing.GroupLayout roundPanel2Layout = new javax.swing.GroupLayout(roundPanel2);
-        roundPanel2.setLayout(roundPanel2Layout);
-        roundPanel2Layout.setHorizontalGroup(
-            roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(roundPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pictureBox1, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        roundPanel2Layout.setVerticalGroup(
-            roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(roundPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pictureBox1, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
         bookDescription.setEditable(false);
         bookDescription.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         bookDescription.setForeground(new java.awt.Color(255, 255, 255));
         bookDescription.setMargin(new java.awt.Insets(10, 20, 20, 10));
         bookDescription.setPreferredSize(new java.awt.Dimension(25, 25));
-        jScrollPane1.setViewportView(bookDescription);
+        scrollBookDes.setViewportView(bookDescription);
 
         bookQuantity.setForeground(new java.awt.Color(255, 255, 255));
         bookQuantity.setText("0");
 
-        button2.setText("Rent");
-        button2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        button2.addActionListener(new java.awt.event.ActionListener() {
+        rentButton.setText("Rent");
+        rentButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        rentButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button2ActionPerformed(evt);
+                rentButtonActionPerformed(evt);
             }
         });
 
@@ -358,38 +371,37 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(roundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(bookTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bookAuthor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel5Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(roundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel5Layout.createSequentialGroup()
+                                .addComponent(bookQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel5Layout.createSequentialGroup()
+                                .addComponent(rentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(32, 32, 32))))
                     .addGroup(roundPanel5Layout.createSequentialGroup()
                         .addGroup(roundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(roundPanel5Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(roundPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(pictureImage, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(scrollBookDes))
                         .addContainerGap())))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bookQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
-            .addGroup(roundPanel5Layout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         roundPanel5Layout.setVerticalGroup(
             roundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundPanel5Layout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addComponent(roundPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(pictureImage, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bookTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(bookAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
-                .addComponent(bookQuantity)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addComponent(scrollBookDes, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(rentButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(bookQuantity)
+                .addGap(26, 26, 26))
         );
 
         javax.swing.GroupLayout roundPanel1Layout = new javax.swing.GroupLayout(roundPanel1);
@@ -413,13 +425,11 @@ public class Main extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel1Layout.createSequentialGroup()
                 .addComponent(roundPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(roundPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(roundPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(roundPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(roundPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(roundPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 758, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addComponent(roundPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(37, 37, 37))))
             .addComponent(panelMoving, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -434,41 +444,51 @@ public class Main extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(roundPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(roundPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
-        Forms(discover);
-    }//GEN-LAST:event_button1ActionPerformed
-
     private void button3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button3ActionPerformed
         Forms(myLibrary);
         refreshUI();
+        
+     
+     
         
 
     }//GEN-LAST:event_button3ActionPerformed
 
     private void button4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button4ActionPerformed
         Forms(addBooks);
+        textRemover();
     }//GEN-LAST:event_button4ActionPerformed
 
     private void button5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button5ActionPerformed
         Forms(setting);
+        textRemover();
     }//GEN-LAST:event_button5ActionPerformed
 
-    private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
+    private void rentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentButtonActionPerformed
         
              Forms(rentBooks);
         int newQuantity = Integer.parseInt(bookQuantity.getText());
         modelRentData = new ModelRentData(bookTitle.getText(), newQuantity);
         rentBooks.showBookData(modelRentData);
     
-    }//GEN-LAST:event_button2ActionPerformed
+    }//GEN-LAST:event_rentButtonActionPerformed
+
+    private void button6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button6ActionPerformed
+           Forms(dashboard);
+           textRemover();
+    }//GEN-LAST:event_button6ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       System.exit(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
    
     public static void main(String args[]) {
@@ -508,20 +528,20 @@ public class Main extends javax.swing.JFrame {
     private library.swing.TextPane bookDescription;
     private javax.swing.JLabel bookQuantity;
     private javax.swing.JLabel bookTitle;
-    private library.button.Button button1;
-    private library.button.Button button2;
     private library.button.Button button3;
     private library.button.Button button4;
     private library.button.Button button5;
+    private library.button.Button button6;
     public javax.swing.JLabel id;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private library.components.RoundPanel panelMoving;
-    private library.components.PictureBox pictureBox1;
+    private library.components.PictureBox pictureImage;
+    private library.button.Button rentButton;
     private library.components.RoundPanel roundPanel1;
-    private library.components.RoundPanel roundPanel2;
     private library.components.RoundPanel roundPanel3;
     private library.components.RoundPanel roundPanel4;
     private library.components.RoundPanel roundPanel5;
+    private javax.swing.JScrollPane scrollBookDes;
     // End of variables declaration//GEN-END:variables
 }
