@@ -71,6 +71,7 @@ public class Main extends javax.swing.JFrame {
         roundPanel4.setLayout(new BorderLayout());
         addBooks.userId.setText(id.getText());
         bookQuantity.setVisible(false);
+        Forms(discover);
     }
     
     //Populate and refresh data from Books shelf
@@ -461,19 +462,12 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_button5ActionPerformed
 
     private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
-        if (bookQuantity.equals("" )||bookTitle.getText().equals(" ")) {
-            JOptionPane.showMessageDialog(this, "No Books Selected");
-        }
-        else{
+        
              Forms(rentBooks);
         int newQuantity = Integer.parseInt(bookQuantity.getText());
         modelRentData = new ModelRentData(bookTitle.getText(), newQuantity);
         rentBooks.showBookData(modelRentData);
-        }
-        
-       
-      
-        
+    
     }//GEN-LAST:event_button2ActionPerformed
 
    

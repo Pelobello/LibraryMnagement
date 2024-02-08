@@ -8,11 +8,16 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import library.chart.ModelChart;
 
-/**
- *
- * @author USER
- */
+import library.database.DatabaseConnection;
+import library.model.ModelDashboardData;
+
+
 public class DashBoard extends javax.swing.JPanel {
 
    
@@ -20,12 +25,40 @@ public class DashBoard extends javax.swing.JPanel {
         initComponents();
         setOpaque(false);
         chart.setTitle("Chart Data");
-        chart.addLegend("Total Sales", Color.black, Color.black);
+        chart.addLegend("Total Profit", Color.black, Color.red);
         chart.addLegend("Books Rented", Color.black, Color.black);
+        testData();
         
     }
 
-
+private void testData(){
+     try {
+         String uId = userId.getText();
+         List <ModelDashboardData> list= new ArrayList<>();
+         DatabaseConnection.getInstance().ConnectToDatabase();
+         String sql = "SELECT DATE_FORMAT(MAX(dateRented), '%M') AS `Month`, SUM(totalAmount) AS Amount, SUM(totalQuantity) AS TotalQuantity FROM library_management_data.customer_rented_books_data WHERE userId = "+uId+ " GROUP BY DATE_FORMAT(dateRented, '%m%Y') ORDER BY `Month` DESC LIMIT 9";
+         PreparedStatement p = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
+         ResultSet rs = p.executeQuery();
+         while (rs.next()) {    
+             String month = rs.getString("Month");
+             double totalAmount = rs.getDouble("Amount");
+             double totalQuantity = rs.getDouble("TotalQuantity");
+             
+             list.add(new ModelDashboardData(month, totalAmount, totalQuantity));
+         }
+         rs.close();
+         p.close();
+         
+         for (int i = list.size()-1; i > 0; i--) {
+             ModelDashboardData d = list.get(i);
+             chart.addData(new ModelChart(d.getMonth(), new double[]{d.getTotalAmount(),d.getTotalQuantity()}));
+             
+         }
+      chart.start();
+     } catch (Exception e) {
+         e.printStackTrace();
+     }
+ }
 
    
 
@@ -43,8 +76,8 @@ public class DashBoard extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         roundPanel6 = new library.components.RoundPanel();
         jLabel3 = new javax.swing.JLabel();
+        userId = new javax.swing.JLabel();
         roundPanel3 = new library.components.RoundPanel();
-        jLabel2 = new javax.swing.JLabel();
 
         roundPanel1.setBackground(new java.awt.Color(255, 255, 255));
         roundPanel1.setRoundBottomLeft(40);
@@ -53,7 +86,7 @@ public class DashBoard extends javax.swing.JPanel {
         roundPanel1.setRoundTopRight(40);
 
         chart.setBackground(new java.awt.Color(0, 0, 0));
-        chart.setForeground(new java.awt.Color(51, 51, 51));
+        chart.setForeground(new java.awt.Color(102, 102, 102));
         chart.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         chart.setTitleFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
@@ -132,6 +165,8 @@ public class DashBoard extends javax.swing.JPanel {
 
         jLabel3.setText("Calendar");
 
+        userId.setText("142");
+
         javax.swing.GroupLayout roundPanel6Layout = new javax.swing.GroupLayout(roundPanel6);
         roundPanel6.setLayout(roundPanel6Layout);
         roundPanel6Layout.setHorizontalGroup(
@@ -140,13 +175,19 @@ public class DashBoard extends javax.swing.JPanel {
                 .addGap(87, 87, 87)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(196, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(userId, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
         );
         roundPanel6Layout.setVerticalGroup(
             roundPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundPanel6Layout.createSequentialGroup()
                 .addGap(116, 116, 116)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(userId, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout roundPanel2Layout = new javax.swing.GroupLayout(roundPanel2);
@@ -179,23 +220,15 @@ public class DashBoard extends javax.swing.JPanel {
         roundPanel3.setRoundTopLeft(40);
         roundPanel3.setRoundTopRight(40);
 
-        jLabel2.setText("Borrower Table");
-
         javax.swing.GroupLayout roundPanel3Layout = new javax.swing.GroupLayout(roundPanel3);
         roundPanel3.setLayout(roundPanel3Layout);
         roundPanel3Layout.setHorizontalGroup(
             roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(roundPanel3Layout.createSequentialGroup()
-                .addGap(150, 150, 150)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(329, Short.MAX_VALUE))
+            .addGap(0, 636, Short.MAX_VALUE)
         );
         roundPanel3Layout.setVerticalGroup(
             roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(roundPanel3Layout.createSequentialGroup()
-                .addGap(109, 109, 109)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(207, Short.MAX_VALUE))
+            .addGap(0, 406, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -228,7 +261,6 @@ public class DashBoard extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private library.chart.CurveLineChart chart;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -238,5 +270,6 @@ public class DashBoard extends javax.swing.JPanel {
     private library.components.RoundPanel roundPanel4;
     private library.components.RoundPanel roundPanel5;
     private library.components.RoundPanel roundPanel6;
+    private javax.swing.JLabel userId;
     // End of variables declaration//GEN-END:variables
 }

@@ -2,7 +2,16 @@
 package library.forms;
 
 import com.raven.datechooser.DateChooser;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.text.Format;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import library.controller.RentBooksController;
 import library.model.ModelRentData;
 
 
@@ -11,6 +20,7 @@ public class RentBooks extends javax.swing.JPanel {
 
 private DateChooser dateChooser = new DateChooser();
 private DateChooser dateChooserReturn = new DateChooser();
+private RentBooksController rentBooksControl;
     public RentBooks() {
         initComponents();
         setOpaque(false);
@@ -22,33 +32,49 @@ private DateChooser dateChooserReturn = new DateChooser();
     }
     public void showBookData(ModelRentData data){
         String newQuantity = Integer.toString(data.getQuantity());
-        bookTitle.setText(data.getBookTitle());
-        bookQuantity.setText(newQuantity);
+        bTitle.setText(data.getBookTitle());
+        bookSQuantity.setText(newQuantity);
     }
-   
+   public void addRentedBooksData() throws ParseException, SQLException, IOException, ClassNotFoundException{
+       String returnDateData = returnDate.getText();
+       
+       String dateData = date.getText();
+       SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dddd");
+       Date convertDate = dateFormat.parse(dateData);
+       Date ConvertReturnDate = dateFormat.parse(returnDateData);
+       
+       String totalData = totalAmount.getText();
+       String totalQuantity = quantity.getText();
+       double convertTotalAmount = Double.parseDouble(totalData);
+       int convertTotalQuantity = Integer.parseInt(totalQuantity);
+       rentBooksControl = new RentBooksController(userId.getText(), bTitle.getText(), fName.getText(), lName.getText(), convertDate, ConvertReturnDate, convertTotalAmount, convertTotalQuantity);
+       
+       rentBooksControl.rentBooksToDatabase();
+       JOptionPane.showMessageDialog(this, "Rent Success");
+   }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         roundPanel1 = new library.components.RoundPanel();
-        jLabel1 = new javax.swing.JLabel();
-        textField1 = new library.textfield.TextField();
+        userId = new javax.swing.JLabel();
+        lName = new library.textfield.TextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        textField2 = new library.textfield.TextField();
+        fName = new library.textfield.TextField();
         jLabel4 = new javax.swing.JLabel();
         date = new library.textfield.TextField();
         jLabel5 = new javax.swing.JLabel();
         returnDate = new library.textfield.TextField();
         jLabel9 = new javax.swing.JLabel();
-        bookTitle = new library.textfield.TextField();
+        bTitle = new library.textfield.TextField();
         jLabel10 = new javax.swing.JLabel();
-        bookQuantity = new library.textfield.TextField();
+        bookSQuantity = new library.textfield.TextField();
         jLabel11 = new javax.swing.JLabel();
-        textField10 = new library.textfield.TextField();
+        quantity = new library.textfield.TextField();
         jLabel12 = new javax.swing.JLabel();
-        textField11 = new library.textfield.TextField();
+        totalAmount = new library.textfield.TextField();
         button1 = new library.button.Button();
 
         roundPanel1.setBackground(new java.awt.Color(84, 208, 206));
@@ -57,9 +83,9 @@ private DateChooser dateChooserReturn = new DateChooser();
         roundPanel1.setRoundTopLeft(40);
         roundPanel1.setRoundTopRight(40);
 
-        jLabel1.setText("userId");
+        userId.setText("142");
 
-        textField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jLabel2.setBackground(new java.awt.Color(102, 102, 102));
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
@@ -71,7 +97,7 @@ private DateChooser dateChooserReturn = new DateChooser();
         jLabel3.setText("First Name*");
         jLabel3.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        textField2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        fName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jLabel4.setBackground(new java.awt.Color(102, 102, 102));
         jLabel4.setForeground(new java.awt.Color(102, 102, 102));
@@ -94,32 +120,37 @@ private DateChooser dateChooserReturn = new DateChooser();
         jLabel9.setText("Book Title*");
         jLabel9.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        bookTitle.setEditable(false);
-        bookTitle.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        bTitle.setEditable(false);
+        bTitle.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jLabel10.setBackground(new java.awt.Color(102, 102, 102));
         jLabel10.setForeground(new java.awt.Color(102, 102, 102));
         jLabel10.setText("Book Supply Quantity*");
         jLabel10.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        bookQuantity.setEditable(false);
-        bookQuantity.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        bookSQuantity.setEditable(false);
+        bookSQuantity.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jLabel11.setBackground(new java.awt.Color(102, 102, 102));
         jLabel11.setForeground(new java.awt.Color(102, 102, 102));
         jLabel11.setText("Quantity*");
         jLabel11.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        textField10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        quantity.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jLabel12.setBackground(new java.awt.Color(102, 102, 102));
         jLabel12.setForeground(new java.awt.Color(102, 102, 102));
         jLabel12.setText("Total Amount*");
         jLabel12.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        textField11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        totalAmount.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         button1.setText("RENT");
+        button1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout roundPanel1Layout = new javax.swing.GroupLayout(roundPanel1);
         roundPanel1.setLayout(roundPanel1Layout);
@@ -129,7 +160,7 @@ private DateChooser dateChooserReturn = new DateChooser();
                 .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(roundPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(userId, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(roundPanel1Layout.createSequentialGroup()
                         .addGap(164, 164, 164)
                         .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,10 +168,10 @@ private DateChooser dateChooserReturn = new DateChooser();
                                 .addGap(10, 10, 10)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(textField2, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(bookTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(textField10, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(fName, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lName, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(bTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(quantity, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(roundPanel1Layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -155,8 +186,8 @@ private DateChooser dateChooserReturn = new DateChooser();
                             .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(returnDate, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(bookQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(textField11, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(bookSQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(totalAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(roundPanel1Layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,19 +210,19 @@ private DateChooser dateChooserReturn = new DateChooser();
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lName, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(2, 2, 2)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textField2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(fName, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(2, 2, 2)
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bookTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(2, 2, 2)
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textField10, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(quantity, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -203,15 +234,15 @@ private DateChooser dateChooserReturn = new DateChooser();
                         .addGap(2, 2, 2)
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bookQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bookSQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(2, 2, 2)
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textField11, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(totalAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(54, 54, 54)
                 .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(userId, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
         );
 
@@ -233,13 +264,27 @@ private DateChooser dateChooserReturn = new DateChooser();
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+    try {
+        addRentedBooksData();
+    } catch (ParseException ex) {
+        Logger.getLogger(RentBooks.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (SQLException ex) {
+        Logger.getLogger(RentBooks.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IOException ex) {
+        Logger.getLogger(RentBooks.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(RentBooks.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    }//GEN-LAST:event_button1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private library.textfield.TextField bookQuantity;
-    private library.textfield.TextField bookTitle;
+    private library.textfield.TextField bTitle;
+    private library.textfield.TextField bookSQuantity;
     private library.button.Button button1;
     private library.textfield.TextField date;
-    private javax.swing.JLabel jLabel1;
+    private library.textfield.TextField fName;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -248,11 +293,11 @@ private DateChooser dateChooserReturn = new DateChooser();
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;
+    private library.textfield.TextField lName;
+    private library.textfield.TextField quantity;
     private library.textfield.TextField returnDate;
     private library.components.RoundPanel roundPanel1;
-    private library.textfield.TextField textField1;
-    private library.textfield.TextField textField10;
-    private library.textfield.TextField textField11;
-    private library.textfield.TextField textField2;
+    private library.textfield.TextField totalAmount;
+    private javax.swing.JLabel userId;
     // End of variables declaration//GEN-END:variables
 }

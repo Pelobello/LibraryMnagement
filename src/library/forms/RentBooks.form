@@ -52,7 +52,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jLabel1" min="-2" pref="88" max="-2" attributes="0"/>
+                          <Component id="userId" min="-2" pref="88" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="164" max="-2" attributes="0"/>
@@ -62,10 +62,10 @@
                                   <Component id="jLabel2" min="-2" pref="246" max="-2" attributes="0"/>
                               </Group>
                               <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Component id="textField2" alignment="1" min="-2" pref="315" max="-2" attributes="0"/>
-                                  <Component id="textField1" alignment="1" min="-2" pref="315" max="-2" attributes="0"/>
-                                  <Component id="bookTitle" alignment="1" min="-2" pref="315" max="-2" attributes="0"/>
-                                  <Component id="textField10" alignment="1" min="-2" pref="315" max="-2" attributes="0"/>
+                                  <Component id="fName" alignment="1" min="-2" pref="315" max="-2" attributes="0"/>
+                                  <Component id="lName" alignment="1" min="-2" pref="315" max="-2" attributes="0"/>
+                                  <Component id="bTitle" alignment="1" min="-2" pref="315" max="-2" attributes="0"/>
+                                  <Component id="quantity" alignment="1" min="-2" pref="315" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
@@ -85,8 +85,8 @@
                               <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                                   <Component id="date" alignment="1" min="-2" pref="315" max="-2" attributes="0"/>
                                   <Component id="returnDate" alignment="1" min="-2" pref="315" max="-2" attributes="0"/>
-                                  <Component id="bookQuantity" alignment="1" min="-2" pref="315" max="-2" attributes="0"/>
-                                  <Component id="textField11" alignment="1" min="-2" pref="315" max="-2" attributes="0"/>
+                                  <Component id="bookSQuantity" alignment="1" min="-2" pref="315" max="-2" attributes="0"/>
+                                  <Component id="totalAmount" alignment="1" min="-2" pref="315" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
@@ -118,19 +118,19 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="jLabel2" min="-2" pref="27" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="textField1" min="-2" pref="78" max="-2" attributes="0"/>
+                          <Component id="lName" min="-2" pref="78" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Component id="jLabel3" min="-2" pref="27" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="textField2" min="-2" pref="78" max="-2" attributes="0"/>
+                          <Component id="fName" min="-2" pref="78" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Component id="jLabel9" min="-2" pref="27" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="bookTitle" min="-2" pref="78" max="-2" attributes="0"/>
+                          <Component id="bTitle" min="-2" pref="78" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Component id="jLabel11" min="-2" pref="27" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="textField10" min="-2" pref="78" max="-2" attributes="0"/>
+                          <Component id="quantity" min="-2" pref="78" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="jLabel4" min="-2" pref="27" max="-2" attributes="0"/>
@@ -143,29 +143,29 @@
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Component id="jLabel10" min="-2" pref="27" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="bookQuantity" min="-2" pref="77" max="-2" attributes="0"/>
+                          <Component id="bookSQuantity" min="-2" pref="77" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Component id="jLabel12" min="-2" pref="27" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="textField11" min="-2" pref="77" max="-2" attributes="0"/>
+                          <Component id="totalAmount" min="-2" pref="77" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                   <Component id="button1" min="-2" pref="61" max="-2" attributes="0"/>
                   <EmptySpace pref="63" max="32767" attributes="0"/>
-                  <Component id="jLabel1" min="-2" pref="37" max="-2" attributes="0"/>
+                  <Component id="userId" min="-2" pref="37" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="userId">
           <Properties>
-            <Property name="text" type="java.lang.String" value="userId"/>
+            <Property name="text" type="java.lang.String" value="142"/>
           </Properties>
         </Component>
-        <Component class="library.textfield.TextField" name="textField1">
+        <Component class="library.textfield.TextField" name="lName">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="0"/>
@@ -196,7 +196,7 @@
             <Property name="verticalAlignment" type="int" value="3"/>
           </Properties>
         </Component>
-        <Component class="library.textfield.TextField" name="textField2">
+        <Component class="library.textfield.TextField" name="fName">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="0"/>
@@ -255,7 +255,7 @@
             <Property name="verticalAlignment" type="int" value="3"/>
           </Properties>
         </Component>
-        <Component class="library.textfield.TextField" name="bookTitle">
+        <Component class="library.textfield.TextField" name="bTitle">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -275,7 +275,7 @@
             <Property name="verticalAlignment" type="int" value="3"/>
           </Properties>
         </Component>
-        <Component class="library.textfield.TextField" name="bookQuantity">
+        <Component class="library.textfield.TextField" name="bookSQuantity">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -295,7 +295,7 @@
             <Property name="verticalAlignment" type="int" value="3"/>
           </Properties>
         </Component>
-        <Component class="library.textfield.TextField" name="textField10">
+        <Component class="library.textfield.TextField" name="quantity">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="0"/>
@@ -314,7 +314,7 @@
             <Property name="verticalAlignment" type="int" value="3"/>
           </Properties>
         </Component>
-        <Component class="library.textfield.TextField" name="textField11">
+        <Component class="library.textfield.TextField" name="totalAmount">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="0"/>
@@ -325,6 +325,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="RENT"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button1ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
