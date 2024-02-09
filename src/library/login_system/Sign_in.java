@@ -9,15 +9,28 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import library.controller.PopulateBooksController;
+import library.controller.PopulateDashboardController;
+import library.forms.AddBooks;
+import library.forms.DashBoard;
 import library.main.Main;
+import library.userId.User_Id_Constructor;
 
 
 public class Sign_in extends javax.swing.JFrame {
     private Main main;
+    private DashBoard dashboard;
+    private PopulateBooksController populateBooks;
+    private User_Id_Constructor userIdC;
+    private AddBooks addbooks;
+    
     public Sign_in() {
         initComponents();
         setBackground(new Color(0,0,0,0));
         main = new Main();
+        dashboard = new DashBoard();
+        addbooks = new AddBooks();
        
         initMoving(this);
     }
@@ -54,7 +67,7 @@ public class Sign_in extends javax.swing.JFrame {
         roundPanel1 = new library.components.RoundPanel();
         userName = new library.textfield.TextField();
         passWord = new library.textfield.TextField();
-        button1 = new library.button.Button();
+        SignIn = new library.button.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -69,11 +82,11 @@ public class Sign_in extends javax.swing.JFrame {
 
         passWord.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        button1.setText("Sign in");
-        button1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        button1.addActionListener(new java.awt.event.ActionListener() {
+        SignIn.setText("Sign in");
+        SignIn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        SignIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button1ActionPerformed(evt);
+                SignInActionPerformed(evt);
             }
         });
 
@@ -90,7 +103,7 @@ public class Sign_in extends javax.swing.JFrame {
                             .addComponent(passWord, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(80, 80, 80))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel1Layout.createSequentialGroup()
-                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(SignIn, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(128, 128, 128))))
         );
         roundPanel1Layout.setVerticalGroup(
@@ -101,7 +114,7 @@ public class Sign_in extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addComponent(passWord, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(SignIn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(118, Short.MAX_VALUE))
         );
 
@@ -137,11 +150,18 @@ public class Sign_in extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
-   
+    private void SignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignInActionPerformed
+       String dashboardUser = "142";
+       
+        
+       
         main.setVisible(true);
+        main.id.setText(dashboardUser);
+        
+        main.refreshDashboardUI();
+ 
        setVisible(false);
-    }//GEN-LAST:event_button1ActionPerformed
+    }//GEN-LAST:event_SignInActionPerformed
 
     public static void main(String args[]) {
         FlatLightLaf.setup();
@@ -153,7 +173,7 @@ public class Sign_in extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private library.button.Button button1;
+    private library.button.Button SignIn;
     private library.components.RoundPanel panelMoving;
     private library.textfield.TextField passWord;
     private library.components.RoundPanel roundPanel1;

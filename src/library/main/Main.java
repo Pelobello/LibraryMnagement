@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import library.controller.AddBooksController;
 import library.controller.PopulateBooksController;
+import library.controller.PopulateDashboardController;
 import library.database.DatabaseConnection;
 import library.event.EventItem;
 import library.forms.AddBooks;
@@ -28,6 +29,7 @@ import library.forms.DashBoard;
 import library.forms.MyLibrary;
 import library.forms.AddCustomer;
 import library.forms.RentBooks;
+import static library.main.Main.main;
 import library.model.ModelItem;
 import library.model.ModelRentData;
 
@@ -43,6 +45,8 @@ public class Main extends javax.swing.JFrame {
       private ModelRentData modelRentData;
       private AddBooksController addBooksController ;
       private PopulateBooksController populateBooks;
+      private PopulateDashboardController populateDashboard;
+     
     public Main()  {
       
     initComponents();
@@ -50,9 +54,11 @@ public class Main extends javax.swing.JFrame {
         myLibrary = new MyLibrary();
         addBooks = new AddBooks();
         setting = new AddCustomer();
-        rentBooks = new RentBooks();      
+        rentBooks = new RentBooks();   
+      refreshDashboardUI();
 //         initMoving(this);  
         testData();
+       
         initMainComponents();
    
     }
@@ -61,11 +67,17 @@ public class Main extends javax.swing.JFrame {
         Font poppinsFont = new Font("Khula", Font.ITALIC, 16);
         bookDescription.setFont(poppinsFont);
         populateBooks = new PopulateBooksController(myLibrary);
+     
         populateBooks.populate(id.getText()); 
+       
+        refreshDashboardUI();
         roundPanel4.setLayout(new BorderLayout());
+         
         bookDescription.setBackground(new Color(15,4,76,255));
         roundPanel4.setLayout(new BorderLayout());
         addBooks.userId.setText(id.getText());
+        dashboard.dataUID.setText(id.getText());
+       
         bookQuantity.setVisible(false);
         Forms(dashboard);
          if (this.getExtendedState()==Main.MAXIMIZED_BOTH) {
@@ -77,22 +89,29 @@ public class Main extends javax.swing.JFrame {
          textRemover();
           
     }
-    public void refreshDashBoard(){
-        dashboard.removeAll();
-       dashboard.repaint();
-       dashboard.revalidate();
-       dashboard.testData();
-        Forms(dashboard);
-    }
-    
+  
     //Populate and refresh data from Books shelf
     public void refreshUI(){
         myLibrary.panelItem1.removeAll();
         myLibrary.panelItem1.repaint();
         myLibrary.panelItem1.revalidate();
         populateBooks.populate(id.getText());
+        
     }
-
+    
+    public void refreshDashboardUI(){
+         
+   dashboard.chart.clear();
+    dashboard.chart.start();
+    dashboard.testData(id.getText());
+    dashboard.dataUID.removeAll();
+    dashboard.dataUID.repaint();
+    dashboard.dataUID.revalidate();
+    dashboard.chart.repaint();
+    dashboard.chart.revalidate();
+       
+    }
+    
    //ChangePanel Forms
   private void Forms(Component com){
       roundPanel4.removeAll();
@@ -163,7 +182,7 @@ public class Main extends javax.swing.JFrame {
        bookQuantity.setText(quantityToString);
      
    }
-
+ 
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -276,7 +295,6 @@ public class Main extends javax.swing.JFrame {
         });
 
         id.setForeground(new java.awt.Color(102, 102, 102));
-        id.setText("142");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
@@ -464,6 +482,13 @@ public class Main extends javax.swing.JFrame {
 
     private void button4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button4ActionPerformed
         Forms(addBooks);
+          SwingUtilities.invokeLater(() -> {
+        addBooks.userId.removeAll();
+        addBooks.userId.repaint();
+        addBooks.userId.revalidate();
+        addBooks.userId.setText(id.getText());
+    });
+        
         textRemover();
     }//GEN-LAST:event_button4ActionPerformed
 
@@ -483,6 +508,7 @@ public class Main extends javax.swing.JFrame {
 
     private void button6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button6ActionPerformed
            Forms(dashboard);
+         refreshDashboardUI();
            textRemover();
     }//GEN-LAST:event_button6ActionPerformed
 

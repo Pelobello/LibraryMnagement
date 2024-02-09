@@ -32,9 +32,7 @@ public class PopulateBooksController {
     public void populate(String userId){
          
         addBooks= new AddBooks();
-         library.panelItem1.removeAll();
-        library.panelItem1.repaint();
-        library.panelItem1.revalidate();
+         
         
         try {
            String sql = "SELECT * FROM library_data WHERE userId = ?";

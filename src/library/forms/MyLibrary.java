@@ -54,9 +54,6 @@ private EventItem event;
       });
 
       panelItem1.add(item);
-      
-          
-      
       repaint();
       revalidate();
  

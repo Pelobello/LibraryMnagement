@@ -31,17 +31,29 @@ private DateChooser dateChooser = new DateChooser();
       
         
     }
-   
+   private void setTextToNone(){
+       lName.setText("");
+       fName.setText("");
+       age.setText("");
+       contactNo.setText("");
+       street.setText("");
+       province.setText("");
+       city.setText("");
+       barangay.setText("");
+       postalCode.setText("");
+       
+       
+   }
    
     public void addCustomerData() throws SQLException, IOException{
         try {
-           addCostomerControll = new AddCustomerController(lName.getText(), fName.getText(), bDate.getText(), age.getText(), 
-                                                contactNo.getText(), country.getText(),
+           addCostomerControll = new AddCustomerController(userId.getText(),lName.getText(), fName.getText(), bDate.getText(), age.getText(), 
+                                                contactNo.getText(), street.getText(),
                                             province.getText(), city.getText(), barangay.getText(), postalCode.getText());
             addCostomerControll.AddCustomerToDatabase();
             
             JOptionPane.showMessageDialog(this, "Customer Added!");
-            
+            setTextToNone();
             
         } catch (ClassNotFoundException ex) {
         try {
@@ -49,7 +61,6 @@ private DateChooser dateChooser = new DateChooser();
         } catch (SQLException rollbackException) {
             rollbackException.printStackTrace();
         }
-
         ex.printStackTrace();
         JOptionPane.showMessageDialog(this, "Error adding book: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     } 
@@ -82,7 +93,8 @@ private DateChooser dateChooser = new DateChooser();
         button2 = new library.button.Button();
         button3 = new library.button.Button();
         jLabel6 = new javax.swing.JLabel();
-        country = new library.textfield.TextField();
+        street = new library.textfield.TextField();
+        userId = new javax.swing.JLabel();
 
         roundPanel1.setBackground(new java.awt.Color(245, 238, 230));
         roundPanel1.setRoundBottomLeft(60);
@@ -184,7 +196,9 @@ private DateChooser dateChooser = new DateChooser();
         jLabel6.setText("Street*");
         jLabel6.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        country.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        street.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        userId.setText("userId");
 
         javax.swing.GroupLayout roundPanel1Layout = new javax.swing.GroupLayout(roundPanel1);
         roundPanel1.setLayout(roundPanel1Layout);
@@ -233,7 +247,7 @@ private DateChooser dateChooser = new DateChooser();
                         .addGroup(roundPanel1Layout.createSequentialGroup()
                             .addGap(8, 8, 8)
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(country, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(street, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(89, 89, 89))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel1Layout.createSequentialGroup()
                 .addContainerGap(215, Short.MAX_VALUE)
@@ -242,7 +256,9 @@ private DateChooser dateChooser = new DateChooser();
                 .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(214, 214, 214))
+                .addGap(139, 139, 139)
+                .addComponent(userId, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
         roundPanel1Layout.setVerticalGroup(
             roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,7 +296,7 @@ private DateChooser dateChooser = new DateChooser();
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(1, 1, 1)
-                        .addComponent(country, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(street, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -294,6 +310,10 @@ private DateChooser dateChooser = new DateChooser();
                     .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(34, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(userId, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -327,12 +347,7 @@ private DateChooser dateChooser = new DateChooser();
     }//GEN-LAST:event_button2ActionPerformed
 
     private void button3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button3ActionPerformed
-        if (fName.getText().equals("")) {
-            lbfName.setForeground(Color.red);
-           
-        }else if (lName.getText().equals("")){
-            lbLastName.setForeground(Color.red);
-        }
+      
     }//GEN-LAST:event_button3ActionPerformed
 
 
@@ -345,7 +360,6 @@ private DateChooser dateChooser = new DateChooser();
     private library.button.Button button3;
     private library.textfield.TextField city;
     private library.textfield.TextField contactNo;
-    private library.textfield.TextField country;
     private library.textfield.TextField fName;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
@@ -361,5 +375,7 @@ private DateChooser dateChooser = new DateChooser();
     private library.textfield.TextField postalCode;
     private library.textfield.TextField province;
     private library.components.RoundPanel roundPanel1;
+    private library.textfield.TextField street;
+    private javax.swing.JLabel userId;
     // End of variables declaration//GEN-END:variables
 }
