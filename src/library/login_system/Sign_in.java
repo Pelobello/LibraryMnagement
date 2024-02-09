@@ -4,12 +4,21 @@ package library.login_system;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.intellijthemes.FlatArcDarkIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatArcIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatSolarizedDarkIJTheme;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatLightOwlIJTheme;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import library.controller.PopulateBooksController;
 import library.controller.PopulateDashboardController;
 import library.forms.AddBooks;
@@ -164,7 +173,13 @@ public class Sign_in extends javax.swing.JFrame {
     }//GEN-LAST:event_SignInActionPerformed
 
     public static void main(String args[]) {
-        FlatLightLaf.setup();
+        try {
+            FlatGitHubIJTheme.setup();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Sign_in().setVisible(true);

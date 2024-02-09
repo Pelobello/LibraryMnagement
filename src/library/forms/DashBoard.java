@@ -33,6 +33,7 @@ public class DashBoard extends javax.swing.JPanel {
         chart.setTitle("Chart Data");
         chart.addLegend("Total Profit", Color.decode("#211C6A"), Color.decode("#59B4C3"));
         chart.addLegend("Books Rented", Color.black, Color.black);
+       calendar1.setBackground(new Color(200,200,200,200));
 //        testData();
         
     }
@@ -86,9 +87,11 @@ public void testData(String UI){
         chart = new library.chart.CurveLineChart();
         roundPanel2 = new library.components.RoundPanel();
         roundPanel6 = new library.components.RoundPanel();
-        jLabel3 = new javax.swing.JLabel();
+        calendar1 = new CalendarUI.calendar.Calendar();
         dataUID = new javax.swing.JLabel();
         roundPanel3 = new library.components.RoundPanel();
+
+        setBackground(new java.awt.Color(255, 255, 255));
 
         roundPanelR.setBackground(new java.awt.Color(255, 255, 255));
         roundPanelR.setRoundBottomLeft(40);
@@ -118,14 +121,14 @@ public void testData(String UI){
                 .addContainerGap())
         );
 
-        roundPanel2.setBackground(new java.awt.Color(151, 77, 77));
-
         roundPanel6.setRoundBottomLeft(40);
         roundPanel6.setRoundBottomRight(40);
         roundPanel6.setRoundTopLeft(40);
         roundPanel6.setRoundTopRight(40);
 
-        jLabel3.setText("Calendar");
+        calendar1.setBackground(new java.awt.Color(255, 255, 255));
+        calendar1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        calendar1.setOpaque(false);
 
         dataUID.setText("142");
 
@@ -134,22 +137,22 @@ public void testData(String UI){
         roundPanel6Layout.setHorizontalGroup(
             roundPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundPanel6Layout.createSequentialGroup()
-                .addGap(87, 87, 87)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(202, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(calendar1, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel6Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(dataUID, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(dataUID, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
         );
         roundPanel6Layout.setVerticalGroup(
             roundPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundPanel6Layout.createSequentialGroup()
-                .addGap(116, 116, 116)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(calendar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dataUID)
-                .addGap(20, 20, 20))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout roundPanel2Layout = new javax.swing.GroupLayout(roundPanel2);
@@ -216,9 +219,9 @@ public void testData(String UI){
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private CalendarUI.calendar.Calendar calendar1;
     public library.chart.CurveLineChart chart;
     public javax.swing.JLabel dataUID;
-    private javax.swing.JLabel jLabel3;
     private library.components.RoundPanel roundPanel2;
     private library.components.RoundPanel roundPanel3;
     private library.components.RoundPanel roundPanel6;
