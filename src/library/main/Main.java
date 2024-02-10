@@ -57,6 +57,7 @@ public class Main extends javax.swing.JFrame {
         rentBooks = new RentBooks();   
       refreshDashboardUI();
 //         initMoving(this);  
+//
         testData();
        
         initMainComponents();
@@ -69,10 +70,9 @@ public class Main extends javax.swing.JFrame {
         populateBooks = new PopulateBooksController(myLibrary);
      
         populateBooks.populate(id.getText()); 
-       
         refreshDashboardUI();
         roundPanel4.setLayout(new BorderLayout());
-         
+          search.setText("Search Borrower");
         bookDescription.setBackground(new Color(15,4,76,255));
         roundPanel4.setLayout(new BorderLayout());
         addBooks.userId.setText(id.getText());
@@ -86,8 +86,7 @@ public class Main extends javax.swing.JFrame {
         else{
             this.setExtendedState(Main.MAXIMIZED_BOTH);
         }
-         textRemover();
-          
+         textRemover();     
     }
   
     //Populate and refresh data from Books shelf
@@ -97,6 +96,19 @@ public class Main extends javax.swing.JFrame {
         myLibrary.panelItem1.revalidate();
         populateBooks.populate(id.getText());
         
+    }
+    public void searchBooks(){
+        myLibrary.panelItem1.removeAll();
+        myLibrary.panelItem1.repaint();
+        myLibrary.panelItem1.revalidate();
+        populateBooks.searchBooks(id.getText(), search.getText());
+       
+    }
+    public void searchRenter(){
+        dashboard.customerTable.removeAll();
+        dashboard.customerTable.repaint();
+        dashboard.customerTable.revalidate();
+        dashboard.searchRenterData(id.getText(), search.getText());    
     }
     
     public void refreshDashboardUI() throws SQLException, ClassNotFoundException{
@@ -111,9 +123,9 @@ public class Main extends javax.swing.JFrame {
     dashboard.chart.revalidate();
     
     dashboard.populateRenterData(id.getText());
-       
+   
     }
-    
+
    //ChangePanel Forms
   private void Forms(Component com){
       roundPanel4.removeAll();
@@ -169,6 +181,7 @@ public class Main extends javax.swing.JFrame {
                bookTitle.setVisible(true);
                  bookAuthor.setVisible(true);
             bookDescription.setVisible(true);
+            
             }
  
        });
@@ -193,6 +206,7 @@ public class Main extends javax.swing.JFrame {
         roundPanel1 = new library.components.RoundPanel();
         roundPanel3 = new library.components.RoundPanel();
         jButton1 = new javax.swing.JButton();
+        search = new library.textfield.TextField();
         roundPanel4 = new library.components.RoundPanel();
         panelMoving = new library.components.RoundPanel();
         button3 = new library.button.Button();
@@ -201,7 +215,6 @@ public class Main extends javax.swing.JFrame {
         id = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         button6 = new library.button.Button();
-        jPanel1 = new javax.swing.JPanel();
         roundPanel5 = new library.components.RoundPanel();
         bookTitle = new javax.swing.JLabel();
         bookAuthor = new javax.swing.JLabel();
@@ -233,21 +246,45 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        search.setForeground(new java.awt.Color(51, 51, 51));
+        search.setText("Search");
+        search.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        search.setShadowColor(new java.awt.Color(252, 209, 209));
+        search.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                searchFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                searchFocusLost(evt);
+            }
+        });
+        search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout roundPanel3Layout = new javax.swing.GroupLayout(roundPanel3);
         roundPanel3.setLayout(roundPanel3Layout);
         roundPanel3Layout.setHorizontalGroup(
             roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(15, 15, 15)
+                .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(40, 40, 40))
+                .addContainerGap())
         );
         roundPanel3Layout.setVerticalGroup(
             roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel3Layout.createSequentialGroup()
+                .addContainerGap(23, Short.MAX_VALUE)
+                .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
             .addGroup(roundPanel3Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addContainerGap()
                 .addComponent(jButton1)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         roundPanel4.setBackground(new java.awt.Color(255, 255, 255));
@@ -267,6 +304,7 @@ public class Main extends javax.swing.JFrame {
         button3.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         button3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         button3.setIconTextGap(20);
+        button3.setShadowColor(new java.awt.Color(245, 163, 202));
         button3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 button3ActionPerformed(evt);
@@ -279,6 +317,7 @@ public class Main extends javax.swing.JFrame {
         button4.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         button4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         button4.setIconTextGap(20);
+        button4.setShadowColor(new java.awt.Color(245, 163, 202));
         button4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 button4ActionPerformed(evt);
@@ -291,6 +330,7 @@ public class Main extends javax.swing.JFrame {
         button5.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         button5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         button5.setIconTextGap(20);
+        button5.setShadowColor(new java.awt.Color(245, 163, 202));
         button5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 button5ActionPerformed(evt);
@@ -309,22 +349,12 @@ public class Main extends javax.swing.JFrame {
         button6.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         button6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         button6.setIconTextGap(20);
+        button6.setShadowColor(new java.awt.Color(245, 163, 202));
         button6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 button6ActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 128, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 212, Short.MAX_VALUE)
-        );
 
         javax.swing.GroupLayout panelMovingLayout = new javax.swing.GroupLayout(panelMoving);
         panelMoving.setLayout(panelMovingLayout);
@@ -342,10 +372,7 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(panelMovingLayout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
-                        .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelMovingLayout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
         panelMovingLayout.setVerticalGroup(
@@ -363,8 +390,6 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(button5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(91, 91, 91)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -427,13 +452,13 @@ public class Main extends javax.swing.JFrame {
             roundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundPanel5Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addComponent(pictureImage, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                .addComponent(pictureImage, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bookTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(bookAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollBookDes, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                .addComponent(scrollBookDes, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(rentButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
@@ -491,17 +516,14 @@ public class Main extends javax.swing.JFrame {
 
     private void button3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button3ActionPerformed
         Forms(myLibrary);
+        search.setText("Search Books");
         refreshUI();
-        
-     
-     
-        
 
     }//GEN-LAST:event_button3ActionPerformed
 
     private void button4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button4ActionPerformed
         Forms(addBooks);
-          SwingUtilities.invokeLater(() -> {
+        SwingUtilities.invokeLater(() -> {
         addBooks.userId.removeAll();
         addBooks.userId.repaint();
         addBooks.userId.revalidate();
@@ -527,6 +549,7 @@ public class Main extends javax.swing.JFrame {
 
     private void button6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button6ActionPerformed
            Forms(dashboard);
+           search.setText("Search Borrower");
           try {
               refreshDashboardUI();
           } catch (SQLException ex) {
@@ -540,6 +563,33 @@ public class Main extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
+        
+        if (search.getText().equals("")) {
+            try {
+                
+                refreshUI();
+                refreshDashboardUI();
+            } catch (SQLException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            searchBooks();
+            searchRenter();
+            search.setText("");
+        }
+    }//GEN-LAST:event_searchActionPerformed
+
+    private void searchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchFocusGained
+      search.setText("");
+    }//GEN-LAST:event_searchFocusGained
+
+    private void searchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchFocusLost
+       search.setText("Seach Books");
+    }//GEN-LAST:event_searchFocusLost
 
    
     public static void main(String args[]) {
@@ -592,7 +642,6 @@ public class Main extends javax.swing.JFrame {
     public javax.swing.JLabel id;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private library.components.RoundPanel panelMoving;
     private library.components.PictureBox pictureImage;
     private library.button.Button rentButton;
@@ -601,5 +650,6 @@ public class Main extends javax.swing.JFrame {
     private library.components.RoundPanel roundPanel4;
     private library.components.RoundPanel roundPanel5;
     private javax.swing.JScrollPane scrollBookDes;
+    private library.textfield.TextField search;
     // End of variables declaration//GEN-END:variables
 }

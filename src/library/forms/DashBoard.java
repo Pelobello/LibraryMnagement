@@ -41,6 +41,39 @@ public class DashBoard extends javax.swing.JPanel {
 //        testData();
         
     }
+         public void searchRenterData(String userId,String searchTextField) {
+            
+            try {
+                  DefaultTableModel model = (DefaultTableModel)customerTable.getModel();
+                  model.setRowCount(0);
+            DatabaseConnection.getInstance().ConnectToDatabase();
+            String sql = "SELECT * FROM customer_rented_books_data WHERE userId = ? AND lastName LIKE ?";
+            PreparedStatement p = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
+            p.setString(1, userId);
+            p.setString(2, "%"+ searchTextField.trim() +"%");
+            ResultSet rs = p.executeQuery();
+            while (rs.next()) {                
+                Vector v = new Vector();
+                for (int i = 0; i < 35; i++) {
+                    v.add(rs.getInt("id"));
+                    v.add(rs.getString("userId"));
+                    v.add(rs.getString("bookRented"));
+                    v.add(rs.getString("firstName"));
+                    v.add(rs.getString("lastName"));
+                    v.add(rs.getDate("dateRented"));
+                    v.add(rs.getDate("dateReturn"));
+                    v.add(rs.getInt("totalAmount"));
+                    v.add(rs.getInt("totalQuantity"));
+
+                }
+               model.addRow(v);
+            } 
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+         
+                    
+        }
         public void populateRenterData(String userId) throws SQLException, ClassNotFoundException{
             
             try {
@@ -58,10 +91,10 @@ public class DashBoard extends javax.swing.JPanel {
                     v.add(rs.getString("bookRented"));
                     v.add(rs.getString("firstName"));
                     v.add(rs.getString("lastName"));
-                     v.add(rs.getDate("dateRented"));
-                      v.add(rs.getDate("dateReturn"));
-                       v.add(rs.getInt("totalAmount"));
-                        v.add(rs.getInt("totalQuantity"));
+                    v.add(rs.getDate("dateRented"));
+                    v.add(rs.getDate("dateReturn"));
+                    v.add(rs.getInt("totalAmount"));
+                    v.add(rs.getInt("totalQuantity"));
 
                 }
                model.addRow(v);
@@ -128,6 +161,7 @@ public void testData(String UI){
         roundPanel3 = new library.components.RoundPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         customerTable = new javax.swing.JTable();
+        button1 = new library.button.Button();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -186,7 +220,7 @@ public void testData(String UI){
         roundPanel6Layout.setVerticalGroup(
             roundPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundPanel6Layout.createSequentialGroup()
-                .addComponent(calendar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(calendar1, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dataUID)
                 .addContainerGap())
@@ -221,17 +255,19 @@ public void testData(String UI){
 
             },
             new String [] {
-                "id", "userId", "BookTitle", "CFirstName", "CLastName", "DateRented", "DateReturn", "TotalAmount", "RentedQuantity"
+                "id", "userId", "Book Title", "First Name", "Last Name", "Date Rented", "Date Return", "Total Amount", "Rented Quantity"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, true, true, true, true, true, true
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        customerTable.setRowHeight(30);
+        customerTable.setRowMargin(5);
         jScrollPane1.setViewportView(customerTable);
         if (customerTable.getColumnModel().getColumnCount() > 0) {
             customerTable.getColumnModel().getColumn(0).setMinWidth(0);
@@ -240,21 +276,28 @@ public void testData(String UI){
             customerTable.getColumnModel().getColumn(1).setMaxWidth(0);
         }
 
+        button1.setText("Delete");
+
         javax.swing.GroupLayout roundPanel3Layout = new javax.swing.GroupLayout(roundPanel3);
         roundPanel3.setLayout(roundPanel3Layout);
         roundPanel3Layout.setHorizontalGroup(
             roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)
+                .addGroup(roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)
+                    .addGroup(roundPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         roundPanel3Layout.setVerticalGroup(
             roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel3Layout.createSequentialGroup()
+            .addGroup(roundPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
+                .addGap(3, 3, 3)
+                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -287,6 +330,7 @@ public void testData(String UI){
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private library.button.Button button1;
     private CalendarUI.calendar.Calendar calendar1;
     public library.chart.CurveLineChart chart;
     public javax.swing.JTable customerTable;
