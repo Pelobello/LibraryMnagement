@@ -47,7 +47,7 @@ public class Main extends javax.swing.JFrame {
       private PopulateBooksController populateBooks;
       private PopulateDashboardController populateDashboard;
      
-    public Main()  {
+    public Main() throws SQLException, ClassNotFoundException  {
       
     initComponents();
         dashboard = new DashBoard();
@@ -62,7 +62,7 @@ public class Main extends javax.swing.JFrame {
         initMainComponents();
    
     }
-    public void initMainComponents(){
+    public void initMainComponents() throws SQLException, ClassNotFoundException{
         setBackground(new Color(0,0,0,0));
         Font poppinsFont = new Font("Khula", Font.ITALIC, 16);
         bookDescription.setFont(poppinsFont);
@@ -99,7 +99,7 @@ public class Main extends javax.swing.JFrame {
         
     }
     
-    public void refreshDashboardUI(){
+    public void refreshDashboardUI() throws SQLException, ClassNotFoundException{
          
    dashboard.chart.clear();
     dashboard.chart.start();
@@ -109,6 +109,8 @@ public class Main extends javax.swing.JFrame {
     dashboard.dataUID.revalidate();
     dashboard.chart.repaint();
     dashboard.chart.revalidate();
+    
+    dashboard.populateRenterData(id.getText());
        
     }
     
@@ -525,7 +527,13 @@ public class Main extends javax.swing.JFrame {
 
     private void button6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button6ActionPerformed
            Forms(dashboard);
-         refreshDashboardUI();
+          try {
+              refreshDashboardUI();
+          } catch (SQLException ex) {
+              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+          } catch (ClassNotFoundException ex) {
+              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+          }
            textRemover();
     }//GEN-LAST:event_button6ActionPerformed
 
@@ -561,7 +569,13 @@ public class Main extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main().setVisible(true);
+                try {
+                    new Main().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

@@ -16,6 +16,9 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -34,7 +37,7 @@ public class Sign_in extends javax.swing.JFrame {
     private User_Id_Constructor userIdC;
     private AddBooks addbooks;
     
-    public Sign_in() {
+    public Sign_in() throws SQLException, ClassNotFoundException {
         initComponents();
         setBackground(new Color(0,0,0,0));
         main = new Main();
@@ -167,7 +170,13 @@ public class Sign_in extends javax.swing.JFrame {
         main.setVisible(true);
         main.id.setText(dashboardUser);
         
-        main.refreshDashboardUI();
+        try {
+            main.refreshDashboardUI();
+        } catch (SQLException ex) {
+            Logger.getLogger(Sign_in.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Sign_in.class.getName()).log(Level.SEVERE, null, ex);
+        }
  
        setVisible(false);
     }//GEN-LAST:event_SignInActionPerformed
@@ -182,7 +191,13 @@ public class Sign_in extends javax.swing.JFrame {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Sign_in().setVisible(true);
+                try {
+                    new Sign_in().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Sign_in.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Sign_in.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

@@ -10,8 +10,11 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
 import library.chart.ModelChart;
 import library.controller.PopulateBooksController;
 import library.controller.PopulateDashboardController;
@@ -27,16 +30,49 @@ public class DashBoard extends javax.swing.JPanel {
     private PopulateDashboardController populateDashboard;
     private User_Id_Constructor userIdC;
 
-        public DashBoard() {
+        public DashBoard() throws SQLException, ClassNotFoundException {
         initComponents();
         setOpaque(false);
         chart.setTitle("Chart Data");
         chart.addLegend("Total Profit", Color.decode("#211C6A"), Color.decode("#59B4C3"));
         chart.addLegend("Books Rented", Color.black, Color.black);
        calendar1.setBackground(new Color(200,200,200,200));
+   
 //        testData();
         
     }
+        public void populateRenterData(String userId) throws SQLException, ClassNotFoundException{
+            
+            try {
+                  DefaultTableModel model = (DefaultTableModel)customerTable.getModel();
+            DatabaseConnection.getInstance().ConnectToDatabase();
+            String sql = "SELECT * FROM customer_rented_books_data WHERE userId = ?";
+            PreparedStatement p = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
+            p.setString(1, userId);
+            ResultSet rs = p.executeQuery();
+            while (rs.next()) {                
+                Vector v = new Vector();
+                for (int i = 0; i < 35; i++) {
+                    v.add(rs.getInt("id"));
+                    v.add(rs.getString("userId"));
+                    v.add(rs.getString("bookRented"));
+                    v.add(rs.getString("firstName"));
+                    v.add(rs.getString("lastName"));
+                     v.add(rs.getDate("dateRented"));
+                      v.add(rs.getDate("dateReturn"));
+                       v.add(rs.getInt("totalAmount"));
+                        v.add(rs.getInt("totalQuantity"));
+
+                }
+               model.addRow(v);
+            } 
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+         
+                    
+        }
+        
 public void testData(String UI){
      try {
 //         String uId = dataUID.getText();
@@ -90,6 +126,8 @@ public void testData(String UI){
         calendar1 = new CalendarUI.calendar.Calendar();
         dataUID = new javax.swing.JLabel();
         roundPanel3 = new library.components.RoundPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        customerTable = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -117,7 +155,7 @@ public void testData(String UI){
             roundPanelRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanelRLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(chart, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+                .addComponent(chart, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -148,7 +186,6 @@ public void testData(String UI){
         roundPanel6Layout.setVerticalGroup(
             roundPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundPanel6Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(calendar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dataUID)
@@ -172,21 +209,52 @@ public void testData(String UI){
                 .addContainerGap())
         );
 
-        roundPanel3.setBackground(new java.awt.Color(242, 52, 104));
+        roundPanel3.setBackground(new java.awt.Color(255, 255, 255));
         roundPanel3.setRoundBottomLeft(40);
         roundPanel3.setRoundBottomRight(40);
         roundPanel3.setRoundTopLeft(40);
         roundPanel3.setRoundTopRight(40);
 
+        customerTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        customerTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "id", "userId", "BookTitle", "CFirstName", "CLastName", "DateRented", "DateReturn", "TotalAmount", "RentedQuantity"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true, true, true, true, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(customerTable);
+        if (customerTable.getColumnModel().getColumnCount() > 0) {
+            customerTable.getColumnModel().getColumn(0).setMinWidth(0);
+            customerTable.getColumnModel().getColumn(0).setMaxWidth(0);
+            customerTable.getColumnModel().getColumn(1).setMinWidth(0);
+            customerTable.getColumnModel().getColumn(1).setMaxWidth(0);
+        }
+
         javax.swing.GroupLayout roundPanel3Layout = new javax.swing.GroupLayout(roundPanel3);
         roundPanel3.setLayout(roundPanel3Layout);
         roundPanel3Layout.setHorizontalGroup(
             roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 636, Short.MAX_VALUE)
+            .addGroup(roundPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)
+                .addContainerGap())
         );
         roundPanel3Layout.setVerticalGroup(
             roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 406, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -209,7 +277,7 @@ public void testData(String UI){
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(roundPanelR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(roundPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(roundPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -221,7 +289,9 @@ public void testData(String UI){
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private CalendarUI.calendar.Calendar calendar1;
     public library.chart.CurveLineChart chart;
+    public javax.swing.JTable customerTable;
     public javax.swing.JLabel dataUID;
+    private javax.swing.JScrollPane jScrollPane1;
     private library.components.RoundPanel roundPanel2;
     private library.components.RoundPanel roundPanel3;
     private library.components.RoundPanel roundPanel6;

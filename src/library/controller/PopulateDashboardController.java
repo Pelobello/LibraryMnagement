@@ -6,6 +6,7 @@ package library.controller;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import library.chart.ModelChart;
@@ -19,7 +20,7 @@ public class PopulateDashboardController {
     private DashBoard dashboard;
     private Main main;
 
-    public PopulateDashboardController() {
+    public PopulateDashboardController() throws SQLException, ClassNotFoundException {
          dashboard = new DashBoard();
          
     }
