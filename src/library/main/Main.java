@@ -72,11 +72,13 @@ public class Main extends javax.swing.JFrame {
         populateBooks.populate(id.getText()); 
         refreshDashboardUI();
         roundPanel4.setLayout(new BorderLayout());
-          search.setText("Search Borrower");
+        search.setText("Search Borrower");
         bookDescription.setBackground(new Color(15,4,76,255));
         roundPanel4.setLayout(new BorderLayout());
         addBooks.userId.setText(id.getText());
         dashboard.dataUID.setText(id.getText());
+        
+        
        
         bookQuantity.setVisible(false);
         Forms(dashboard);
@@ -94,9 +96,15 @@ public class Main extends javax.swing.JFrame {
         myLibrary.panelItem1.removeAll();
         myLibrary.panelItem1.repaint();
         myLibrary.panelItem1.revalidate();
-        populateBooks.populate(id.getText());
-        
+        populateBooks.populate(id.getText());        
     }
+    public void refreshRentBooksUI(){
+        rentBooks.userId.removeAll();  
+        rentBooks.userId.repaint();
+        rentBooks.userId.revalidate();
+        rentBooks.userId.setText(id.getText());
+    }
+    
     public void searchBooks(){
         myLibrary.panelItem1.removeAll();
         myLibrary.panelItem1.repaint();
@@ -270,8 +278,8 @@ public class Main extends javax.swing.JFrame {
             roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel3Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(search, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(697, 697, 697)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -539,11 +547,12 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_button5ActionPerformed
 
     private void rentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentButtonActionPerformed
-        
+            
              Forms(rentBooks);
-        int newQuantity = Integer.parseInt(bookQuantity.getText());
-        modelRentData = new ModelRentData(bookTitle.getText(), newQuantity);
-        rentBooks.showBookData(modelRentData);
+            int newQuantity = Integer.parseInt(bookQuantity.getText());
+            modelRentData = new ModelRentData(bookTitle.getText(), newQuantity);
+            rentBooks.showBookData(modelRentData);
+            refreshRentBooksUI();
     
     }//GEN-LAST:event_rentButtonActionPerformed
 

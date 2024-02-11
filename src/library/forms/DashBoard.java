@@ -14,6 +14,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import library.chart.ModelChart;
 import library.controller.PopulateBooksController;
@@ -29,6 +31,7 @@ public class DashBoard extends javax.swing.JPanel {
     private Main main;
     private PopulateDashboardController populateDashboard;
     private User_Id_Constructor userIdC;
+    private DefaultTableCellRenderer centerRenderer;
 
         public DashBoard() throws SQLException, ClassNotFoundException {
         initComponents();
@@ -37,10 +40,20 @@ public class DashBoard extends javax.swing.JPanel {
         chart.addLegend("Total Profit", Color.decode("#211C6A"), Color.decode("#59B4C3"));
         chart.addLegend("Books Rented", Color.black, Color.black);
        calendar1.setBackground(new Color(200,200,200,200));
-   
-//        testData();
+       centerRenderer = new DefaultTableCellRenderer();
+       tableTextCenter();
         
+      
+      
+//        testData();       
     }
+        private void tableTextCenter(){
+             centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+              for (int i = 0; i < customerTable.getColumnCount(); i++) {
+            customerTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+            
+        }
          public void searchRenterData(String userId,String searchTextField) {
             
             try {
@@ -78,8 +91,9 @@ public class DashBoard extends javax.swing.JPanel {
             
             try {
                   DefaultTableModel model = (DefaultTableModel)customerTable.getModel();
+                  model.setRowCount(0);
             DatabaseConnection.getInstance().ConnectToDatabase();
-            String sql = "SELECT * FROM customer_rented_books_data WHERE userId = ?";
+            String sql = "SELECT * FROM customer_rented_books_data_v2 WHERE userId = ?";
             PreparedStatement p = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             p.setString(1, userId);
             ResultSet rs = p.executeQuery();

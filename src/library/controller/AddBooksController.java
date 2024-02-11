@@ -188,8 +188,7 @@ public String getAdduserId() {
     byte[] imageBytes = convertImageIconToByteArray(picIcon);
     ByteArrayInputStream inputStream = new ByteArrayInputStream(imageBytes);
 
-    String addPageCount_toString = Integer.toString(addPageCount);
-    String addQuantity_toString = Integer.toString(addQuantity);
+  
     
     try (
             PreparedStatement p = DatabaseConnection.getInstance().getConnection().prepareStatement(
@@ -206,8 +205,8 @@ public String getAdduserId() {
         p.setString(8, addLanguage);
         p.setString(9, addFormat);
         p.setString(10, addEdition);
-        p.setString(11, addPageCount_toString);
-        p.setString(12, addQuantity_toString);
+        p.setInt(11, addPageCount);
+        p.setInt(12, addQuantity);
         p.setBlob(13, inputStream);
        
       

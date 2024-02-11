@@ -119,6 +119,27 @@ public class RentBooksController {
              e.printStackTrace();
         }
     }
+     public void rentBooksToDatabaseV2()throws SQLException, IOException, ClassNotFoundException{
+        try {
+            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+            java.sql.Date sqlReturnDate = new java.sql.Date(returnDate.getTime());
+
+            PreparedStatement p = DatabaseConnection.getInstance().getConnection().prepareStatement("insert into customer_rented_books_data_v2(userId,bookRented,firstName,lastName,dateRented,dateReturn,totalAmount,totalQuantity)values(?,?,?,?,?,?,?,?)");
+            p.setString(1, userId);
+            p.setString(2, bookName);
+            p.setString(3, customerFirstName);
+            p.setString(4, customerLastName);
+            p.setDate(5, sqlDate);
+            p.setDate(6, sqlReturnDate);
+            p.setInt(7, (int) totalAmount);
+            p.setInt(8, totalQuantity);
+            
+            p.execute();
+            
+        } catch (Exception e) {
+             e.printStackTrace();
+        }
+    }
 
     public RentBooksController(String userId, String bookName, String customerFirstName, String customerLastName, Date date, Date returnDate, double totalAmount, int totalQuantity) {
         this.userId = userId;
