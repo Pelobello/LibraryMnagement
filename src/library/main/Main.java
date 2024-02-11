@@ -33,8 +33,6 @@ import static library.main.Main.main;
 import library.model.ModelItem;
 import library.model.ModelRentData;
 
-
-
 public class Main extends javax.swing.JFrame {
 
       private DashBoard dashboard;
@@ -58,8 +56,7 @@ public class Main extends javax.swing.JFrame {
       refreshDashboardUI();
 //         initMoving(this);  
 //
-        testData();
-       
+        testData();      
         initMainComponents();
    
     }
@@ -68,7 +65,6 @@ public class Main extends javax.swing.JFrame {
         Font poppinsFont = new Font("Khula", Font.ITALIC, 16);
         bookDescription.setFont(poppinsFont);
         populateBooks = new PopulateBooksController(myLibrary);
-     
         populateBooks.populate(id.getText()); 
         refreshDashboardUI();
         roundPanel4.setLayout(new BorderLayout());
@@ -118,29 +114,24 @@ public class Main extends javax.swing.JFrame {
         dashboard.customerTable.revalidate();
         dashboard.searchRenterData(id.getText(), search.getText());    
     }
-    
-    public void refreshDashboardUI() throws SQLException, ClassNotFoundException{
-         
-   dashboard.chart.clear();
+
+    public void refreshDashboardUI() throws SQLException, ClassNotFoundException {      
+    dashboard.chart.clear();
     dashboard.chart.start();
     dashboard.testData(id.getText());
     dashboard.dataUID.removeAll();
     dashboard.dataUID.repaint();
     dashboard.dataUID.revalidate();
     dashboard.chart.repaint();
-    dashboard.chart.revalidate();
-    
+    dashboard.chart.revalidate(); 
     dashboard.populateRenterData(id.getText());
-   
     }
 
-   //ChangePanel Forms
   private void Forms(Component com){
       roundPanel4.removeAll();
       roundPanel4.add(com);
       repaint();
-      revalidate();
-      
+      revalidate();  
   }
   private void textRemover(){
       bookTitle.setText("");
@@ -171,9 +162,7 @@ public class Main extends javax.swing.JFrame {
         panelMoving.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
-             frame.setLocation(e.getXOnScreen()-x, e.getYOnScreen()-y);
-                
-                
+             frame.setLocation(e.getXOnScreen()-x, e.getYOnScreen()-y);         
             }
         });
     }
@@ -188,13 +177,10 @@ public class Main extends javax.swing.JFrame {
               rentButton.setVisible(true);
                bookTitle.setVisible(true);
                  bookAuthor.setVisible(true);
-            bookDescription.setVisible(true);
-            
+            bookDescription.setVisible(true);           
             }
- 
        });
 }
-
    public void showItem(ModelItem data){
        pictureImage.setImage(data.getCoverImage());
        pictureImage.repaint();

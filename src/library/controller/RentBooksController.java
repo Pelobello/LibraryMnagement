@@ -13,16 +13,11 @@ import library.database.DatabaseConnection;
 
 public class RentBooksController {
 
-    /**
-     * @return the userId
-     */
+
     public String getUserId() {
         return userId;
     }
 
-    /**
-     * @param userId the userId to set
-     */
     public void setUserId(String userId) {
         this.userId = userId;
     }
@@ -152,8 +147,6 @@ public class RentBooksController {
         this.totalQuantity = totalQuantity;
     }
 
-    
-    
     private String userId;
     private String bookName;
     private String customerFirstName;

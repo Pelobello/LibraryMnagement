@@ -34,8 +34,7 @@ public class PopulateDashboardController {
          PreparedStatement p = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
          p.setString(1, usId);
          ResultSet rs = p.executeQuery();
-         
-         
+ 
          while (rs.next()) {    
              String month = rs.getString("Month");
              double totalAmount = rs.getDouble("Amount");

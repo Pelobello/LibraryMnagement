@@ -28,9 +28,9 @@ private UpdateBooksController updateBookQuantity;
         setOpaque(false);
           dateChooser.setDateFormat(new SimpleDateFormat("yyyy-MM-dd"));
           dateChooserReturn.setDateFormat(new SimpleDateFormat("yyyy-MM-dd"));
-        dateChooser.setTextField(date);
-        dateChooserReturn.setTextField(returnDate);
-        updateBookQuantity = new UpdateBooksController();
+          dateChooser.setTextField(date);
+          dateChooserReturn.setTextField(returnDate);
+          updateBookQuantity = new UpdateBooksController();
        
     }
     public void showBookData(ModelRentData data){
@@ -67,7 +67,6 @@ private UpdateBooksController updateBookQuantity;
        rentBooksControl.rentBooksToDatabaseV2();
        JOptionPane.showMessageDialog(this, "Rent Success");
    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

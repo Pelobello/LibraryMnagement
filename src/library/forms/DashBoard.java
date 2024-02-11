@@ -42,10 +42,7 @@ public class DashBoard extends javax.swing.JPanel {
        calendar1.setBackground(new Color(200,200,200,200));
        centerRenderer = new DefaultTableCellRenderer();
        tableTextCenter();
-        
       
-      
-//        testData();       
     }
         private void tableTextCenter(){
              centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
@@ -77,15 +74,12 @@ public class DashBoard extends javax.swing.JPanel {
                     v.add(rs.getDate("dateReturn"));
                     v.add(rs.getInt("totalAmount"));
                     v.add(rs.getInt("totalQuantity"));
-
                 }
                model.addRow(v);
             } 
             } catch (Exception e) {
                 e.printStackTrace();
-            }
-         
-                    
+            }               
         }
         public void populateRenterData(String userId) throws SQLException, ClassNotFoundException{
             
@@ -122,7 +116,6 @@ public class DashBoard extends javax.swing.JPanel {
         
 public void testData(String UI){
      try {
-//         String uId = dataUID.getText();
          List <ModelDashboardData> list= new ArrayList<>();
          DatabaseConnection.getInstance().ConnectToDatabase();
          String sql = "SELECT DATE_FORMAT(MAX(dateRented), '%M') AS `Month`, " +

@@ -171,18 +171,13 @@ public String getAdduserId() {
 
     return outputStream.toByteArray();
 }
-  
     private PopulateBooksController populatedata;
    private MyLibrary library;
   
     public AddBooksController(Main main) {
           populatedata = new PopulateBooksController();
        
-          
-        
     }
-    
-   
      public void addBookToDatabase() throws SQLException, IOException, ClassNotFoundException {
     Icon picIcon = addCoverImage;
     byte[] imageBytes = convertImageIconToByteArray(picIcon);
