@@ -27,6 +27,15 @@ import library.model.ModelItem;
 
 public class AddBooksController {
 
+    
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
 public String getAdduserId() {
         return adduserId;
     }
@@ -146,7 +155,7 @@ public String getAdduserId() {
         this.addCoverImage = addCoverImage;
     }
 
-    public AddBooksController(String adduserId, String addBookTitle, String addBookAuthor, String addPublisher, String addPublicationDate, String addBookDescription, String addBookCategory, String addLanguage, String addFormat, String addEdition, int addPageCount, int addQuantity, Icon addCoverImage) {
+    public AddBooksController(String adduserId, String addBookTitle, String addBookAuthor, String addPublisher, String addPublicationDate, String addBookDescription, String addBookCategory, String addLanguage, String addFormat, String addEdition, int addPageCount, int addQuantity,int price, Icon addCoverImage) {
         this.adduserId = adduserId;
         this.addBookTitle = addBookTitle;
         this.addBookAuthor = addBookAuthor;
@@ -160,6 +169,7 @@ public String getAdduserId() {
         this.addPageCount = addPageCount;
         this.addQuantity = addQuantity;
         this.addCoverImage = addCoverImage;
+        this.price = price;
     }
 
     private byte[] convertImageIconToByteArray(Icon icon) throws IOException {
@@ -187,7 +197,7 @@ public String getAdduserId() {
     
     try (
             PreparedStatement p = DatabaseConnection.getInstance().getConnection().prepareStatement(
-            "insert into library_data (userId,BTitle,BAuthor,Publisher,PublicationDate,BookDescription,BookCategory,Language,Format,Edition,PageCount,Quantity,CoverImage)values(?,?,?,?,?,?,?,?,?,?,?,?,?)")) {
+            "insert into library_data (userId,BTitle,BAuthor,Publisher,PublicationDate,BookDescription,BookCategory,Language,Format,Edition,PageCount,Quantity,CoverImage,price)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)")) {
         
       
         p.setString(1, adduserId);
@@ -203,6 +213,7 @@ public String getAdduserId() {
         p.setInt(11, addPageCount);
         p.setInt(12, addQuantity);
         p.setBlob(13, inputStream);
+        p.setInt(14, price);
        
       
         p.execute();
@@ -225,6 +236,7 @@ public String getAdduserId() {
     private String addEdition;
     private int addPageCount;
     private int addQuantity;
+    private int price;
     private Icon addCoverImage;
     
 }

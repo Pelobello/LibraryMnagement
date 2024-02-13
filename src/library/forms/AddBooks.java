@@ -5,6 +5,7 @@ import com.kitfox.svg.app.data.Handler;
 import com.raven.datechooser.DateChooser;
 import java.awt.Cursor;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -85,14 +86,21 @@ public class AddBooks extends javax.swing.JPanel {
     String selectEdition = bEdition.getSelectedItem().toString();
     int addPageCount = Integer.parseInt(pCount.getText());
     int addQuantity = Integer.parseInt(quantity.getText());
+     int addbookPrice = Integer.parseInt(bookPrice.getText());
     byte[] imageBytes;
 
-    try { 
+    
+        if (bTitle.getText().equals("")||bAuthor.getText().equals("") ||bPublisher.getText().equals("")) {
+          JOptionPane.showMessageDialog(this, "Please Fill out the empty Fields!");
+      }
+        else{
+             try { 
         imageBytes = convertImageIconToByteArray(picIcon);
 
         addBooksControll = new AddBooksController(userId.getText(), bTitle.getText(), bAuthor.getText(), bPublisher.getText()
                                         , bDate.getText(), bDescription.getText(), selectCategory, selectLanguage,
-                                                selectFormat, selectEdition, addPageCount, addQuantity, new ImageIcon(imageBytes));
+                                                selectFormat, selectEdition, addPageCount, addQuantity,addbookPrice, new ImageIcon(imageBytes));
+       
 
         addBooksControll.addBookToDatabase();
         setTextFieldToNone();
@@ -109,7 +117,9 @@ public class AddBooks extends javax.swing.JPanel {
         ex.printStackTrace();
         JOptionPane.showMessageDialog(this, "Error adding book: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     } 
-    
+            
+        }
+  
 }
 
     private byte[] convertImageIconToByteArray(Icon icon) throws IOException {
@@ -190,6 +200,7 @@ public class AddBooks extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         userId = new javax.swing.JLabel();
+        bookPrice = new library.textfield.TextField();
 
         bTitle.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
@@ -290,14 +301,22 @@ public class AddBooks extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jScrollPane2);
 
         quantity.setText("0");
+        quantity.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                quantityKeyTyped(evt);
+            }
+        });
 
         pCount.setText("0");
+        pCount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                pCountKeyTyped(evt);
+            }
+        });
 
         jLabel6.setText("PageCount:*");
 
         jLabel9.setText("Quantity:*");
-
-        userId.setText("userId");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -356,19 +375,20 @@ public class AddBooks extends javax.swing.JPanel {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(userId)
-                        .addGap(70, 70, 70))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(pic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(addImage, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(pic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(addImage, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)
-                                .addComponent(addBook, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(20, 20, 20))))
+                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(addBook, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(175, 175, 175)
+                        .addComponent(userId, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(125, 125, 125)
+                        .addComponent(bookPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -417,7 +437,9 @@ public class AddBooks extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bFormat, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(bFormat, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bookPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addComponent(pic, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -462,6 +484,20 @@ public class AddBooks extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_bFormatActionPerformed
 
+    private void pCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pCountKeyTyped
+         char c = evt.getKeyChar();
+        if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_pCountKeyTyped
+
+    private void quantityKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_quantityKeyTyped
+         char c = evt.getKeyChar();
+        if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_quantityKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private library.button.Button addBook;
@@ -475,6 +511,7 @@ public class AddBooks extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> bLanguage;
     private library.textfield.TextField bPublisher;
     private library.textfield.TextField bTitle;
+    private library.textfield.TextField bookPrice;
     private library.button.Button button1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;

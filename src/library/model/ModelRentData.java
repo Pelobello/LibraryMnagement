@@ -4,6 +4,20 @@ package library.model;
 
 public class ModelRentData {
 
+    /**
+     * @return the price
+     */
+    public int getPrice() {
+        return price;
+    }
+
+    /**
+     * @param price the price to set
+     */
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
     
     public String getBookTitle() {
         return bookTitle;
@@ -27,11 +41,15 @@ public class ModelRentData {
     public ModelRentData() {
     }
 
-    public ModelRentData(String bookTitle, int quantity) {
+    public ModelRentData(String bookTitle, int quantity, int price) {
         this.bookTitle = bookTitle;
         this.quantity = quantity;
+        this.price = price;
     }
+
+  
     
     private String bookTitle;
     private int quantity;
+    private int price;
 }

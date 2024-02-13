@@ -43,6 +43,10 @@
                               <Component id="quantity" min="-2" pref="15" max="-2" attributes="0"/>
                           </Group>
                           <Component id="bookAuthor" alignment="0" min="-2" pref="13" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="65" pref="65" max="-2" attributes="0"/>
+                              <Component id="price" min="-2" pref="7" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace min="0" pref="107" max="32767" attributes="0"/>
                   </Group>
@@ -56,7 +60,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="bookImage" pref="336" max="32767" attributes="0"/>
+              <Component id="bookImage" pref="330" max="32767" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="bookTitle" min="-2" pref="33" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -74,6 +78,8 @@
                   <Component id="edition" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="pageCount" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="price" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -130,5 +136,7 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
+    <Component class="javax.swing.JLabel" name="price">
+    </Component>
   </SubComponents>
 </Form>

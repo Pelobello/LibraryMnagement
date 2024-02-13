@@ -155,4 +155,5 @@ public class RentBooksController {
     private Date returnDate;
     private double totalAmount;
     private int totalQuantity;
+    
 }

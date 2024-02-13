@@ -122,6 +122,7 @@ public class Main extends javax.swing.JFrame {
     dashboard.dataUID.removeAll();
     dashboard.dataUID.repaint();
     dashboard.dataUID.revalidate();
+    dashboard.dataUID.setText(id.getText());
     dashboard.chart.repaint();
     dashboard.chart.revalidate(); 
     dashboard.populateRenterData(id.getText());
@@ -185,10 +186,12 @@ public class Main extends javax.swing.JFrame {
        pictureImage.setImage(data.getCoverImage());
        pictureImage.repaint();
        String quantityToString = Integer.toString(data.getQuantity());
+        String priceToString = Integer.toString(data.getPrice());
        bookTitle.setText(data.getBookTitle());
        bookAuthor.setText(data.getBookAuthor());
        bookDescription.setText(data.getBookDescription());
        bookQuantity.setText(quantityToString);
+       bookPrice.setText(priceToString);
      
    }
  
@@ -217,6 +220,7 @@ public class Main extends javax.swing.JFrame {
         bookQuantity = new javax.swing.JLabel();
         rentButton = new library.button.Button();
         pictureImage = new library.components.PictureBox();
+        bookPrice = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -408,7 +412,6 @@ public class Main extends javax.swing.JFrame {
         scrollBookDes.setViewportView(bookDescription);
 
         bookQuantity.setForeground(new java.awt.Color(255, 255, 255));
-        bookQuantity.setText("0");
 
         rentButton.setText("Rent");
         rentButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -417,6 +420,8 @@ public class Main extends javax.swing.JFrame {
                 rentButtonActionPerformed(evt);
             }
         });
+
+        bookPrice.setText("jLabel2");
 
         javax.swing.GroupLayout roundPanel5Layout = new javax.swing.GroupLayout(roundPanel5);
         roundPanel5.setLayout(roundPanel5Layout);
@@ -429,8 +434,10 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(bookAuthor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel5Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(roundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(roundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel5Layout.createSequentialGroup()
+                                .addComponent(bookPrice)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(bookQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel5Layout.createSequentialGroup()
@@ -456,7 +463,9 @@ public class Main extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(rentButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
-                .addComponent(bookQuantity)
+                .addGroup(roundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bookQuantity)
+                    .addComponent(bookPrice))
                 .addGap(26, 26, 26))
         );
 
@@ -536,7 +545,8 @@ public class Main extends javax.swing.JFrame {
             
              Forms(rentBooks);
             int newQuantity = Integer.parseInt(bookQuantity.getText());
-            modelRentData = new ModelRentData(bookTitle.getText(), newQuantity);
+            int newPrice = Integer.parseInt(bookPrice.getText());
+            modelRentData = new ModelRentData(bookTitle.getText(), newQuantity,newPrice);
             rentBooks.showBookData(modelRentData);
             refreshRentBooksUI();
     
@@ -628,6 +638,7 @@ public class Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bookAuthor;
     private library.swing.TextPane bookDescription;
+    private javax.swing.JLabel bookPrice;
     private javax.swing.JLabel bookQuantity;
     private javax.swing.JLabel bookTitle;
     private library.button.Button button3;

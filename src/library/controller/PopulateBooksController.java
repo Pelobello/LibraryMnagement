@@ -51,7 +51,8 @@ public class PopulateBooksController {
                            rs.getString("Edition"), 
                            rs.getInt("PageCount"),
                            rs.getInt("Quantity"), 
-                           icon));
+                           rs.getInt("price"),
+                           (icon)));
                   
             }
       
@@ -78,7 +79,7 @@ public class PopulateBooksController {
                  byte[] blobData = rs.getBytes("CoverImage");
             ImageIcon icon = new ImageIcon(blobData);
        
-                   library.addBooks(new ModelItem(
+                 library.addBooks(new ModelItem(
                            rs.getString("BTitle")
                            , rs.getString("BAuthor")
                            , rs.getString("Publisher")
@@ -90,7 +91,8 @@ public class PopulateBooksController {
                            rs.getString("Edition"), 
                            rs.getInt("PageCount"),
                            rs.getInt("Quantity"), 
-                           icon));
+                           rs.getInt("price"),
+                           (icon)));
  
                 }     
   

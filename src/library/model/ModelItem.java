@@ -6,6 +6,20 @@ import javax.swing.Icon;
 
 public class ModelItem {
 
+    /**
+     * @return the price
+     */
+    public int getPrice() {
+        return price;
+    }
+
+    /**
+     * @param price the price to set
+     */
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
     public String getBookTitle() {
         return bookTitle;
     }
@@ -99,8 +113,7 @@ public class ModelItem {
     public ModelItem() {
     }
 
-    
-    public ModelItem(String bookTitle, String bookAuthor, String publisher, String publicationDate, String bookDescription, String bookCategory, String language, String format, String edition, int pageCount, int quantity, Icon coverImage) {
+    public ModelItem(String bookTitle, String bookAuthor, String publisher, String publicationDate, String bookDescription, String bookCategory, String language, String format, String edition, int pageCount, int quantity, int price, Icon coverImage) {
         this.bookTitle = bookTitle;
         this.bookAuthor = bookAuthor;
         this.publisher = publisher;
@@ -112,8 +125,12 @@ public class ModelItem {
         this.edition = edition;
         this.pageCount = pageCount;
         this.quantity = quantity;
+        this.price = price;
         this.coverImage = coverImage;
     }
+
+    
+ 
 
  
     public void setCoverImage(Icon coverImage) {
@@ -133,6 +150,7 @@ public class ModelItem {
     private String edition;
     private int pageCount;
     private int quantity;
+    private int price;
     private Icon coverImage;
    
 }

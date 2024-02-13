@@ -45,6 +45,7 @@ public class BookItem extends javax.swing.JPanel {
         edition.setText(data.getEdition());
         pageCount.setText(Integer.toString(data.getPageCount()));
         quantity.setText(Integer.toString(data.getQuantity()));
+        price.setText(Integer.toString(data.getPrice()));
     }
 
     
@@ -59,6 +60,7 @@ public class BookItem extends javax.swing.JPanel {
         pageCount.setVisible(false);
         quantity.setVisible(false);
         bookAuthor.setVisible(false);
+        price.setVisible(false);
        
     }
     
@@ -103,6 +105,7 @@ public class BookItem extends javax.swing.JPanel {
         edition = new javax.swing.JLabel();
         pageCount = new javax.swing.JLabel();
         bookImage = new library.components.PictureBox();
+        price = new javax.swing.JLabel();
 
         bookTitle.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         bookTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -144,7 +147,10 @@ public class BookItem extends javax.swing.JPanel {
                                 .addComponent(pageCount, javax.swing.GroupLayout.PREFERRED_SIZE, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(quantity, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(bookAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(bookAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(65, 65, 65)
+                                .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 107, Short.MAX_VALUE))
                     .addComponent(bookImage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -153,7 +159,7 @@ public class BookItem extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(bookImage, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                .addComponent(bookImage, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bookTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -169,7 +175,9 @@ public class BookItem extends javax.swing.JPanel {
                     .addComponent(language)
                     .addComponent(format)
                     .addComponent(edition)
-                    .addComponent(pageCount)))
+                    .addComponent(pageCount))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(price))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -184,6 +192,7 @@ public class BookItem extends javax.swing.JPanel {
     private javax.swing.JLabel format;
     private javax.swing.JLabel language;
     private javax.swing.JLabel pageCount;
+    private javax.swing.JLabel price;
     private javax.swing.JLabel publicationDate;
     private javax.swing.JLabel publisher;
     private javax.swing.JLabel quantity;
