@@ -17,6 +17,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -37,7 +38,7 @@ public class Sign_in extends javax.swing.JFrame {
     private User_Id_Constructor userIdC;
     private AddBooks addbooks;
     
-    public Sign_in() throws SQLException, ClassNotFoundException {
+    public Sign_in() throws SQLException, ClassNotFoundException, ParseException {
         initComponents();
         setBackground(new Color(0,0,0,0));
         main = new Main();
@@ -196,6 +197,8 @@ public class Sign_in extends javax.swing.JFrame {
                 } catch (SQLException ex) {
                     Logger.getLogger(Sign_in.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Sign_in.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ParseException ex) {
                     Logger.getLogger(Sign_in.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }

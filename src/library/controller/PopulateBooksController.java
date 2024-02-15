@@ -23,7 +23,6 @@ public class PopulateBooksController {
        
     }
 
-    
     private AddBooks addBooks;
     public PopulateBooksController() {
         
@@ -63,7 +62,7 @@ public class PopulateBooksController {
     
     public void populate(String userId){
          
-        addBooks= new AddBooks();
+       
          
         
         try {

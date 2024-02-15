@@ -13,6 +13,34 @@ import library.database.DatabaseConnection;
 
 public class RentBooksController {
 
+    /**
+     * @return the bookPrice
+     */
+    public double getBookPrice() {
+        return bookPrice;
+    }
+
+    /**
+     * @param bookPrice the bookPrice to set
+     */
+    public void setBookPrice(double bookPrice) {
+        this.bookPrice = bookPrice;
+    }
+
+    /**
+     * @return the ctr
+     */
+    public String getCtr() {
+        return ctr;
+    }
+
+    /**
+     * @param ctr the ctr to set
+     */
+    public void setCtr(String ctr) {
+        this.ctr = ctr;
+    }
+
 
     public String getUserId() {
         return userId;
@@ -98,7 +126,7 @@ public class RentBooksController {
             java.sql.Date sqlDate = new java.sql.Date(date.getTime());
             java.sql.Date sqlReturnDate = new java.sql.Date(returnDate.getTime());
 
-            PreparedStatement p = DatabaseConnection.getInstance().getConnection().prepareStatement("insert into customer_rented_books_data(userId,bookRented,firstName,lastName,dateRented,dateReturn,totalAmount,totalQuantity)values(?,?,?,?,?,?,?,?)");
+            PreparedStatement p = DatabaseConnection.getInstance().getConnection().prepareStatement("insert into customer_rented_books_data(userId,bookRented,firstName,lastName,dateRented,dateReturn,totalAmount,totalQuantity,ctr,bookPrice)values(?,?,?,?,?,?,?,?,?,?)");
             p.setString(1, userId);
             p.setString(2, bookName);
             p.setString(3, customerFirstName);
@@ -107,6 +135,8 @@ public class RentBooksController {
             p.setDate(6, sqlReturnDate);
             p.setInt(7, (int) totalAmount);
             p.setInt(8, totalQuantity);
+            p.setString(9, ctr);
+            p.setInt(10, (int) bookPrice);
             
             p.execute();
             
@@ -119,15 +149,17 @@ public class RentBooksController {
             java.sql.Date sqlDate = new java.sql.Date(date.getTime());
             java.sql.Date sqlReturnDate = new java.sql.Date(returnDate.getTime());
 
-            PreparedStatement p = DatabaseConnection.getInstance().getConnection().prepareStatement("insert into customer_rented_books_data_v2(userId,bookRented,firstName,lastName,dateRented,dateReturn,totalAmount,totalQuantity)values(?,?,?,?,?,?,?,?)");
+            PreparedStatement p = DatabaseConnection.getInstance().getConnection().prepareStatement("insert into customer_rented_books_data_v2(userId,ctr,bookRented,firstName,lastName,dateRented,dateReturn,totalAmount,totalQuantity,bookPrice)values(?,?,?,?,?,?,?,?,?,?)");
             p.setString(1, userId);
-            p.setString(2, bookName);
-            p.setString(3, customerFirstName);
-            p.setString(4, customerLastName);
-            p.setDate(5, sqlDate);
-            p.setDate(6, sqlReturnDate);
-            p.setInt(7, (int) totalAmount);
-            p.setInt(8, totalQuantity);
+            p.setString(2, ctr);
+            p.setString(3, bookName);
+            p.setString(4, customerFirstName);
+            p.setString(5, customerLastName);
+            p.setDate(6, sqlDate);
+            p.setDate(7, sqlReturnDate);
+            p.setInt(8, (int) totalAmount);
+            p.setInt(9, totalQuantity);
+            p.setInt(10, (int) bookPrice);
             
             p.execute();
             
@@ -136,24 +168,32 @@ public class RentBooksController {
         }
     }
 
-    public RentBooksController(String userId, String bookName, String customerFirstName, String customerLastName, Date date, Date returnDate, double totalAmount, int totalQuantity) {
+    public RentBooksController(String userId, String ctr, String bookName, String customerFirstName, String customerLastName, Date date, Date returnDate, double totalAmount, double bookPrice, int totalQuantity) {
         this.userId = userId;
+        this.ctr = ctr;
         this.bookName = bookName;
         this.customerFirstName = customerFirstName;
         this.customerLastName = customerLastName;
         this.date = date;
         this.returnDate = returnDate;
         this.totalAmount = totalAmount;
+        this.bookPrice = bookPrice;
         this.totalQuantity = totalQuantity;
     }
 
+   
+
+   
+
     private String userId;
+    private String ctr;
     private String bookName;
     private String customerFirstName;
     private String customerLastName;
     private Date date;
     private Date returnDate;
     private double totalAmount;
+    private double bookPrice;
     private int totalQuantity;
     
 }

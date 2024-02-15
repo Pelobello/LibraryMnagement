@@ -12,6 +12,13 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.UUID;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,16 +29,20 @@ import javax.swing.SwingUtilities;
 import library.controller.AddBooksController;
 import library.controller.PopulateBooksController;
 import library.controller.PopulateDashboardController;
+import library.controller.PopulateRenterController;
 import library.database.DatabaseConnection;
 import library.event.EventItem;
+import library.event.EventRenter;
 import library.forms.AddBooks;
 import library.forms.DashBoard;
 import library.forms.MyLibrary;
 import library.forms.AddCustomer;
 import library.forms.RentBooks;
+import library.forms.RenterData;
 import static library.main.Main.main;
 import library.model.ModelItem;
 import library.model.ModelRentData;
+import library.model.ModelRenter;
 
 public class Main extends javax.swing.JFrame {
 
@@ -40,20 +51,24 @@ public class Main extends javax.swing.JFrame {
       private AddBooks addBooks;
       private AddCustomer setting;
       private RentBooks rentBooks;
+      private RenterData renterData;
       private ModelRentData modelRentData;
       private AddBooksController addBooksController ;
       private PopulateBooksController populateBooks;
       private PopulateDashboardController populateDashboard;
+      private PopulateRenterController populateRenter;
      
-    public Main() throws SQLException, ClassNotFoundException  {
+    public Main() throws SQLException, ClassNotFoundException, ParseException  {
       
     initComponents();
         dashboard = new DashBoard();
         myLibrary = new MyLibrary();
         addBooks = new AddBooks();
         setting = new AddCustomer();
-        rentBooks = new RentBooks();   
-      refreshDashboardUI();
+        rentBooks = new RentBooks();  
+        renterData = new RenterData();
+        testRenterData();
+//      refreshDashboardUI();
 //         initMoving(this);  
 //
         testData();      
@@ -66,7 +81,10 @@ public class Main extends javax.swing.JFrame {
         bookDescription.setFont(poppinsFont);
         populateBooks = new PopulateBooksController(myLibrary);
         populateBooks.populate(id.getText()); 
-        refreshDashboardUI();
+        populateRenter = new PopulateRenterController(renterData);
+       populateRenter.populateData(id.getText());
+//        refreshDashboardUI();
+      
         roundPanel4.setLayout(new BorderLayout());
         search.setText("Search Borrower");
         bookDescription.setBackground(new Color(15,4,76,255));
@@ -93,6 +111,14 @@ public class Main extends javax.swing.JFrame {
         myLibrary.panelItem1.repaint();
         myLibrary.panelItem1.revalidate();
         populateBooks.populate(id.getText());        
+    }
+    public void refreshRenter(){
+        renterData.panelItem1.removeAll();
+        renterData.panelItem1.repaint();
+        renterData.panelItem1.revalidate();
+        populateRenter.populateData(id.getText());
+        
+        
     }
     public void refreshRentBooksUI(){
         rentBooks.userId.removeAll();  
@@ -126,6 +152,14 @@ public class Main extends javax.swing.JFrame {
     dashboard.chart.repaint();
     dashboard.chart.revalidate(); 
     dashboard.populateRenterData(id.getText());
+    }
+      public static String generateCTR() {
+        
+        UUID uuid = UUID.randomUUID();
+
+        String userId = uuid.toString().replace("-", "").substring(0, 6);
+
+        return userId;
     }
 
   private void Forms(Component com){
@@ -182,6 +216,26 @@ public class Main extends javax.swing.JFrame {
             }
        });
 }
+    public void testRenterData() throws ParseException {
+     renterData.setEvent(new EventRenter() {
+         @Override
+         public void itemClick(Component com, ModelRenter item) {
+           renterData.setSelected(com);
+         }
+     });
+//     String dateRented = "2024-02-10";
+//        String returnDate = "2024-02-11";
+//        String returnDate2 = "2024-02-10";
+//
+//        DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); 
+//
+//       Date rentedDate = df.parse(dateRented);
+//        Date dateReturn = df.parse(returnDate);
+//        Date dateReturn2 = df.parse(returnDate2);
+//      
+//     renterData.addRenter(new ModelRenter("31sd2", "Dazzle", "Pelobello", "test", 200, 200, 3, rentedDate, dateReturn));
+//       renterData.addRenter(new ModelRenter("31sd2", "Dazzle", "Pelobello", "test", 200, 200, 3, rentedDate, dateReturn2));
+    }
    public void showItem(ModelItem data){
        pictureImage.setImage(data.getCoverImage());
        pictureImage.repaint();
@@ -212,6 +266,7 @@ public class Main extends javax.swing.JFrame {
         id = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         button6 = new library.button.Button();
+        button7 = new library.button.Button();
         roundPanel5 = new library.components.RoundPanel();
         bookTitle = new javax.swing.JLabel();
         bookAuthor = new javax.swing.JLabel();
@@ -354,6 +409,19 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        button7.setBackground(new java.awt.Color(245, 238, 230));
+        button7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/library/image/icons8_customer_40px.png"))); // NOI18N
+        button7.setText("Renters");
+        button7.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
+        button7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        button7.setIconTextGap(20);
+        button7.setShadowColor(new java.awt.Color(245, 163, 202));
+        button7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button7ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelMovingLayout = new javax.swing.GroupLayout(panelMoving);
         panelMoving.setLayout(panelMovingLayout);
         panelMovingLayout.setHorizontalGroup(
@@ -366,7 +434,8 @@ public class Main extends javax.swing.JFrame {
                             .addComponent(button5, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(button6, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(button6, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(button7, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelMovingLayout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
@@ -388,6 +457,8 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(button5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(button7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -421,8 +492,6 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        bookPrice.setText("jLabel2");
-
         javax.swing.GroupLayout roundPanel5Layout = new javax.swing.GroupLayout(roundPanel5);
         roundPanel5.setLayout(roundPanel5Layout);
         roundPanel5Layout.setHorizontalGroup(
@@ -453,13 +522,13 @@ public class Main extends javax.swing.JFrame {
             roundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundPanel5Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addComponent(pictureImage, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
+                .addComponent(pictureImage, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bookTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(bookAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollBookDes, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+                .addComponent(scrollBookDes, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(rentButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
@@ -549,6 +618,11 @@ public class Main extends javax.swing.JFrame {
             modelRentData = new ModelRentData(bookTitle.getText(), newQuantity,newPrice);
             rentBooks.showBookData(modelRentData);
             refreshRentBooksUI();
+            String genCtr = generateCTR();
+            rentBooks.ctr.repaint();
+            rentBooks.ctr.revalidate();
+            rentBooks.ctr.setText(genCtr);
+            rentButton.setVisible(false);
     
     }//GEN-LAST:event_rentButtonActionPerformed
 
@@ -596,6 +670,11 @@ public class Main extends javax.swing.JFrame {
        search.setText("Seach Books");
     }//GEN-LAST:event_searchFocusLost
 
+    private void button7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button7ActionPerformed
+        Forms(renterData);
+        refreshRenter();
+    }//GEN-LAST:event_button7ActionPerformed
+
    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -630,6 +709,8 @@ public class Main extends javax.swing.JFrame {
                     Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ParseException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -645,6 +726,7 @@ public class Main extends javax.swing.JFrame {
     private library.button.Button button4;
     private library.button.Button button5;
     private library.button.Button button6;
+    private library.button.Button button7;
     public javax.swing.JLabel id;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

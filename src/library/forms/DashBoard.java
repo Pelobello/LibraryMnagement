@@ -141,12 +141,13 @@ public void testData(String UI){
          rs.close();
          p.close();
          
-         for (int i = list.size()-1; i > -1; i--) {
-             ModelDashboardData d = list.get(i);
-             chart.addData(new ModelChart(d.getMonth(), new double[]{d.getTotalAmount(),d.getTotalQuantity()}));
-             
-         }
-      chart.start();
+       for (int i = list.size()-1; i >=0; i--) {
+    ModelDashboardData d = list.get(i);
+    chart.addData(new ModelChart(d.getMonth(), new double[]{d.getTotalAmount(), d.getTotalQuantity()}));
+}
+       chart.start();
+
+
      } catch (Exception e) {
          e.printStackTrace();
      }

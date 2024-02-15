@@ -22,6 +22,7 @@ import library.model.ModelRentData;
 
 
 public class MyLibrary extends javax.swing.JPanel {
+    
     public void setEvent(EventItem event) {
         this.event = event;
     }

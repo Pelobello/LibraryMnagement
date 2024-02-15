@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,6 +41,7 @@ private UpdateBooksController updateBookQuantity;
           updateBookQuantity = new UpdateBooksController();
           userId.setVisible(false);
           updatedQuantity.setVisible(false);
+        
     }
     public void showBookData(ModelRentData data){
         String newQuantity = Integer.toString(data.getQuantity());
@@ -49,60 +51,91 @@ private UpdateBooksController updateBookQuantity;
         price.setText(newPrice);
     }
     
-    public void CalculateTotal(){
-          DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String inputString1 = date.getText(); // Assuming date is an object with the getText() method
-        String inputString2 = returnDate.getText(); // Assuming returnDate is an object with the getText() method
-
-        try {
-            LocalDateTime date1 = LocalDate.parse(inputString1, dtf).atStartOfDay();
-            LocalDateTime date2 = LocalDate.parse(inputString2, dtf).atStartOfDay();
-            long daysBetween = Duration.between(date1, date2).toDays();
-
-            double totalPrice = daysBetween * Double.parseDouble(price.getText()); // Assuming price is an object with the getText() method
-            int totalDataAmount = (int) totalPrice; // Assuming totalamount is an object with the settext() method
-            totalAmount.setText(String.valueOf(totalDataAmount));
-        } catch (Exception e) {
-            e.printStackTrace();
+  public void CalculateTotal(){
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    String inputString1 = date.getText(); // Assuming date is an object with the getText() method
+    String inputString2 = returnDate.getText(); // Assuming returnDate is an object with the getText() method
+    
+    try {
+        LocalDateTime date1 = LocalDate.parse(inputString1, dtf).atStartOfDay();
+        LocalDateTime date2 = LocalDate.parse(inputString2, dtf).atStartOfDay();
+        long daysBetween = Duration.between(date1, date2).toDays();
+        
+        long newTQuantity = 0;
+        if (!quantity.getText().isEmpty()) {
+            newTQuantity = Long.parseLong(quantity.getText()); // Assuming quantity is an object with the getText() method
         }
-    }
 
-   public void addRentedBooksData() throws ParseException, SQLException, IOException, ClassNotFoundException{
-       
-       int toIntBookQuantity = Integer.parseInt(bookSQuantity.getText());
-      int toIntQuantity = Integer.parseInt(quantity.getText());
-      
-      int totalDataQuantity = toIntBookQuantity - toIntQuantity;
-      String toString_totalData = Integer.toString(totalDataQuantity);
-       if (totalDataQuantity < 0) {
-           JOptionPane.showMessageDialog(this, "Inefficient Book Supply!");
-       }
-       else{
-      updatedQuantity.removeAll();
-      updatedQuantity.repaint();
-      updatedQuantity.revalidate();
-      updatedQuantity.setText(toString_totalData);
-      updateBookQuantity.UpdateBooksQuantity(userId.getText(), bTitle.getText(), updatedQuantity.getText());
-      
-       String returnDateData = returnDate.getText();    
-       String dateData = date.getText();
-       SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dddd");
-       Date convertDate = dateFormat.parse(dateData);
-       Date ConvertReturnDate = dateFormat.parse(returnDateData);
-       
-       String totalData = totalAmount.getText();
-       String totalQuantity = quantity.getText();
-       double convertTotalAmount = Double.parseDouble(totalData);
-       int convertTotalQuantity = Integer.parseInt(totalQuantity);
-       rentBooksControl = new RentBooksController(userId.getText(), bTitle.getText(), fName.getText(), lName.getText(), convertDate, ConvertReturnDate, convertTotalAmount, convertTotalQuantity);
-       
-       rentBooksControl.rentBooksToDatabase();
-       rentBooksControl.rentBooksToDatabaseV2();
-       textRemover();
-       JOptionPane.showMessageDialog(this, "Rent Success");
-       }
-     
-   }
+        double totalPrice = daysBetween * Double.parseDouble(price.getText()) * newTQuantity; // Assuming price is an object with the getText() method
+        long totalDataAmount = Math.round(totalPrice); // Use Math.round to handle double to long conversion
+        // Assuming totalamount is an object with the settext() method
+        totalAmount.setText(String.valueOf(totalDataAmount));
+        
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
+ 
+    
+   
+
+  public void addRentedBooksData() throws ParseException, SQLException, IOException, ClassNotFoundException {
+    try {
+        int toIntBookQuantity = Integer.parseInt(bookSQuantity.getText());
+        int toIntQuantity = Integer.parseInt(quantity.getText());
+
+        if (bookSQuantity.getText().isEmpty() || quantity.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter valid numeric values for Book Quantity and Quantity.");
+            return; // Stop further execution if the input is invalid.
+        }
+
+        int totalDataQuantity = toIntBookQuantity - toIntQuantity;
+        String toString_totalData = Integer.toString(totalDataQuantity);
+
+        if (totalDataQuantity < 0) {
+            JOptionPane.showMessageDialog(this, "Inefficient Book Supply!");
+        } else {
+            updatedQuantity.removeAll();
+            updatedQuantity.repaint();
+            updatedQuantity.revalidate();
+            updatedQuantity.setText(toString_totalData);
+            updateBookQuantity.UpdateBooksQuantity(userId.getText(), bTitle.getText(), updatedQuantity.getText());
+
+            String returnDateData = returnDate.getText();
+            String dateData = date.getText();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Fix the date pattern
+            Date convertDate = dateFormat.parse(dateData);
+            Date ConvertReturnDate = dateFormat.parse(returnDateData);
+
+            String totalData = totalAmount.getText();
+            String totalQuantity = quantity.getText();
+
+            // Add checks for empty or invalid strings before parsing
+            if (totalData.isEmpty() || totalQuantity.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please enter valid numeric values for Total Amount and Quantity.");
+                return; // Stop further execution if the input is invalid.
+            }
+
+            double convertTotalAmount = Double.parseDouble(totalData);
+            int convertTotalQuantity = Integer.parseInt(totalQuantity);
+            int bPrice = Integer.parseInt(price.getText());
+
+            
+            rentBooksControl = new RentBooksController(userId.getText(),  ctr.getText(), bTitle.getText(),  fName.getText(), lName.getText(), convertDate, convertDate, convertTotalAmount, bPrice, convertTotalQuantity);
+
+            rentBooksControl.rentBooksToDatabase();
+            rentBooksControl.rentBooksToDatabaseV2();
+            textRemover();
+            JOptionPane.showMessageDialog(this, "Rent Success");
+        }
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Please enter valid numeric values.");
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
    private void textRemover(){
        lName.setText("");
        fName.setText("");
@@ -137,7 +170,7 @@ private UpdateBooksController updateBookQuantity;
         button1 = new library.button.Button();
         updatedQuantity = new javax.swing.JLabel();
         price = new library.textfield.TextField();
-        jButton1 = new javax.swing.JButton();
+        ctr = new javax.swing.JLabel();
 
         roundPanel1.setBackground(new java.awt.Color(255, 255, 255));
         roundPanel1.setRoundBottomLeft(40);
@@ -222,9 +255,25 @@ private UpdateBooksController updateBookQuantity;
         jLabel11.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         quantity.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        quantity.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                quantityFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                quantityFocusLost(evt);
+            }
+        });
+        quantity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                quantityActionPerformed(evt);
+            }
+        });
         quantity.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 quantityKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                quantityKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 quantityKeyTyped(evt);
@@ -236,6 +285,7 @@ private UpdateBooksController updateBookQuantity;
         jLabel12.setText("Total Amount*");
         jLabel12.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
+        totalAmount.setText("0");
         totalAmount.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         totalAmount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -252,12 +302,7 @@ private UpdateBooksController updateBookQuantity;
 
         updatedQuantity.setText("0");
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        ctr.setText("jLabel1");
 
         javax.swing.GroupLayout roundPanel1Layout = new javax.swing.GroupLayout(roundPanel1);
         roundPanel1.setLayout(roundPanel1Layout);
@@ -267,6 +312,8 @@ private UpdateBooksController updateBookQuantity;
                 .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(roundPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ctr, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(65, 65, 65)
                         .addComponent(updatedQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(41, 41, 41)
                         .addComponent(userId, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -328,10 +375,6 @@ private UpdateBooksController updateBookQuantity;
                 .addGap(382, 382, 382)
                 .addComponent(button1, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
                 .addGap(404, 404, 404))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(468, 468, 468))
         );
         roundPanel1Layout.setVerticalGroup(
             roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -374,12 +417,11 @@ private UpdateBooksController updateBookQuantity;
                 .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(57, 57, 57)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(86, 86, 86)
                 .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userId, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(updatedQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(updatedQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ctr, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26))
         );
 
@@ -418,14 +460,27 @@ private UpdateBooksController updateBookQuantity;
     }//GEN-LAST:event_fNameActionPerformed
 
     private void quantityKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_quantityKeyPressed
-    
+  
     }//GEN-LAST:event_quantityKeyPressed
 
     private void quantityKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_quantityKeyTyped
           char c = evt.getKeyChar();
-        if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE) {
+
+    if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE) {
+        evt.consume();
+        return;
+    }
+
+  
+    if (quantity.getText().length() < 5) {
+        if (quantity.getText().equals("0") && c != KeyEvent.VK_BACK_SPACE) {
             evt.consume();
+            return;
         }
+    } else {
+        evt.consume(); 
+    }
+        
     }//GEN-LAST:event_quantityKeyTyped
 
     private void totalAmountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_totalAmountKeyTyped
@@ -448,18 +503,30 @@ private UpdateBooksController updateBookQuantity;
       
     }//GEN-LAST:event_returnDateActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        CalculateTotal();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void quantityFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_quantityFocusLost
+//        quantityCalculator();       
+    }//GEN-LAST:event_quantityFocusLost
+
+    private void quantityFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_quantityFocusGained
+    
+    }//GEN-LAST:event_quantityFocusGained
+
+    private void quantityKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_quantityKeyReleased
+       CalculateTotal();
+    }//GEN-LAST:event_quantityKeyReleased
+
+    private void quantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quantityActionPerformed
+      
+    }//GEN-LAST:event_quantityActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private library.textfield.TextField bTitle;
     private library.textfield.TextField bookSQuantity;
     private library.button.Button button1;
+    public javax.swing.JLabel ctr;
     private library.textfield.TextField date;
     private library.textfield.TextField fName;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
