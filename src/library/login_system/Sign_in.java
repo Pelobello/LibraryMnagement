@@ -26,14 +26,17 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import library.controller.PopulateBooksController;
 import library.controller.PopulateDashboardController;
+import library.controller.userController;
 import library.forms.AddBooks;
 import library.forms.DashBoard;
 import library.main.Main;
+import library.model.ModelUserData;
 import library.userId.User_Id_Constructor;
 
 
@@ -87,6 +90,41 @@ public class Sign_in extends javax.swing.JFrame {
 
         return userId;
     }
+   private void Login(){
+       
+       if (userName.getText().equals("") ||passWord.getPassword().length == 0 ) {
+           JOptionPane.showMessageDialog(this, "Please fill out all empty fields!");
+       }
+       else{
+            userController controller = new userController();
+        String username = userName.getText();
+        char [] password = passWord.getPassword();
+        
+        ModelUserData login = new ModelUserData();
+        login.setUserName(username);
+        login.setPassWord(password);
+            
+        ModelUserData result = controller.LogIn(login);
+        
+        if (result != null) {
+            try {
+            main.refreshDashboardUI();
+            main.id.setText(result.getUserId());
+            main.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Sign_in.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Sign_in.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             setVisible(false);
+        }else{
+            JOptionPane.showMessageDialog(this, "Incorrect UserName or Password!");
+            userName.setText("");
+            passWord.setText("");
+        }
+   }
+       }
+       
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -289,22 +327,9 @@ public class Sign_in extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignInActionPerformed
-       String dashboardUser = "142";
-       
-        
-       
-        main.setVisible(true);
-        main.id.setText(dashboardUser);
-        
-        try {
-            main.refreshDashboardUI();
-        } catch (SQLException ex) {
-            Logger.getLogger(Sign_in.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Sign_in.class.getName()).log(Level.SEVERE, null, ex);
-        }
- 
-       setVisible(false);
+   
+       Login();
+
     }//GEN-LAST:event_SignInActionPerformed
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked

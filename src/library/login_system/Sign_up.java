@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import library.controller.AddUserController;
+import library.controller.userController;
 import library.database.DatabaseConnection;
 import library.model.ModelUserData;
 
@@ -110,12 +111,15 @@ private int x;
      }
     private void adduserData(){
         try {
-   
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            Date parseDate = df.parse(bDate.getText());
-           
-            userData = new ModelUserData(userID.getText(), libraryName.getText(), userName.getText(), new String(password.getPassword()), parseDate);
-             addUserController.addUserToDatabase(userData);
+           Date parseDate = df.parse(bDate.getText());
+            userController controller = new userController();
+        String uName = userName.getText();
+        char[] pWord = password.getPassword();
+        String id = userID.getText();
+        String libraryN = libraryName.getText();
+    
+        controller.registerUser(new ModelUserData(id, libraryN, uName, pWord, parseDate));
              JOptionPane.showMessageDialog(this, "Succesfully Register");
              textRemover();
 
@@ -360,6 +364,8 @@ private int x;
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
         existingUser();
+
+    
     }//GEN-LAST:event_button1ActionPerformed
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked

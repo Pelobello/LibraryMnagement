@@ -22,10 +22,12 @@ import java.util.UUID;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
 import library.controller.AddBooksController;
 import library.controller.PopulateBooksController;
 import library.controller.PopulateDashboardController;
@@ -68,6 +70,10 @@ public class Main extends javax.swing.JFrame {
         rentBooks = new RentBooks();  
         renterData = new RenterData();
         testRenterData();
+        bookDescription.setBorder(null);
+        bookDescription.setBorder(BorderFactory.createEmptyBorder());
+        scrollBookDes.setBorder(null);
+        scrollBookDes.setBorder(BorderFactory.createEmptyBorder());
 //      refreshDashboardUI();
 //         initMoving(this);  
 //
@@ -476,6 +482,7 @@ public class Main extends javax.swing.JFrame {
         bookAuthor.setText("Author");
 
         bookDescription.setEditable(false);
+        bookDescription.setBorder(null);
         bookDescription.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         bookDescription.setForeground(new java.awt.Color(255, 255, 255));
         bookDescription.setMargin(new java.awt.Insets(10, 20, 20, 10));

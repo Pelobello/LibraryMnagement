@@ -9,6 +9,20 @@ import java.util.Date;
 
 public class ModelUserData {
 
+    /**
+     * @return the passWord
+     */
+    public char[] getPassWord() {
+        return passWord;
+    }
+
+    /**
+     * @param passWord the passWord to set
+     */
+    public void setPassWord(char[] passWord) {
+        this.passWord = passWord;
+    }
+
    
     public String getUserId() {
         return userId;
@@ -36,14 +50,7 @@ public class ModelUserData {
         this.userName = userName;
     }
 
-    public String getPassWord() {
-        return passWord;
-    }
-
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
-    }
-
+  
     public Date getBirthDate() {
         return birthDate;
     }
@@ -55,18 +62,20 @@ public class ModelUserData {
     public ModelUserData() {
     }
 
-    public ModelUserData(String userId, String libraryName, String userName, String passWord, Date birthDate) {
+    public ModelUserData(String userId, String libraryName, String userName, char[] passWord, Date birthDate) {
         this.userId = userId;
         this.libraryName = libraryName;
         this.userName = userName;
         this.passWord = passWord;
         this.birthDate = birthDate;
     }
+
+  
    
 
     private String userId;
     private String libraryName;
     private String userName;
-    private String passWord;
+    private char [] passWord;
     private Date birthDate;
 }
