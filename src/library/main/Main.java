@@ -74,11 +74,9 @@ public class Main extends javax.swing.JFrame {
         bookDescription.setBorder(BorderFactory.createEmptyBorder());
         scrollBookDes.setBorder(null);
         scrollBookDes.setBorder(BorderFactory.createEmptyBorder());
-//      refreshDashboardUI();
-//         initMoving(this);  
-//
         testData();      
         initMainComponents();
+        refreshDashboardUI();
    
     }
     public void initMainComponents() throws SQLException, ClassNotFoundException{
@@ -89,17 +87,12 @@ public class Main extends javax.swing.JFrame {
         populateBooks.populate(id.getText()); 
         populateRenter = new PopulateRenterController(renterData);
        populateRenter.populateData(id.getText());
-//        refreshDashboardUI();
-      
         roundPanel4.setLayout(new BorderLayout());
         search.setText("Search Borrower");
         bookDescription.setBackground(new Color(15,4,76,255));
         roundPanel4.setLayout(new BorderLayout());
         addBooks.userId.setText(id.getText());
         dashboard.dataUID.setText(id.getText());
-        
-        
-       
         bookQuantity.setVisible(false);
         Forms(dashboard);
          if (this.getExtendedState()==Main.MAXIMIZED_BOTH) {
@@ -185,6 +178,17 @@ public class Main extends javax.swing.JFrame {
       bookDescription.setVisible(false);
       rentButton.setVisible(false);
       scrollBookDes.setVisible(false);
+      bookPrice.setVisible(false);
+      lbPrice.setVisible(false);
+  }
+  private void showText(){
+       scrollBookDes.setVisible(true);
+              rentButton.setVisible(true);
+               bookTitle.setVisible(true);
+                 bookAuthor.setVisible(true);
+            bookDescription.setVisible(true);  
+             bookPrice.setVisible(true);
+        lbPrice.setVisible(true);
   }
 
   private int x;
@@ -214,33 +218,22 @@ public class Main extends javax.swing.JFrame {
             public void itemClick(Component com, ModelItem item) {
              myLibrary.setSelected(com);
                 showItem(item);
-             scrollBookDes.setVisible(true);
-              rentButton.setVisible(true);
-               bookTitle.setVisible(true);
-                 bookAuthor.setVisible(true);
-            bookDescription.setVisible(true);           
+            showText();
             }
        });
 }
+   
+    
+    
     public void testRenterData() throws ParseException {
      renterData.setEvent(new EventRenter() {
          @Override
          public void itemClick(Component com, ModelRenter item) {
            renterData.setSelected(com);
+           renterData.showItemData(item);
+           renterData.dateCalculator();
          }
      });
-//     String dateRented = "2024-02-10";
-//        String returnDate = "2024-02-11";
-//        String returnDate2 = "2024-02-10";
-//
-//        DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); 
-//
-//       Date rentedDate = df.parse(dateRented);
-//        Date dateReturn = df.parse(returnDate);
-//        Date dateReturn2 = df.parse(returnDate2);
-//      
-//     renterData.addRenter(new ModelRenter("31sd2", "Dazzle", "Pelobello", "test", 200, 200, 3, rentedDate, dateReturn));
-//       renterData.addRenter(new ModelRenter("31sd2", "Dazzle", "Pelobello", "test", 200, 200, 3, rentedDate, dateReturn2));
     }
    public void showItem(ModelItem data){
        pictureImage.setImage(data.getCoverImage());
@@ -282,6 +275,7 @@ public class Main extends javax.swing.JFrame {
         rentButton = new library.button.Button();
         pictureImage = new library.components.PictureBox();
         bookPrice = new javax.swing.JLabel();
+        lbPrice = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -499,6 +493,14 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        bookPrice.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        bookPrice.setForeground(new java.awt.Color(255, 255, 255));
+        bookPrice.setText("0");
+
+        lbPrice.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lbPrice.setForeground(new java.awt.Color(255, 255, 255));
+        lbPrice.setText("Price:");
+
         javax.swing.GroupLayout roundPanel5Layout = new javax.swing.GroupLayout(roundPanel5);
         roundPanel5.setLayout(roundPanel5Layout);
         roundPanel5Layout.setHorizontalGroup(
@@ -508,41 +510,41 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(roundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(bookTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bookAuthor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel5Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(roundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel5Layout.createSequentialGroup()
-                                .addComponent(bookPrice)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(bookQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel5Layout.createSequentialGroup()
-                                .addComponent(rentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(32, 32, 32))))
                     .addGroup(roundPanel5Layout.createSequentialGroup()
                         .addGroup(roundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(roundPanel5Layout.createSequentialGroup()
+                                .addComponent(lbPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(bookPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(pictureImage, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(scrollBookDes))
-                        .addContainerGap())))
+                            .addComponent(bookQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39))
+            .addComponent(scrollBookDes, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         roundPanel5Layout.setVerticalGroup(
             roundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundPanel5Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addComponent(pictureImage, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+                .addComponent(pictureImage, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bookTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(bookAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollBookDes, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollBookDes, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(rentButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
                 .addGroup(roundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bookQuantity)
-                    .addComponent(bookPrice))
-                .addGap(26, 26, 26))
+                    .addComponent(lbPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bookPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rentButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(bookQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout roundPanel1Layout = new javax.swing.GroupLayout(roundPanel1);
@@ -737,6 +739,7 @@ public class Main extends javax.swing.JFrame {
     public javax.swing.JLabel id;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lbPrice;
     private library.components.RoundPanel panelMoving;
     private library.components.PictureBox pictureImage;
     private library.button.Button rentButton;

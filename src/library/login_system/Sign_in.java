@@ -90,7 +90,7 @@ public class Sign_in extends javax.swing.JFrame {
 
         return userId;
     }
-   private void Login(){
+   private void Login() throws SQLException, ClassNotFoundException{
        
        if (userName.getText().equals("") ||passWord.getPassword().length == 0 ) {
            JOptionPane.showMessageDialog(this, "Please fill out all empty fields!");
@@ -107,15 +107,9 @@ public class Sign_in extends javax.swing.JFrame {
         ModelUserData result = controller.LogIn(login);
         
         if (result != null) {
-            try {
-            main.refreshDashboardUI();
             main.id.setText(result.getUserId());
+            main.refreshDashboardUI();
             main.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(Sign_in.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Sign_in.class.getName()).log(Level.SEVERE, null, ex);
-        }
              setVisible(false);
         }else{
             JOptionPane.showMessageDialog(this, "Incorrect UserName or Password!");
@@ -327,8 +321,13 @@ public class Sign_in extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignInActionPerformed
-   
-       Login();
+        try {
+            Login();
+        } catch (SQLException ex) {
+            Logger.getLogger(Sign_in.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Sign_in.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_SignInActionPerformed
 

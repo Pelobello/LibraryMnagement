@@ -23,9 +23,7 @@ import library.controller.RentBooksController;
 import library.controller.UpdateBooksController;
 import library.model.ModelRentData;
 
-
 public class RentBooks extends javax.swing.JPanel {
-    
 
 private DateChooser dateChooser = new DateChooser();
 private DateChooser dateChooserReturn = new DateChooser();
@@ -53,22 +51,19 @@ private UpdateBooksController updateBookQuantity;
     
   public void CalculateTotal(){
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    String inputString1 = date.getText(); // Assuming date is an object with the getText() method
-    String inputString2 = returnDate.getText(); // Assuming returnDate is an object with the getText() method
+    String inputString1 = date.getText(); 
+    String inputString2 = returnDate.getText(); 
     
     try {
         LocalDateTime date1 = LocalDate.parse(inputString1, dtf).atStartOfDay();
         LocalDateTime date2 = LocalDate.parse(inputString2, dtf).atStartOfDay();
         long daysBetween = Duration.between(date1, date2).toDays();
-        
         long newTQuantity = 0;
         if (!quantity.getText().isEmpty()) {
-            newTQuantity = Long.parseLong(quantity.getText()); // Assuming quantity is an object with the getText() method
+            newTQuantity = Long.parseLong(quantity.getText());
         }
-
-        double totalPrice = daysBetween * Double.parseDouble(price.getText()) * newTQuantity; // Assuming price is an object with the getText() method
-        long totalDataAmount = Math.round(totalPrice); // Use Math.round to handle double to long conversion
-        // Assuming totalamount is an object with the settext() method
+        double totalPrice = daysBetween * Double.parseDouble(price.getText()) * newTQuantity; 
+        long totalDataAmount = Math.round(totalPrice); 
         totalAmount.setText(String.valueOf(totalDataAmount));
         
     } catch (Exception e) {
@@ -87,7 +82,7 @@ private UpdateBooksController updateBookQuantity;
 
         if (bookSQuantity.getText().isEmpty() || quantity.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter valid numeric values for Book Quantity and Quantity.");
-            return; // Stop further execution if the input is invalid.
+            return; 
         }
 
         int totalDataQuantity = toIntBookQuantity - toIntQuantity;
@@ -122,7 +117,7 @@ private UpdateBooksController updateBookQuantity;
             int bPrice = Integer.parseInt(price.getText());
 
             
-            rentBooksControl = new RentBooksController(userId.getText(),  ctr.getText(), bTitle.getText(),  fName.getText(), lName.getText(), convertDate, convertDate, convertTotalAmount, bPrice, convertTotalQuantity);
+            rentBooksControl = new RentBooksController(userId.getText(),  ctr.getText(), bTitle.getText(),  fName.getText(), lName.getText(), convertDate, ConvertReturnDate, convertTotalAmount, bPrice, convertTotalQuantity);
 
             rentBooksControl.rentBooksToDatabase();
             rentBooksControl.rentBooksToDatabaseV2();
