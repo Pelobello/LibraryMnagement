@@ -5,6 +5,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -18,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Random;
 import java.util.UUID;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -41,17 +44,20 @@ import library.forms.MyLibrary;
 import library.forms.AddCustomer;
 import library.forms.RentBooks;
 import library.forms.RenterData;
+import library.formsPopUp.RenterReceipt;
 import static library.main.Main.main;
 import library.model.ModelItem;
 import library.model.ModelRentData;
 import library.model.ModelRenter;
+import raven.glasspanepopup.DefaultOption;
+import raven.glasspanepopup.GlassPanePopup;
 
 public class Main extends javax.swing.JFrame {
 
       private DashBoard dashboard;
       private MyLibrary myLibrary;
       private AddBooks addBooks;
-      private AddCustomer setting;
+      private AddCustomer addcustomer;
       private RentBooks rentBooks;
       private RenterData renterData;
       private ModelRentData modelRentData;
@@ -66,7 +72,7 @@ public class Main extends javax.swing.JFrame {
         dashboard = new DashBoard();
         myLibrary = new MyLibrary();
         addBooks = new AddBooks();
-        setting = new AddCustomer();
+        addcustomer = new AddCustomer();
         rentBooks = new RentBooks();  
         renterData = new RenterData();
         testRenterData();
@@ -77,8 +83,13 @@ public class Main extends javax.swing.JFrame {
         testData();      
         initMainComponents();
         refreshDashboardUI();
-   
+        GlassPanePopup.install(this);
+        
+
     }
+    
+
+    
     public void initMainComponents() throws SQLException, ClassNotFoundException{
         setBackground(new Color(0,0,0,0));
         Font poppinsFont = new Font("Khula", Font.ITALIC, 16);
@@ -93,7 +104,9 @@ public class Main extends javax.swing.JFrame {
         roundPanel4.setLayout(new BorderLayout());
         addBooks.userId.setText(id.getText());
         dashboard.dataUID.setText(id.getText());
+        addcustomer.userId.setText(id.getText());
         bookQuantity.setVisible(false);
+        
         Forms(dashboard);
          if (this.getExtendedState()==Main.MAXIMIZED_BOTH) {
             this.setExtendedState(Main.NORMAL);
@@ -101,7 +114,9 @@ public class Main extends javax.swing.JFrame {
         else{
             this.setExtendedState(Main.MAXIMIZED_BOTH);
         }
-         textRemover();     
+         textRemover();   
+        
+        
     }
   
     //Populate and refresh data from Books shelf
@@ -116,6 +131,9 @@ public class Main extends javax.swing.JFrame {
         renterData.panelItem1.repaint();
         renterData.panelItem1.revalidate();
         populateRenter.populateData(id.getText());
+        renterData.ID.removeAll();
+        renterData.ID.repaint();
+        renterData.ID.setText(id.getText());
         
         
     }
@@ -160,6 +178,20 @@ public class Main extends javax.swing.JFrame {
 
         return userId;
     }
+      public static String generateCustomerUserId() {
+    int userIdLength = 6;
+
+    Random random = new Random();
+    StringBuilder userIdBuilder = new StringBuilder();
+    for (int i = 0; i < userIdLength; i++) {
+        userIdBuilder.append(random.nextInt(10));
+    }
+
+   
+    String userId = userIdBuilder.toString();
+
+    return userId;
+}
 
   private void Forms(Component com){
       roundPanel4.removeAll();
@@ -232,7 +264,9 @@ public class Main extends javax.swing.JFrame {
            renterData.setSelected(com);
            renterData.showItemData(item);
            renterData.dateCalculator();
+           renterData.textVisibleTrue();
          }
+         
      });
     }
    public void showItem(ModelItem data){
@@ -248,7 +282,6 @@ public class Main extends javax.swing.JFrame {
      
    }
  
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -323,7 +356,7 @@ public class Main extends javax.swing.JFrame {
             roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel3Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(search, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(search, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
                 .addGap(697, 697, 697)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -410,7 +443,7 @@ public class Main extends javax.swing.JFrame {
         });
 
         button7.setBackground(new java.awt.Color(245, 238, 230));
-        button7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/library/image/icons8_customer_40px.png"))); // NOI18N
+        button7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/library/image/icons8_person_at_home_40px.png"))); // NOI18N
         button7.setText("Renters");
         button7.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         button7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -615,7 +648,19 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_button4ActionPerformed
 
     private void button5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button5ActionPerformed
-        Forms(setting);
+        Forms(addcustomer);
+        SwingUtilities.invokeLater(() -> {
+        addcustomer.userId.removeAll();
+        addcustomer.userId.repaint();
+        addcustomer.userId.setText(id.getText());
+        addcustomer.populateCustomerData(id.getText());
+        
+        });
+        String gnCID = generateCustomerUserId();
+        addcustomer.CtID.setText(gnCID);
+        addcustomer.CtID.repaint();
+        addcustomer.CtID.revalidate();
+        
         textRemover();
     }//GEN-LAST:event_button5ActionPerformed
 
@@ -681,6 +726,10 @@ public class Main extends javax.swing.JFrame {
 
     private void button7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button7ActionPerformed
         Forms(renterData);
+        renterData.textVisibleFalse();
+        
+        
+        
         refreshRenter();
     }//GEN-LAST:event_button7ActionPerformed
 

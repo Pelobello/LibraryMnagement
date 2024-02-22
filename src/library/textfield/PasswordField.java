@@ -1,6 +1,7 @@
 
 package library.textfield;
 
+import com.formdev.flatlaf.FlatClientProperties;
 import com.raven.datechooser.DateChooser;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -52,6 +53,9 @@ public class PasswordField extends JPasswordField{
         setSelectionColor(new Color(133, 209, 255));
         setBorder(new EmptyBorder(10, 12, 15, 12));
         setBackground(new Color(255, 255, 255));
+        putClientProperty(FlatClientProperties.STYLE, 
+                "showRevealButton:true;"
+                + "showCapsLock:true");
     }
 
     @Override

@@ -1,6 +1,7 @@
 
 package library.login_system;
 
+import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -56,6 +57,8 @@ public class Sign_in extends javax.swing.JFrame {
         addbooks = new AddBooks();
         sign_up = new Sign_up();
        
+        passWord.putClientProperty(FlatClientProperties.STYLE, "showRevealButton:true;"+ "showCapsLock:true");
+     
         initMoving(this);
     }
 
@@ -90,6 +93,7 @@ public class Sign_in extends javax.swing.JFrame {
 
         return userId;
     }
+   
    private void Login() throws SQLException, ClassNotFoundException{
        
        if (userName.getText().equals("") ||passWord.getPassword().length == 0 ) {
@@ -113,8 +117,8 @@ public class Sign_in extends javax.swing.JFrame {
              setVisible(false);
         }else{
             JOptionPane.showMessageDialog(this, "Incorrect UserName or Password!");
-            userName.setText("");
-            passWord.setText("");
+           lbEmail.setForeground(Color.red);
+           lbPassword.setForeground(Color.red);
         }
    }
        }
@@ -129,9 +133,9 @@ public class Sign_in extends javax.swing.JFrame {
         SignIn = new library.button.Button();
         roundPanel2 = new library.components.RoundPanel();
         userName = new library.textfield.TextField();
-        jLabel1 = new javax.swing.JLabel();
+        lbEmail = new javax.swing.JLabel();
         roundPanel3 = new library.components.RoundPanel();
-        jLabel2 = new javax.swing.JLabel();
+        lbPassword = new javax.swing.JLabel();
         passWord = new library.textfield.PasswordField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -164,6 +168,7 @@ public class Sign_in extends javax.swing.JFrame {
         roundPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         userName.setForeground(new java.awt.Color(51, 51, 51));
+        userName.setText("dazzlepelobello11@gmail.com");
         userName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         userName.setShadowColor(new java.awt.Color(15, 4, 76));
         userName.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -172,9 +177,10 @@ public class Sign_in extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel1.setText("Email");
+        lbEmail.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lbEmail.setForeground(new java.awt.Color(51, 51, 51));
+        lbEmail.setText("Email");
+        lbEmail.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         javax.swing.GroupLayout roundPanel2Layout = new javax.swing.GroupLayout(roundPanel2);
         roundPanel2.setLayout(roundPanel2Layout);
@@ -185,25 +191,27 @@ public class Sign_in extends javax.swing.JFrame {
                     .addComponent(userName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(roundPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)))
+                        .addComponent(lbEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         roundPanel2Layout.setVerticalGroup(
             roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         roundPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel2.setText("Password");
+        lbPassword.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lbPassword.setForeground(new java.awt.Color(51, 51, 51));
+        lbPassword.setText("Password");
+        lbPassword.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         passWord.setForeground(new java.awt.Color(51, 51, 51));
+        passWord.setText("test");
         passWord.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         passWord.setShadowColor(new java.awt.Color(15, 4, 76));
         passWord.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -219,15 +227,16 @@ public class Sign_in extends javax.swing.JFrame {
             .addGroup(roundPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(passWord, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
                 .addContainerGap())
         );
         roundPanel3Layout.setVerticalGroup(
             roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel3Layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
-                .addGap(0, 0, 0)
+                .addGap(3, 3, 3)
+                .addComponent(lbPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(passWord, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -301,7 +310,7 @@ public class Sign_in extends javax.swing.JFrame {
         panelMovingLayout.setVerticalGroup(
             panelMovingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMovingLayout.createSequentialGroup()
-                .addGap(0, 171, Short.MAX_VALUE)
+                .addContainerGap(171, Short.MAX_VALUE)
                 .addComponent(roundPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -343,6 +352,8 @@ public class Sign_in extends javax.swing.JFrame {
         }else{
             userName.setOpaque(true);
         }
+        lbEmail.setForeground(new Color(51,51,51));
+        lbPassword.setForeground(new Color(51,51,51));
         
     }//GEN-LAST:event_userNameKeyTyped
 
@@ -354,10 +365,13 @@ public class Sign_in extends javax.swing.JFrame {
     } else {
         passWord.setOpaque(true);
     }
+      lbEmail.setForeground(new Color(51,51,51));
+        lbPassword.setForeground(new Color(51,51,51));
     }//GEN-LAST:event_passWordKeyTyped
 
     public static void main(String args[]) {
         try {
+           
             FlatGitHubIJTheme.setup();
         } catch (Exception e) {
             e.printStackTrace();
@@ -381,11 +395,11 @@ public class Sign_in extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private library.button.Button SignIn;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel lbEmail;
+    private javax.swing.JLabel lbPassword;
     private library.components.RoundPanel panelMoving;
     private library.textfield.PasswordField passWord;
     private library.components.RoundPanel roundPanel1;

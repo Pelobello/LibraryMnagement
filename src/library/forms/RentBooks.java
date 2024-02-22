@@ -2,6 +2,7 @@
 package library.forms;
 
 import com.raven.datechooser.DateChooser;
+import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -21,7 +22,9 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import library.controller.RentBooksController;
 import library.controller.UpdateBooksController;
+import library.formsPopUp.RenterReceipt;
 import library.model.ModelRentData;
+import raven.glasspanepopup.GlassPanePopup;
 
 public class RentBooks extends javax.swing.JPanel {
 
@@ -29,12 +32,14 @@ private DateChooser dateChooser = new DateChooser();
 private DateChooser dateChooserReturn = new DateChooser();
 private RentBooksController rentBooksControl;
 private UpdateBooksController updateBookQuantity;
+private RenterReceipt renterReceipt;
     public RentBooks() {
         initComponents();
         setOpaque(false);
           dateChooser.setDateFormat(new SimpleDateFormat("yyyy-MM-dd"));
           dateChooserReturn.setDateFormat(new SimpleDateFormat("yyyy-MM-dd"));
           dateChooser.setTextField(date);
+          renterReceipt = new RenterReceipt();
           dateChooserReturn.setTextField(returnDate);
           updateBookQuantity = new UpdateBooksController();
           userId.setVisible(false);
@@ -96,16 +101,13 @@ private UpdateBooksController updateBookQuantity;
             updatedQuantity.revalidate();
             updatedQuantity.setText(toString_totalData);
             updateBookQuantity.UpdateBooksQuantity(userId.getText(), bTitle.getText(), updatedQuantity.getText());
-
             String returnDateData = returnDate.getText();
             String dateData = date.getText();
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Fix the date pattern
             Date convertDate = dateFormat.parse(dateData);
             Date ConvertReturnDate = dateFormat.parse(returnDateData);
-
             String totalData = totalAmount.getText();
             String totalQuantity = quantity.getText();
-
             // Add checks for empty or invalid strings before parsing
             if (totalData.isEmpty() || totalQuantity.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please enter valid numeric values for Total Amount and Quantity.");
@@ -114,13 +116,13 @@ private UpdateBooksController updateBookQuantity;
 
             double convertTotalAmount = Double.parseDouble(totalData);
             int convertTotalQuantity = Integer.parseInt(totalQuantity);
-            int bPrice = Integer.parseInt(price.getText());
-
-            
+            int bPrice = Integer.parseInt(price.getText()); 
             rentBooksControl = new RentBooksController(userId.getText(),  ctr.getText(), bTitle.getText(),  fName.getText(), lName.getText(), convertDate, ConvertReturnDate, convertTotalAmount, bPrice, convertTotalQuantity);
-
+            
             rentBooksControl.rentBooksToDatabase();
             rentBooksControl.rentBooksToDatabaseV2();
+            receiptData();
+            GlassPanePopup.showPopup(renterReceipt);
             textRemover();
             JOptionPane.showMessageDialog(this, "Rent Success");
         }
@@ -138,6 +140,22 @@ private UpdateBooksController updateBookQuantity;
        totalAmount.setText("");
        
    }
+   public void receiptData(){
+        renterReceipt.textReceipt.setFont(new Font("Courier New", Font.BOLD, 18));
+        renterReceipt.textReceipt.setText("--------------------------------------------------------\n");
+        renterReceipt.textReceipt.append(String.format("%-20s | %s\n", "Lending Activities", ""));
+        renterReceipt.textReceipt.append("--------------------------------------------------------\n");
+        renterReceipt.textReceipt.append(String.format("%-20s | %s\n", "CTR", ctr.getText()));
+        renterReceipt.textReceipt.append(String.format("%-20s | %s\n", "NAME", fName.getText()));
+        renterReceipt.textReceipt.append(String.format("%-20s | %s\n", "LASTNAME", lName.getText()));
+        renterReceipt.textReceipt.append(String.format("%-20s | %s\n", "BOOKTITLE", bTitle.getText()));
+        renterReceipt.textReceipt.append(String.format("%-20s | %s\n", "QUANTITY", quantity.getText()));
+        renterReceipt.textReceipt.append(String.format("%-20s | %s\n", "PRICE", price.getText()));
+        renterReceipt.textReceipt.append(String.format("%-20s | %s\n", "TOTALPAID", totalAmount.getText()));
+        renterReceipt.textReceipt.append(String.format("%-20s | %s\n", "DATERENTED", date.getText()));
+        renterReceipt.textReceipt.append(String.format("%-20s | %s\n", "RETURNDATE", returnDate.getText()));
+        renterReceipt.textReceipt.append("--------------------------------------------------------\n");
+    }
    
    
     @SuppressWarnings("unchecked")
@@ -166,6 +184,7 @@ private UpdateBooksController updateBookQuantity;
         updatedQuantity = new javax.swing.JLabel();
         price = new library.textfield.TextField();
         ctr = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
 
         roundPanel1.setBackground(new java.awt.Color(255, 255, 255));
         roundPanel1.setRoundBottomLeft(40);
@@ -176,6 +195,7 @@ private UpdateBooksController updateBookQuantity;
         userId.setText("132");
 
         lName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lName.setShadowColor(new java.awt.Color(0, 0, 0));
         lName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lNameActionPerformed(evt);
@@ -193,6 +213,7 @@ private UpdateBooksController updateBookQuantity;
         jLabel3.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         fName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        fName.setShadowColor(new java.awt.Color(0, 0, 0));
         fName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fNameActionPerformed(evt);
@@ -206,6 +227,7 @@ private UpdateBooksController updateBookQuantity;
 
         date.setEditable(false);
         date.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        date.setShadowColor(new java.awt.Color(0, 0, 0));
 
         jLabel5.setBackground(new java.awt.Color(102, 102, 102));
         jLabel5.setForeground(new java.awt.Color(102, 102, 102));
@@ -214,6 +236,7 @@ private UpdateBooksController updateBookQuantity;
 
         returnDate.setEditable(false);
         returnDate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        returnDate.setShadowColor(new java.awt.Color(0, 0, 0));
         returnDate.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 returnDateFocusGained(evt);
@@ -235,6 +258,7 @@ private UpdateBooksController updateBookQuantity;
 
         bTitle.setEditable(false);
         bTitle.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        bTitle.setShadowColor(new java.awt.Color(0, 0, 0));
 
         jLabel10.setBackground(new java.awt.Color(102, 102, 102));
         jLabel10.setForeground(new java.awt.Color(102, 102, 102));
@@ -243,6 +267,7 @@ private UpdateBooksController updateBookQuantity;
 
         bookSQuantity.setEditable(false);
         bookSQuantity.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        bookSQuantity.setShadowColor(new java.awt.Color(0, 0, 0));
 
         jLabel11.setBackground(new java.awt.Color(102, 102, 102));
         jLabel11.setForeground(new java.awt.Color(102, 102, 102));
@@ -250,6 +275,7 @@ private UpdateBooksController updateBookQuantity;
         jLabel11.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         quantity.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        quantity.setShadowColor(new java.awt.Color(0, 0, 0));
         quantity.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 quantityFocusGained(evt);
@@ -282,6 +308,7 @@ private UpdateBooksController updateBookQuantity;
 
         totalAmount.setText("0");
         totalAmount.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        totalAmount.setShadowColor(new java.awt.Color(0, 0, 0));
         totalAmount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 totalAmountKeyTyped(evt);
@@ -289,6 +316,7 @@ private UpdateBooksController updateBookQuantity;
         });
 
         button1.setText("RENT");
+        button1.setShadowColor(new java.awt.Color(0, 0, 0));
         button1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 button1ActionPerformed(evt);
@@ -297,7 +325,14 @@ private UpdateBooksController updateBookQuantity;
 
         updatedQuantity.setText("0");
 
+        price.setShadowColor(new java.awt.Color(0, 0, 0));
+
         ctr.setText("jLabel1");
+
+        jLabel13.setBackground(new java.awt.Color(102, 102, 102));
+        jLabel13.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel13.setText("Price*");
+        jLabel13.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         javax.swing.GroupLayout roundPanel1Layout = new javax.swing.GroupLayout(roundPanel1);
         roundPanel1.setLayout(roundPanel1Layout);
@@ -325,23 +360,19 @@ private UpdateBooksController updateBookQuantity;
                             .addGroup(roundPanel1Layout.createSequentialGroup()
                                 .addGap(164, 164, 164)
                                 .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(fName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(bTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(quantity, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(roundPanel1Layout.createSequentialGroup()
-                                        .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(roundPanel1Layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
                                         .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(fName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(lName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(bTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(quantity, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addGroup(roundPanel1Layout.createSequentialGroup()
-                                                .addGap(6, 6, 6)
-                                                .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addGroup(roundPanel1Layout.createSequentialGroup()
-                                                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addGap(9, 9, 9)))))
-                                        .addGap(42, 42, 42)))))
+                                                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGap(9, 9, 9))
+                                            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGap(42, 42, 42)))
                         .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(roundPanel1Layout.createSequentialGroup()
                                 .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -367,9 +398,11 @@ private UpdateBooksController updateBookQuantity;
                                 .addGap(190, 190, 190)))))
                 .addContainerGap())
             .addGroup(roundPanel1Layout.createSequentialGroup()
-                .addGap(382, 382, 382)
+                .addGap(164, 164, 164)
+                .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
                 .addComponent(button1, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
-                .addGap(404, 404, 404))
+                .addGap(408, 408, 408))
         );
         roundPanel1Layout.setVerticalGroup(
             roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -408,11 +441,13 @@ private UpdateBooksController updateBookQuantity;
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(totalAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(42, 42, 42)
-                .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(86, 86, 86)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(153, 153, 153)
                 .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userId, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(updatedQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -466,7 +501,6 @@ private UpdateBooksController updateBookQuantity;
         return;
     }
 
-  
     if (quantity.getText().length() < 5) {
         if (quantity.getText().equals("0") && c != KeyEvent.VK_BACK_SPACE) {
             evt.consume();
@@ -525,6 +559,7 @@ private UpdateBooksController updateBookQuantity;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

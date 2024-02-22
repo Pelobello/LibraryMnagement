@@ -13,6 +13,20 @@ import library.database.DatabaseConnection;
 
 public class AddCustomerController {
 
+    /**
+     * @return the userId
+     */
+    public String getUserId() {
+        return userId;
+    }
+
+    /**
+     * @param userId the userId to set
+     */
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
   
     public String getAddCustomerId() {
         return addCustomerId;
@@ -122,7 +136,8 @@ public class AddCustomerController {
         this.postCode = postCode;
     }
 
-    public AddCustomerController(String addCustomerId, String lastName, String firstName, String birthDate, String age, String contactNumber, String street, String province, String city, String barangay, String postCode) {
+    public AddCustomerController(String userId, String addCustomerId, String lastName, String firstName, String birthDate, String age, String contactNumber, String street, String province, String city, String barangay, String postCode) {
+        this.userId = userId;
         this.addCustomerId = addCustomerId;
         this.lastName = lastName;
         this.firstName = firstName;
@@ -136,6 +151,8 @@ public class AddCustomerController {
         this.postCode = postCode;
     }
 
+   
+
     public AddCustomerController() {
     }
 
@@ -143,18 +160,19 @@ public class AddCustomerController {
     public void AddCustomerToDatabase()throws SQLException, IOException, ClassNotFoundException{
         try {
             PreparedStatement p = DatabaseConnection.getInstance().getConnection().prepareStatement
-        ("insert into custumer_data (customerUserId,lastName,firstName,birthDate,age,contactNumber,country,province,city,barangay,postalCode)values(?,?,?,?,?,?,?,?,?,?,?)");
-            p.setString(1, getAddCustomerId());
-            p.setString(2, getLastName());
-            p.setString(3, getFirstName());
-            p.setString(4, getBirthDate());
-            p.setString(5, getAge());
-            p.setString(6, getContactNumber());
-            p.setString(7, getStreet());
-            p.setString(8, getProvince());
-            p.setString(9, getCity());
-            p.setString(10, getBarangay());
-             p.setString(11, getPostCode());
+        ("insert into custumer_data (cUID,customerUserId,lastName,firstName,birthDate,age,contactNumber,country,province,city,barangay,postalCode)values(?,?,?,?,?,?,?,?,?,?,?,?)");
+            p.setString(1, getUserId());
+            p.setString(2, getAddCustomerId());
+            p.setString(3, getLastName());
+            p.setString(4, getFirstName());
+            p.setString(5, getBirthDate());
+            p.setString(6, getAge());
+            p.setString(7, getContactNumber());
+            p.setString(8, getStreet());
+            p.setString(9, getProvince());
+            p.setString(10, getCity());
+            p.setString(11, getBarangay());
+            p.setString(12, getPostCode());
             
             p.executeUpdate();
             
@@ -164,18 +182,18 @@ public class AddCustomerController {
              e.printStackTrace();
         }
     }
-    
+    private String userId;
     private String addCustomerId;
     private String lastName;
-     private String firstName;
-      private String birthDate;
-       private String age;
-        private String contactNumber;
-         private String street;
-          private String province;
-          private String city;
-          private String barangay;
-          private String postCode;
+    private String firstName;
+    private String birthDate;
+    private String age;
+    private String contactNumber;
+    private String street;
+    private String province;
+    private String city;
+    private String barangay;
+    private String postCode;
         
         
       
