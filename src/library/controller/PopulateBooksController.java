@@ -11,12 +11,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import library.forms.AddBooks;
+import library.forms.RenterData;
 import library.main.Main;
 import library.model.ModelItem;
+import library.model.ModelRenter;
 
 
 public class PopulateBooksController {
     private MyLibrary library;
+   
     
     public PopulateBooksController(MyLibrary library) {
         this.library = library;
@@ -59,12 +62,10 @@ public class PopulateBooksController {
             e.printStackTrace();
         }
     }
+   
     
     public void populate(String userId){
-         
-       
-         
-        
+
         try {
            String sql = "SELECT * FROM library_data WHERE userId = ?";
           

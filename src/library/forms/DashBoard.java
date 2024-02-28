@@ -57,7 +57,7 @@ public class DashBoard extends javax.swing.JPanel {
                   DefaultTableModel model = (DefaultTableModel)customerTable.getModel();
                   model.setRowCount(0);
             DatabaseConnection.getInstance().ConnectToDatabase();
-            String sql = "SELECT * FROM customer_rented_books_data WHERE userId = ? AND lastName LIKE ?";
+            String sql = "SELECT * FROM customer_rented_books_data_v2 WHERE userId = ? AND lastName LIKE ?";
             PreparedStatement p = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             p.setString(1, userId);
             p.setString(2, "%"+ searchTextField.trim() +"%");

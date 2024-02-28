@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.UUID;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
@@ -26,6 +27,7 @@ import library.controller.PopulateRenterController;
 import library.event.EventRenter;
 import library.formsPopUp.RenterReceipt;
 import library.main.Main;
+import static library.main.Main.generateCTR;
 import library.model.ModelRenter;
 import raven.glasspanepopup.GlassPanePopup;
 
@@ -55,7 +57,7 @@ public class RenterData extends javax.swing.JPanel {
             }
   
         });
-        panelItem1.add(renter);
+        panelData.add(renter);
         repaint();
         revalidate();
          
@@ -69,16 +71,20 @@ public class RenterData extends javax.swing.JPanel {
             String db = Integer.toString((int) daysBetween);
 
             double totalPrice = daysBetween * Double.parseDouble(renter.price.getText()) * Double.parseDouble(renter.quantity.getText()); // Assuming price is an object with the getText() method
-            int totalDataAmount = (int) totalPrice; // Assuming totalamount is an object with the settext() method
+            int totalDataAmount = (int) totalPrice;
             renter.lapses.setText(db);
             renter.penalties.setText(String.valueOf(totalDataAmount));
+            Date Tdate = new Date();
+      
+        String fd = df.format(Tdate);
+        DT.setText(fd);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     
       public void setSelected(Component item){
-        for (Component com : panelItem1.getComponents()) {
+        for (Component com : panelData.getComponents()) {
             RenterItem i =(RenterItem)com;
             if (i.isSelected()) {
                 i.setSelected(false);
@@ -171,12 +177,13 @@ public class RenterData extends javax.swing.JPanel {
         change.setText("");
     }
     public void refreshRenter(){
-        panelItem1.removeAll();
-        panelItem1.repaint();
-        panelItem1.revalidate();
+        panelData.removeAll();
+        panelData.repaint();
+        panelData.revalidate();
         populateData.populateData(ID.getText());
         
     }
+     
     
     public void returnRentedBooks(){
         double changeToString = Double.parseDouble(change.getText());
@@ -190,6 +197,8 @@ public class RenterData extends javax.swing.JPanel {
         returnBook.returnBook(rentedBook.getText(), priceData);
         returnBook.deleteBookRented(lbCTR.getText());
         JOptionPane.showMessageDialog(this, "The Book Returned Succesfully...");
+        
+        
          receiptData();
         GlassPanePopup.showPopup(renterReceipt);
         textRemover();
@@ -269,7 +278,7 @@ public class RenterData extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
-        panelItem1 = new library.swing.PanelItem();
+        panelData = new library.swing.PanelItem();
         jScrollPane3 = new javax.swing.JScrollPane();
         roundPanel2 = new library.components.RoundPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -303,7 +312,7 @@ public class RenterData extends javax.swing.JPanel {
         button1 = new library.button.Button();
         ID = new javax.swing.JLabel();
 
-        jScrollPane2.setViewportView(panelItem1);
+        jScrollPane2.setViewportView(panelData);
 
         roundPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -367,6 +376,11 @@ public class RenterData extends javax.swing.JPanel {
 
         DL.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
+        cash.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cashActionPerformed(evt);
+            }
+        });
         cash.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 cashKeyReleased(evt);
@@ -512,8 +526,8 @@ public class RenterData extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 872, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -527,19 +541,19 @@ public class RenterData extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(37, 37, 37)
-                                .addComponent(ID, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(ID, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -574,6 +588,10 @@ public class RenterData extends javax.swing.JPanel {
        calculateChange();
     }//GEN-LAST:event_cashKeyReleased
 
+    private void cashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cashActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cashActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel DL;
@@ -605,7 +623,7 @@ public class RenterData extends javax.swing.JPanel {
     private javax.swing.JLabel lbLname;
     private javax.swing.JLabel lbReturnDate;
     private javax.swing.JLabel lbTotalP;
-    public library.swing.PanelItem panelItem1;
+    public library.swing.PanelItem panelData;
     private javax.swing.JLabel price;
     private javax.swing.JLabel quantity;
     private javax.swing.JLabel rentedBook;

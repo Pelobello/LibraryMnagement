@@ -44,4 +44,30 @@ public class PopulateRenterController {
             e.printStackTrace();
         }
     }
+     public void SearchRenter(String uId,String searchTextField){
+        try {
+            
+            String sql = "SELECT * FROM customer_rented_books_data_v2 WHERE userId = ? And ctr LIKE ? ";
+            PreparedStatement p = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
+            p.setString(1, uId);
+            p.setString(2, "%" +searchTextField+ "%");
+//            p.setString(3, "%" +searchTextField+ "%");
+           
+            ResultSet rs = p.executeQuery();
+            while (rs.next()) {                
+                renter.addRenter(new ModelRenter(rs.getString("ctr"),
+                        rs.getString("firstName"),
+                        rs.getString("lastName"),
+                        rs.getString("bookRented"),
+                        rs.getInt("bookPrice"),
+                        rs.getInt("totalAmount"),
+                        rs.getInt("totalQuantity"),
+                        rs.getDate("dateRented"),
+                        rs.getDate("dateReturn")));
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        }
 }

@@ -12,16 +12,20 @@ import java.util.List;
 import library.chart.ModelChart;
 import library.database.DatabaseConnection;
 import library.forms.DashBoard;
+import library.forms.RenterData;
 import library.main.Main;
 import library.model.ModelDashboardData;
+import library.model.ModelRenter;
 
 
 public class PopulateDashboardController {
     private DashBoard dashboard;
+    private RenterData renter;
     private Main main;
 
     public PopulateDashboardController() throws SQLException, ClassNotFoundException {
          dashboard = new DashBoard();
+         renter = new RenterData();
          
     }
     public void testDataDashBoad(String usId){
@@ -55,6 +59,8 @@ public class PopulateDashboardController {
          e.printStackTrace();
      }
  }
+    
+    
 
     
 }

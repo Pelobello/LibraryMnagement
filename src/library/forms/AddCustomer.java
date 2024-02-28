@@ -3,6 +3,7 @@ package library.forms;
 
 import com.raven.datechooser.DateChooser;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -17,7 +18,9 @@ import library.components.CustomerDataItem;
 import library.controller.AddCustomerController;
 import library.database.DatabaseConnection;
 import java.sql.ResultSet;
+import java.util.UUID;
 import java.util.Vector;
+import static library.forms.RentBooks.generateCTR;
 
 
 
@@ -90,7 +93,14 @@ private DateChooser dateChooser = new DateChooser();
            e.printStackTrace();
        }
    }
-   
+     public static String generateCTR() {
+        
+        UUID uuid = UUID.randomUUID();
+
+        String userId = uuid.toString().replace("-", "").substring(0, 6);
+
+        return userId;
+    }
     public void addCustomerData() throws SQLException, IOException{
         try {
            addCostomerControll = new AddCustomerController(userId.getText(),CtID.getText(),lName.getText(), fName.getText(), bDate.getText(), age.getText(), 
@@ -99,6 +109,8 @@ private DateChooser dateChooser = new DateChooser();
             addCostomerControll.AddCustomerToDatabase();
             
             JOptionPane.showMessageDialog(this, "Customer Added!");
+             String generateCtr = generateCTR();
+            CtID.setText(generateCtr);
             populateCustomerData(userId.getText());
             setTextToNone();
             
@@ -181,6 +193,11 @@ private DateChooser dateChooser = new DateChooser();
         jLabel4.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         age.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        age.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                ageKeyTyped(evt);
+            }
+        });
 
         jLabel5.setBackground(new java.awt.Color(204, 204, 204));
         jLabel5.setFont(new java.awt.Font("Serif", 0, 12)); // NOI18N
@@ -189,6 +206,11 @@ private DateChooser dateChooser = new DateChooser();
         jLabel5.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         contactNo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        contactNo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                contactNoKeyTyped(evt);
+            }
+        });
 
         jLabel7.setBackground(new java.awt.Color(204, 204, 204));
         jLabel7.setFont(new java.awt.Font("Serif", 0, 12)); // NOI18N
@@ -226,6 +248,11 @@ private DateChooser dateChooser = new DateChooser();
         jLabel10.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         postalCode.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        postalCode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                postalCodeKeyTyped(evt);
+            }
+        });
 
         button2.setText("ADD");
         button2.addActionListener(new java.awt.event.ActionListener() {
@@ -437,6 +464,27 @@ private DateChooser dateChooser = new DateChooser();
     private void cityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cityActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cityActionPerformed
+
+    private void ageKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ageKeyTyped
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_ageKeyTyped
+
+    private void contactNoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_contactNoKeyTyped
+       char c = evt.getKeyChar();
+        if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_contactNoKeyTyped
+
+    private void postalCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_postalCodeKeyTyped
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_postalCodeKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

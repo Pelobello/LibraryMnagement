@@ -23,6 +23,7 @@ import javax.swing.SwingUtilities;
 import library.controller.RentBooksController;
 import library.controller.UpdateBooksController;
 import library.formsPopUp.RenterReceipt;
+import static library.main.Main.generateCTR;
 import library.model.ModelRentData;
 import raven.glasspanepopup.GlassPanePopup;
 
@@ -53,7 +54,14 @@ private RenterReceipt renterReceipt;
         bookSQuantity.setText(newQuantity);
         price.setText(newPrice);
     }
-    
+      public static String generateCTR() {
+        
+        UUID uuid = UUID.randomUUID();
+
+        String userId = uuid.toString().replace("-", "").substring(0, 6);
+
+        return userId;
+    }
   public void CalculateTotal(){
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     String inputString1 = date.getText(); 
@@ -80,58 +88,140 @@ private RenterReceipt renterReceipt;
     
    
 
-  public void addRentedBooksData() throws ParseException, SQLException, IOException, ClassNotFoundException {
+//  public void addRentedBooksData() throws ParseException, SQLException, IOException, ClassNotFoundException {
+//    try {
+//        int toIntBookQuantity = Integer.parseInt(bookSQuantity.getText());
+//        int toIntQuantity = Integer.parseInt(quantity.getText());
+//        String cChange = change.getText();
+//        double cashChange = Double.parseDouble(cChange);
+//        if (bookSQuantity.getText().isEmpty() || quantity.getText().isEmpty()) {
+//            JOptionPane.showMessageDialog(this, "Please enter valid numeric values for Book Quantity and Quantity.");
+//            return; 
+//        }
+//        int totalDataQuantity = toIntBookQuantity - toIntQuantity;
+//        String toString_totalData = Integer.toString(totalDataQuantity);
+//
+//        if (totalDataQuantity < 0 ) {
+//            JOptionPane.showMessageDialog(this, "Inefficient Book Supply!");
+//        }else if (cashChange < 0) {
+//            JOptionPane.showMessageDialog(this, "insufficient Amount");
+//            
+//        } else {
+//            updatedQuantity.removeAll();
+//            updatedQuantity.repaint();
+//            updatedQuantity.revalidate();
+//            updatedQuantity.setText(toString_totalData);
+//            updateBookQuantity.UpdateBooksQuantity(userId.getText(), bTitle.getText(), updatedQuantity.getText());
+//            String returnDateData = returnDate.getText();
+//            String dateData = date.getText();
+//            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Fix the date pattern
+//            Date convertDate = dateFormat.parse(dateData);
+//            Date ConvertReturnDate = dateFormat.parse(returnDateData);
+//            String totalData = totalAmount.getText();
+//            String totalQuantity = quantity.getText();
+//            // Add checks for empty or invalid strings before parsing
+//            if (totalData.isEmpty() || totalQuantity.isEmpty()) {
+//                JOptionPane.showMessageDialog(this, "Please enter valid numeric values for Total Amount and Quantity.");
+//                return; // Stop further execution if the input is invalid.
+//            }
+//
+//            double convertTotalAmount = Double.parseDouble(totalData);
+//            int convertTotalQuantity = Integer.parseInt(totalQuantity);
+//            int bPrice = Integer.parseInt(price.getText()); 
+//            rentBooksControl = new RentBooksController(userId.getText(),  ctr.getText(), bTitle.getText(),  fName.getText(), lName.getText(), convertDate, ConvertReturnDate, convertTotalAmount, bPrice, convertTotalQuantity);
+//            
+//            rentBooksControl.rentBooksToDatabase();
+//            rentBooksControl.rentBooksToDatabaseV2();
+//            receiptData();
+//            GlassPanePopup.showPopup(renterReceipt);
+//            textRemover();
+//            JOptionPane.showMessageDialog(this, "Rent Success");
+//            String generateCtr = generateCTR();
+//            ctr.setText(generateCtr);
+//        }
+//
+//    } catch (NumberFormatException e) {
+//        JOptionPane.showMessageDialog(this, "Please enter valid numeric values.");
+//    } catch (Exception e) {
+//        e.printStackTrace();
+//    }
+//}
+  public void addRentedBooksData() {
     try {
         int toIntBookQuantity = Integer.parseInt(bookSQuantity.getText());
         int toIntQuantity = Integer.parseInt(quantity.getText());
+        double cashChange = Double.parseDouble(change.getText());
 
         if (bookSQuantity.getText().isEmpty() || quantity.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter valid numeric values for Book Quantity and Quantity.");
-            return; 
+            return;
         }
 
         int totalDataQuantity = toIntBookQuantity - toIntQuantity;
-        String toString_totalData = Integer.toString(totalDataQuantity);
+        String toStringTotalData = Integer.toString(totalDataQuantity);
 
         if (totalDataQuantity < 0) {
             JOptionPane.showMessageDialog(this, "Inefficient Book Supply!");
+        } else if (cashChange < 0) {
+            JOptionPane.showMessageDialog(this, "Insufficient Amount");
         } else {
-            updatedQuantity.removeAll();
-            updatedQuantity.repaint();
-            updatedQuantity.revalidate();
-            updatedQuantity.setText(toString_totalData);
-            updateBookQuantity.UpdateBooksQuantity(userId.getText(), bTitle.getText(), updatedQuantity.getText());
-            String returnDateData = returnDate.getText();
-            String dateData = date.getText();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Fix the date pattern
-            Date convertDate = dateFormat.parse(dateData);
-            Date ConvertReturnDate = dateFormat.parse(returnDateData);
-            String totalData = totalAmount.getText();
-            String totalQuantity = quantity.getText();
-            // Add checks for empty or invalid strings before parsing
-            if (totalData.isEmpty() || totalQuantity.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Please enter valid numeric values for Total Amount and Quantity.");
-                return; // Stop further execution if the input is invalid.
-            }
-
-            double convertTotalAmount = Double.parseDouble(totalData);
-            int convertTotalQuantity = Integer.parseInt(totalQuantity);
-            int bPrice = Integer.parseInt(price.getText()); 
-            rentBooksControl = new RentBooksController(userId.getText(),  ctr.getText(), bTitle.getText(),  fName.getText(), lName.getText(), convertDate, ConvertReturnDate, convertTotalAmount, bPrice, convertTotalQuantity);
-            
-            rentBooksControl.rentBooksToDatabase();
-            rentBooksControl.rentBooksToDatabaseV2();
-            receiptData();
-            GlassPanePopup.showPopup(renterReceipt);
-            textRemover();
-            JOptionPane.showMessageDialog(this, "Rent Success");
+            updateBookQuantity(totalDataQuantity);
+            processRentData();
+            showSuccessMessage();
+            resetCounter();
         }
-
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this, "Please enter valid numeric values.");
     } catch (Exception e) {
         e.printStackTrace();
     }
+}
+
+private void updateBookQuantity(int totalDataQuantity) {
+    updatedQuantity.removeAll();
+    updatedQuantity.repaint();
+    updatedQuantity.revalidate();
+    updatedQuantity.setText(Integer.toString(totalDataQuantity));
+    updateBookQuantity.UpdateBooksQuantity(userId.getText(), bTitle.getText(), updatedQuantity.getText());
+}
+
+private void processRentData() throws ParseException, SQLException, IOException, ClassNotFoundException {
+    String returnDateData = returnDate.getText();
+    String dateData = date.getText();
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    Date convertDate = dateFormat.parse(dateData);
+    Date convertReturnDate = dateFormat.parse(returnDateData);
+    
+    String totalData = totalAmount.getText();
+    String totalQuantity = quantity.getText();
+
+    if (totalData.isEmpty() || totalQuantity.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please enter valid numeric values for Total Amount and Quantity.");
+        return;
+    }
+
+    double convertTotalAmount = Double.parseDouble(totalData);
+    int convertTotalQuantity = Integer.parseInt(totalQuantity);
+    int bPrice = Integer.parseInt(price.getText());
+
+    rentBooksControl = new RentBooksController(userId.getText(), ctr.getText(), bTitle.getText(),
+            fName.getText(), lName.getText(), convertDate, convertReturnDate, convertTotalAmount,
+            bPrice, convertTotalQuantity);
+
+    rentBooksControl.rentBooksToDatabase();
+    rentBooksControl.rentBooksToDatabaseV2();
+    receiptData();
+    GlassPanePopup.showPopup(renterReceipt);
+    textRemover();
+}
+
+private void showSuccessMessage() {
+    JOptionPane.showMessageDialog(this, "Rent Success");
+}
+
+private void resetCounter() {
+    String generateCtr = generateCTR();
+    ctr.setText(generateCtr);
 }
    private void textRemover(){
        lName.setText("");
@@ -154,8 +244,28 @@ private RenterReceipt renterReceipt;
         renterReceipt.textReceipt.append(String.format("%-20s | %s\n", "TOTALPAID", totalAmount.getText()));
         renterReceipt.textReceipt.append(String.format("%-20s | %s\n", "DATERENTED", date.getText()));
         renterReceipt.textReceipt.append(String.format("%-20s | %s\n", "RETURNDATE", returnDate.getText()));
+        renterReceipt.textReceipt.append(String.format("%-20s | %s\n", "CASH", cash.getText()));
+        renterReceipt.textReceipt.append(String.format("%-20s | %s\n", "CHANGE", change.getText()));
         renterReceipt.textReceipt.append("--------------------------------------------------------\n");
     }
+   private void calculateChange(){
+       String cashAmount = cash.getText();
+       String totalAmountMoney = totalAmount.getText();
+       if (!cashAmount.isEmpty() && !totalAmountMoney.isEmpty()) {
+           try {
+               double newCashAmount = Double.parseDouble(cashAmount);
+               double newTotalAmount = Double.parseDouble(totalAmountMoney);
+               
+               double money_Change =  newCashAmount - newTotalAmount ;
+               
+               change.setText(String.valueOf(money_Change));
+           } catch (Exception e) {
+               e.printStackTrace();
+           }
+       }
+      
+       
+   }
    
    
     @SuppressWarnings("unchecked")
@@ -185,6 +295,10 @@ private RenterReceipt renterReceipt;
         price = new library.textfield.TextField();
         ctr = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        cash = new library.textfield.TextField();
+        change = new library.textfield.TextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         roundPanel1.setBackground(new java.awt.Color(255, 255, 255));
         roundPanel1.setRoundBottomLeft(40);
@@ -334,6 +448,33 @@ private RenterReceipt renterReceipt;
         jLabel13.setText("Price*");
         jLabel13.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
+        cash.setMinimumSize(new java.awt.Dimension(25, 50));
+        cash.setShadowColor(new java.awt.Color(0, 0, 0));
+        cash.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cashKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cashKeyTyped(evt);
+            }
+        });
+
+        change.setPreferredSize(new java.awt.Dimension(25, 50));
+        change.setShadowColor(new java.awt.Color(0, 0, 0));
+        change.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                changeKeyTyped(evt);
+            }
+        });
+
+        jLabel1.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel1.setText(" Cash*");
+        jLabel1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+
+        jLabel6.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel6.setText(" Change*");
+        jLabel6.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+
         javax.swing.GroupLayout roundPanel1Layout = new javax.swing.GroupLayout(roundPanel1);
         roundPanel1.setLayout(roundPanel1Layout);
         roundPanel1Layout.setHorizontalGroup(
@@ -341,17 +482,10 @@ private RenterReceipt renterReceipt;
             .addGroup(roundPanel1Layout.createSequentialGroup()
                 .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(roundPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(ctr, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(65, 65, 65)
-                        .addComponent(updatedQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)
-                        .addComponent(userId, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(roundPanel1Layout.createSequentialGroup()
                         .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(roundPanel1Layout.createSequentialGroup()
                                 .addGap(174, 174, 174)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
                                 .addGap(101, 101, 101))
                             .addGroup(roundPanel1Layout.createSequentialGroup()
                                 .addGap(170, 170, 170)
@@ -371,38 +505,52 @@ private RenterReceipt renterReceipt;
                                             .addGroup(roundPanel1Layout.createSequentialGroup()
                                                 .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addGap(9, 9, 9))
-                                            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                            .addComponent(cash, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(roundPanel1Layout.createSequentialGroup()
+                                                .addGap(6, 6, 6)
+                                                .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                 .addGap(42, 42, 42)))
+                        .addGap(8, 8, 8)
                         .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(roundPanel1Layout.createSequentialGroup()
-                                .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(date, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(returnDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(bookSQuantity, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(totalAmount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(roundPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(190, 190, 190))
+                            .addGroup(roundPanel1Layout.createSequentialGroup()
+                                .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(returnDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(bookSQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(totalAmount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, roundPanel1Layout.createSequentialGroup()
                                         .addGap(6, 6, 6)
                                         .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
                                             .addGroup(roundPanel1Layout.createSequentialGroup()
                                                 .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addGroup(roundPanel1Layout.createSequentialGroup()
                                                         .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                         .addGap(4, 4, 4))
                                                     .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                .addGap(8, 8, 8)))))
-                                .addGap(182, 182, 182))
-                            .addGroup(roundPanel1Layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(190, 190, 190)))))
+                                                .addGap(8, 8, 8))))
+                                    .addComponent(change, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(182, 182, 182))))
+                    .addGroup(roundPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ctr, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(65, 65, 65)
+                        .addComponent(updatedQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addComponent(userId, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(roundPanel1Layout.createSequentialGroup()
-                .addGap(164, 164, 164)
-                .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(button1, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
-                .addGap(408, 408, 408))
+                .addGap(393, 393, 393)
+                .addComponent(button1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(404, 404, 404))
         );
         roundPanel1Layout.setVerticalGroup(
             roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -441,18 +589,26 @@ private RenterReceipt renterReceipt;
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(totalAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
+                .addGap(18, 18, 18)
                 .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(153, 153, 153)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0)
+                .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cash, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(change, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
                 .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userId, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(updatedQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ctr, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26))
+                .addGap(32, 32, 32))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -463,22 +619,16 @@ private RenterReceipt renterReceipt;
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(roundPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(roundPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 798, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
-    try {
+
         addRentedBooksData();
-    } catch (ParseException ex) {
-        Logger.getLogger(RentBooks.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (SQLException ex) {
-        Logger.getLogger(RentBooks.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (IOException ex) {
-        Logger.getLogger(RentBooks.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (ClassNotFoundException ex) {
-        Logger.getLogger(RentBooks.class.getName()).log(Level.SEVERE, null, ex);
-    }
+ 
     }//GEN-LAST:event_button1ActionPerformed
 
     private void lNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lNameActionPerformed
@@ -548,14 +698,35 @@ private RenterReceipt renterReceipt;
       
     }//GEN-LAST:event_quantityActionPerformed
 
+    private void cashKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cashKeyTyped
+         char c = evt.getKeyChar();
+        if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_cashKeyTyped
+
+    private void changeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_changeKeyTyped
+         char c = evt.getKeyChar();
+        if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_changeKeyTyped
+
+    private void cashKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cashKeyReleased
+      calculateChange();
+    }//GEN-LAST:event_cashKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private library.textfield.TextField bTitle;
     private library.textfield.TextField bookSQuantity;
     private library.button.Button button1;
+    private library.textfield.TextField cash;
+    private library.textfield.TextField change;
     public javax.swing.JLabel ctr;
     private library.textfield.TextField date;
     private library.textfield.TextField fName;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -564,6 +735,7 @@ private RenterReceipt renterReceipt;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private library.textfield.TextField lName;
     private library.textfield.TextField price;

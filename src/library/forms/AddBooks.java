@@ -50,12 +50,9 @@ public class AddBooks extends javax.swing.JPanel {
         setOpaque(false);
         dateChooser.setDateFormat(new SimpleDateFormat("MMMM dd, yyyy"));
         dateChooser.setTextField(bDate);
-        
-        library = new MyLibrary();
-        
+        library = new MyLibrary();   
         populateBooks = new PopulateBooksController(library);
-        
-        
+
         init();
         
     }
@@ -100,12 +97,8 @@ public class AddBooks extends javax.swing.JPanel {
         addBooksControll = new AddBooksController(userId.getText(), bTitle.getText(), bAuthor.getText(), bPublisher.getText()
                                         , bDate.getText(), bDescription.getText(), selectCategory, selectLanguage,
                                                 selectFormat, selectEdition, addPageCount, addQuantity,addbookPrice, new ImageIcon(imageBytes));
-       
-
         addBooksControll.addBookToDatabase();
         setTextFieldToNone();
-        
-
         JOptionPane.showMessageDialog(this, "Successfully Added!");
     } catch (IOException | SQLException | ClassNotFoundException ex) {
         try {
@@ -121,6 +114,26 @@ public class AddBooks extends javax.swing.JPanel {
         }
   
 }
+  private void alreadyExisting(){
+      try {
+          String sql = "SELECT * FROM library_data WHERE userId = ? AND BTitle = ?";
+          PreparedStatement p = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
+          p.setString(1, userId.getText());
+          p.setString(2, bTitle.getText());
+          
+          ResultSet rs = p.executeQuery();
+          
+          if (rs.next()) {
+              JOptionPane.showMessageDialog(this, "The Book you entered Already Existed in your Database!" );
+          }
+          else{
+              addBooksButton();
+          }
+          
+      } catch (Exception e) {
+          e.printStackTrace();
+      }
+  }
 
     private byte[] convertImageIconToByteArray(Icon icon) throws IOException {
     BufferedImage bufferedImage = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
@@ -165,8 +178,6 @@ public class AddBooks extends javax.swing.JPanel {
         }
     }
     }
-    
- 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -457,16 +468,11 @@ public class AddBooks extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
-       
-   
+
     }//GEN-LAST:event_button1ActionPerformed
 
     private void addBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBookActionPerformed
-       
-       addBooksButton();
-       
-       
-
+    alreadyExisting();
     }//GEN-LAST:event_addBookActionPerformed
 
     private void addImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addImageActionPerformed

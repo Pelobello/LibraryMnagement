@@ -373,15 +373,18 @@ public class Sign_in extends javax.swing.JFrame {
         try {
            
             FlatGitHubIJTheme.setup();
+             
         } catch (Exception e) {
             e.printStackTrace();
+           
         }
-        
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+               
                 try {
                     new Sign_in().setVisible(true);
+                    
                 } catch (SQLException ex) {
                     Logger.getLogger(Sign_in.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
@@ -389,6 +392,7 @@ public class Sign_in extends javax.swing.JFrame {
                 } catch (ParseException ex) {
                     Logger.getLogger(Sign_in.class.getName()).log(Level.SEVERE, null, ex);
                 }
+               
             }
         });
     }

@@ -75,6 +75,7 @@ public class Main extends javax.swing.JFrame {
         addcustomer = new AddCustomer();
         rentBooks = new RentBooks();  
         renterData = new RenterData();
+        populateDashboard = new PopulateDashboardController();
         testRenterData();
         bookDescription.setBorder(null);
         bookDescription.setBorder(BorderFactory.createEmptyBorder());
@@ -127,9 +128,9 @@ public class Main extends javax.swing.JFrame {
         populateBooks.populate(id.getText());        
     }
     public void refreshRenter(){
-        renterData.panelItem1.removeAll();
-        renterData.panelItem1.repaint();
-        renterData.panelItem1.revalidate();
+        renterData.panelData.removeAll();
+        renterData.panelData.repaint();
+        renterData.panelData.revalidate();
         populateRenter.populateData(id.getText());
         renterData.ID.removeAll();
         renterData.ID.repaint();
@@ -156,6 +157,13 @@ public class Main extends javax.swing.JFrame {
         dashboard.customerTable.repaint();
         dashboard.customerTable.revalidate();
         dashboard.searchRenterData(id.getText(), search.getText());    
+    }
+    public void searchRenterv2(){
+        renterData.panelData.removeAll();
+        renterData.panelData.repaint();
+        renterData.panelData.revalidate();
+        populateRenter.SearchRenter(id.getText(), search.getText());
+        
     }
 
     public void refreshDashboardUI() throws SQLException, ClassNotFoundException {      
@@ -701,7 +709,7 @@ public class Main extends javax.swing.JFrame {
         
         if (search.getText().equals("")) {
             try {
-                
+                renterData.refreshRenter();
                 refreshUI();
                 refreshDashboardUI();
             } catch (SQLException ex) {
@@ -712,6 +720,7 @@ public class Main extends javax.swing.JFrame {
         }else{
             searchBooks();
             searchRenter();
+            searchRenterv2();
             search.setText("");
         }
     }//GEN-LAST:event_searchActionPerformed
