@@ -135,8 +135,7 @@ public class Main extends javax.swing.JFrame {
         renterData.ID.removeAll();
         renterData.ID.repaint();
         renterData.ID.setText(id.getText());
-        
-        
+ 
     }
     public void refreshRentBooksUI(){
         rentBooks.userId.removeAll();  
@@ -223,12 +222,12 @@ public class Main extends javax.swing.JFrame {
   }
   private void showText(){
        scrollBookDes.setVisible(true);
-              rentButton.setVisible(true);
-               bookTitle.setVisible(true);
-                 bookAuthor.setVisible(true);
-            bookDescription.setVisible(true);  
-             bookPrice.setVisible(true);
-        lbPrice.setVisible(true);
+       rentButton.setVisible(true);
+       bookTitle.setVisible(true);
+       bookAuthor.setVisible(true);
+       bookDescription.setVisible(true);  
+       bookPrice.setVisible(true);
+       lbPrice.setVisible(true);
   }
 
   private int x;
@@ -307,6 +306,7 @@ public class Main extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         button6 = new library.button.Button();
         button7 = new library.button.Button();
+        pictureBox1 = new library.components.PictureBox();
         roundPanel5 = new library.components.RoundPanel();
         bookTitle = new javax.swing.JLabel();
         bookAuthor = new javax.swing.JLabel();
@@ -463,6 +463,8 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        pictureBox1.setImage(new javax.swing.ImageIcon(getClass().getResource("/library/image/SGN_02_21_2024_1708507009000-removebg.png"))); // NOI18N
+
         javax.swing.GroupLayout panelMovingLayout = new javax.swing.GroupLayout(panelMoving);
         panelMoving.setLayout(panelMovingLayout);
         panelMovingLayout.setHorizontalGroup(
@@ -480,7 +482,10 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(panelMovingLayout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
-                        .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelMovingLayout.createSequentialGroup()
+                        .addGap(62, 62, 62)
+                        .addComponent(pictureBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
         panelMovingLayout.setVerticalGroup(
@@ -490,7 +495,9 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(panelMovingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(110, 110, 110)
+                .addGap(4, 4, 4)
+                .addComponent(pictureBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(button6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -500,7 +507,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(button5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(button7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 501, Short.MAX_VALUE))
         );
 
         roundPanel5.setBackground(new java.awt.Color(15, 4, 76));
@@ -799,6 +806,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbPrice;
     private library.components.RoundPanel panelMoving;
+    private library.components.PictureBox pictureBox1;
     private library.components.PictureBox pictureImage;
     private library.button.Button rentButton;
     private library.components.RoundPanel roundPanel1;

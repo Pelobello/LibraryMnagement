@@ -13,16 +13,21 @@ import library.database.DatabaseConnection;
 
 public class AddCustomerController {
 
-    /**
-     * @return the userId
-     */
+   
+    public int getIdNumber() {
+        return idNumber;
+    }
+
+    public void setIdNumber(int idNumber) {
+        this.idNumber = idNumber;
+    }
+
+ 
     public String getUserId() {
         return userId;
     }
 
-    /**
-     * @param userId the userId to set
-     */
+   
     public void setUserId(String userId) {
         this.userId = userId;
     }
@@ -182,6 +187,7 @@ public class AddCustomerController {
              e.printStackTrace();
         }
     }
+    private int idNumber;
     private String userId;
     private String addCustomerId;
     private String lastName;

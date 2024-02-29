@@ -129,16 +129,10 @@ public class ModelItem {
         this.coverImage = coverImage;
     }
 
-    
- 
-
- 
     public void setCoverImage(Icon coverImage) {
         this.coverImage = coverImage;
     }
- 
-  
-    
+
     private String bookTitle;
     private String bookAuthor;
     private String publisher;

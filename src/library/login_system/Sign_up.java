@@ -14,6 +14,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.logging.Level;
@@ -23,7 +26,9 @@ import javax.swing.JOptionPane;
 import library.controller.AddUserController;
 import library.controller.userController;
 import library.database.DatabaseConnection;
+import library.formsPopUp.Terms_Service;
 import library.model.ModelUserData;
+import raven.glasspanepopup.GlassPanePopup;
 
 /**
  *
@@ -34,6 +39,7 @@ public class Sign_up extends javax.swing.JFrame {
     private DateChooser dateChooser = new DateChooser();
     private ModelUserData userData;
     private AddUserController addUserController;
+    private Terms_Service terms_service;
     public Sign_up() {
         initComponents();
         userData = new ModelUserData();
@@ -42,10 +48,12 @@ public class Sign_up extends javax.swing.JFrame {
         dateChooser.setDateFormat(new SimpleDateFormat("yyyy-MM-dd"));
         dateChooser.setTextField(bDate);
         userID.setVisible(false);
+        GlassPanePopup.install(this);
+        terms_service = new Terms_Service();
          initMoving(this);
     }
 private int x;
-    private int y;
+private int y;
 
     public void initMoving(JFrame frame){
         panelMoving.addMouseListener(new MouseAdapter() {
@@ -66,66 +74,105 @@ private int x;
             }
         });
     }
-     public void existingUser(){
-         
-         if (libraryName.getText().equals("") ||userName.getText().equals("") ||password.getPassword().length == 0 || confirmPassword.getPassword().length == 0) {
-             JOptionPane.showMessageDialog(this, "Fill fill out the empty Fields");
-         }
-         else if(!Arrays.equals(password.getPassword(), confirmPassword.getPassword())){
-             JOptionPane.showMessageDialog(this, "Incorect Confirm Password!");
-         }
-         else if (!agree.isSelected()) {
-             JOptionPane.showMessageDialog(this, "Agreement Uncheck!");
-         }
-         else{
-              try {
-            
+     /**
+     * Calculates the user's age based on the birthdate and checks if the user is 18 or older.
+     */
+     private void calculateAge() {
+        try {
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            Date pDate = df.parse(bDate.getText());
+
+            LocalDate birthDate = pDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate today = LocalDate.now();
+
+            int age = today.getYear() - birthDate.getYear();
+
+            if (today.getMonthValue() < birthDate.getMonthValue() ||
+                (today.getMonthValue() == birthDate.getMonthValue() && today.getDayOfMonth() < birthDate.getDayOfMonth())) {
+                age--;
+            }
+
+            if (age >= 18) {
+                existingUser();
+            } else {
+                JOptionPane.showMessageDialog(this, "You must be 18 and Above to Create an Account...");
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Validates and processes the registration of an existing user.
+     */
+    private void existingUser() {
+        if (libraryName.getText().equals("") || userName.getText().equals("") ||
+            password.getPassword().length == 0 || confirmPassword.getPassword().length == 0) {
+            JOptionPane.showMessageDialog(this, "Fill out all the empty fields");
+        } else if (!Arrays.equals(password.getPassword(), confirmPassword.getPassword())) {
+            JOptionPane.showMessageDialog(this, "Incorrect Confirm Password!");
+        } else if (!agree.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Agreement unchecked!");
+        } else {
+            checkExistingUser();
+        }
+    }
+
+    /**
+     * Checks if the username already exists in the database.
+     */
+    private void checkExistingUser() {
+        try {
             String sql = "SELECT * FROM user_info WHERE userName = ?";
             PreparedStatement p = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             p.setString(1, userName.getText());
-            
-            
+
             ResultSet rs = p.executeQuery();
-            
-            
+
             if (rs.next()) {
-                 JOptionPane.showMessageDialog(this, userName.getText()+"is already taken!");
+                JOptionPane.showMessageDialog(this, userName.getText() + " is already taken!");
+            } else {
+                addUserData();
             }
-            else{
-                adduserData();
-            }
+
             rs.close();
             p.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-             
-         }
-    
     }
-     private void textRemover(){
-         libraryName.setText("");
-         userName.setText("");
-         password.setText("");
-         confirmPassword.setText("");
-     }
-    private void adduserData(){
+
+    /**
+     * Adds user data to the system after successful validation.
+     */
+    private void addUserData() {
         try {
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-           Date parseDate = df.parse(bDate.getText());
+            Date parseDate = df.parse(bDate.getText());
             userController controller = new userController();
-        String uName = userName.getText();
-        char[] pWord = password.getPassword();
-        String id = userID.getText();
-        String libraryN = libraryName.getText();
-    
-        controller.registerUser(new ModelUserData(id, libraryN, uName, pWord, parseDate));
-             JOptionPane.showMessageDialog(this, "Succesfully Register");
-             textRemover();
+
+            String uName = userName.getText();
+            char[] pWord = password.getPassword();
+            String id = userID.getText();
+            String libraryN = libraryName.getText();
+
+            controller.registerUser(new ModelUserData(id, libraryN, uName, pWord, parseDate));
+            JOptionPane.showMessageDialog(this, "Successfully Registered");
+            textRemover();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Resets text fields to their default state.
+     */
+    private void textRemover() {
+        libraryName.setText("");
+        userName.setText("");
+        password.setText("");
+        confirmPassword.setText("");
     }
    
     @SuppressWarnings("unchecked")
@@ -152,6 +199,8 @@ private int x;
         jLabel8 = new javax.swing.JLabel();
         userID = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        pictureBox1 = new library.components.PictureBox();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -289,6 +338,11 @@ private int x;
         jLabel9.setForeground(new java.awt.Color(15, 8, 142));
         jLabel9.setText(" Agree in terms & Service");
         jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout roundPanel1Layout = new javax.swing.GroupLayout(roundPanel1);
         roundPanel1.setLayout(roundPanel1Layout);
@@ -316,7 +370,7 @@ private int x;
         roundPanel1Layout.setVerticalGroup(
             roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel1Layout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(roundPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -334,17 +388,37 @@ private int x;
                 .addGap(14, 14, 14))
         );
 
+        pictureBox1.setImage(new javax.swing.ImageIcon(getClass().getResource("/library/image/SGN_02_21_2024_1708507009000-removebg.png"))); // NOI18N
+
+        jLabel10.setFont(new java.awt.Font("Modern No. 20", 0, 24)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("Bibleothica Harmony");
+
         javax.swing.GroupLayout panelMovingLayout = new javax.swing.GroupLayout(panelMoving);
         panelMoving.setLayout(panelMovingLayout);
         panelMovingLayout.setHorizontalGroup(
             panelMovingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(roundPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(panelMovingLayout.createSequentialGroup()
+                .addGroup(panelMovingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelMovingLayout.createSequentialGroup()
+                        .addGap(137, 137, 137)
+                        .addComponent(pictureBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelMovingLayout.createSequentialGroup()
+                        .addGap(111, 111, 111)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelMovingLayout.setVerticalGroup(
             panelMovingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMovingLayout.createSequentialGroup()
-                .addGap(0, 176, Short.MAX_VALUE)
-                .addComponent(roundPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(pictureBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(roundPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 654, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -363,9 +437,8 @@ private int x;
     }// </editor-fold>//GEN-END:initComponents
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
-        existingUser();
+       calculateAge();
 
-    
     }//GEN-LAST:event_button1ActionPerformed
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
@@ -381,6 +454,10 @@ private int x;
             Logger.getLogger(Sign_up.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jLabel7MouseClicked
+
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+      GlassPanePopup.showPopup(terms_service);
+    }//GEN-LAST:event_jLabel9MouseClicked
 
     /**
      * @param args the command line arguments
@@ -423,6 +500,7 @@ private int x;
     private library.button.Button button1;
     private library.textfield.PasswordField confirmPassword;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -434,6 +512,7 @@ private int x;
     private library.textfield.TextField libraryName;
     private library.components.RoundPanel panelMoving;
     private library.textfield.PasswordField password;
+    private library.components.PictureBox pictureBox1;
     private library.components.RoundPanel roundPanel1;
     private library.components.RoundPanel roundPanel2;
     public javax.swing.JLabel userID;

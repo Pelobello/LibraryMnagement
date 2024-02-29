@@ -4,10 +4,7 @@ package CalendarUI.model;
 import java.util.Calendar;
 import java.util.Date;
 
-/**
- *
- * @author Raven
- */
+
 public class ModelDate {
 
     public int getYear() {

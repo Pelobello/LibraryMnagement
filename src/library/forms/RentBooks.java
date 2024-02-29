@@ -84,68 +84,6 @@ private RenterReceipt renterReceipt;
     }
 }
 
- 
-    
-   
-
-//  public void addRentedBooksData() throws ParseException, SQLException, IOException, ClassNotFoundException {
-//    try {
-//        int toIntBookQuantity = Integer.parseInt(bookSQuantity.getText());
-//        int toIntQuantity = Integer.parseInt(quantity.getText());
-//        String cChange = change.getText();
-//        double cashChange = Double.parseDouble(cChange);
-//        if (bookSQuantity.getText().isEmpty() || quantity.getText().isEmpty()) {
-//            JOptionPane.showMessageDialog(this, "Please enter valid numeric values for Book Quantity and Quantity.");
-//            return; 
-//        }
-//        int totalDataQuantity = toIntBookQuantity - toIntQuantity;
-//        String toString_totalData = Integer.toString(totalDataQuantity);
-//
-//        if (totalDataQuantity < 0 ) {
-//            JOptionPane.showMessageDialog(this, "Inefficient Book Supply!");
-//        }else if (cashChange < 0) {
-//            JOptionPane.showMessageDialog(this, "insufficient Amount");
-//            
-//        } else {
-//            updatedQuantity.removeAll();
-//            updatedQuantity.repaint();
-//            updatedQuantity.revalidate();
-//            updatedQuantity.setText(toString_totalData);
-//            updateBookQuantity.UpdateBooksQuantity(userId.getText(), bTitle.getText(), updatedQuantity.getText());
-//            String returnDateData = returnDate.getText();
-//            String dateData = date.getText();
-//            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Fix the date pattern
-//            Date convertDate = dateFormat.parse(dateData);
-//            Date ConvertReturnDate = dateFormat.parse(returnDateData);
-//            String totalData = totalAmount.getText();
-//            String totalQuantity = quantity.getText();
-//            // Add checks for empty or invalid strings before parsing
-//            if (totalData.isEmpty() || totalQuantity.isEmpty()) {
-//                JOptionPane.showMessageDialog(this, "Please enter valid numeric values for Total Amount and Quantity.");
-//                return; // Stop further execution if the input is invalid.
-//            }
-//
-//            double convertTotalAmount = Double.parseDouble(totalData);
-//            int convertTotalQuantity = Integer.parseInt(totalQuantity);
-//            int bPrice = Integer.parseInt(price.getText()); 
-//            rentBooksControl = new RentBooksController(userId.getText(),  ctr.getText(), bTitle.getText(),  fName.getText(), lName.getText(), convertDate, ConvertReturnDate, convertTotalAmount, bPrice, convertTotalQuantity);
-//            
-//            rentBooksControl.rentBooksToDatabase();
-//            rentBooksControl.rentBooksToDatabaseV2();
-//            receiptData();
-//            GlassPanePopup.showPopup(renterReceipt);
-//            textRemover();
-//            JOptionPane.showMessageDialog(this, "Rent Success");
-//            String generateCtr = generateCTR();
-//            ctr.setText(generateCtr);
-//        }
-//
-//    } catch (NumberFormatException e) {
-//        JOptionPane.showMessageDialog(this, "Please enter valid numeric values.");
-//    } catch (Exception e) {
-//        e.printStackTrace();
-//    }
-//}
   public void addRentedBooksData() {
     try {
         int toIntBookQuantity = Integer.parseInt(bookSQuantity.getText());
