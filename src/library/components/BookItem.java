@@ -46,6 +46,7 @@ public class BookItem extends javax.swing.JPanel {
         pageCount.setText(Integer.toString(data.getPageCount()));
         quantity.setText(Integer.toString(data.getQuantity()));
         price.setText(Integer.toString(data.getPrice()));
+        id.setText(Integer.toString(data.getId()));
     }
 
     
@@ -106,6 +107,7 @@ public class BookItem extends javax.swing.JPanel {
         pageCount = new javax.swing.JLabel();
         bookImage = new library.components.PictureBox();
         price = new javax.swing.JLabel();
+        id = new javax.swing.JLabel();
 
         bookTitle.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         bookTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -151,15 +153,20 @@ public class BookItem extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(65, 65, 65)
                                 .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 107, Short.MAX_VALUE))
+                        .addGap(0, 34, Short.MAX_VALUE))
                     .addComponent(bookImage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(138, Short.MAX_VALUE)
+                    .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(124, 124, 124)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(bookImage, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                .addComponent(bookImage, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bookTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -178,6 +185,11 @@ public class BookItem extends javax.swing.JPanel {
                     .addComponent(pageCount))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(price))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(401, Short.MAX_VALUE)
+                    .addComponent(id)
+                    .addContainerGap()))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -190,6 +202,7 @@ public class BookItem extends javax.swing.JPanel {
     private javax.swing.JLabel bookTitle;
     private javax.swing.JLabel edition;
     private javax.swing.JLabel format;
+    private javax.swing.JLabel id;
     private javax.swing.JLabel language;
     private javax.swing.JLabel pageCount;
     private javax.swing.JLabel price;

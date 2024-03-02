@@ -6,16 +6,22 @@ import javax.swing.Icon;
 
 public class ModelItem {
 
-    /**
-     * @return the price
-     */
+   
+    public int getId() {
+        return id;
+    }
+
+   
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    
     public int getPrice() {
         return price;
     }
 
-    /**
-     * @param price the price to set
-     */
+   
     public void setPrice(int price) {
         this.price = price;
     }
@@ -132,7 +138,7 @@ public class ModelItem {
     public void setCoverImage(Icon coverImage) {
         this.coverImage = coverImage;
     }
-
+    private int id;
     private String bookTitle;
     private String bookAuthor;
     private String publisher;

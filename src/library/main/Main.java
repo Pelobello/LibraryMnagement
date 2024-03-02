@@ -69,6 +69,7 @@ public class Main extends javax.swing.JFrame {
     public Main() throws SQLException, ClassNotFoundException, ParseException  {
       
     initComponents();
+        
         dashboard = new DashBoard();
         myLibrary = new MyLibrary();
         addBooks = new AddBooks();
@@ -82,15 +83,14 @@ public class Main extends javax.swing.JFrame {
         scrollBookDes.setBorder(null);
         scrollBookDes.setBorder(BorderFactory.createEmptyBorder());
         testData();      
+        
         initMainComponents();
         refreshDashboardUI();
         GlassPanePopup.install(this);
         
 
     }
-    
 
-    
     public void initMainComponents() throws SQLException, ClassNotFoundException{
         setBackground(new Color(0,0,0,0));
         Font poppinsFont = new Font("Khula", Font.ITALIC, 16);
@@ -164,6 +164,9 @@ public class Main extends javax.swing.JFrame {
         populateRenter.SearchRenter(id.getText(), search.getText());
         
     }
+    public void searchCustomer(){
+        addcustomer.searchCustomerData(id.getText(), search.getText());
+    }
 
     public void refreshDashboardUI() throws SQLException, ClassNotFoundException {      
     dashboard.chart.clear();
@@ -194,7 +197,6 @@ public class Main extends javax.swing.JFrame {
         userIdBuilder.append(random.nextInt(10));
     }
 
-   
     String userId = userIdBuilder.toString();
 
     return userId;
@@ -219,6 +221,8 @@ public class Main extends javax.swing.JFrame {
       scrollBookDes.setVisible(false);
       bookPrice.setVisible(false);
       lbPrice.setVisible(false);
+      edit.setVisible(false);
+      bookId.setVisible(false);
   }
   private void showText(){
        scrollBookDes.setVisible(true);
@@ -228,6 +232,7 @@ public class Main extends javax.swing.JFrame {
        bookDescription.setVisible(true);  
        bookPrice.setVisible(true);
        lbPrice.setVisible(true);
+       edit.setVisible(true);
   }
 
   private int x;
@@ -257,7 +262,9 @@ public class Main extends javax.swing.JFrame {
             public void itemClick(Component com, ModelItem item) {
              myLibrary.setSelected(com);
                 showItem(item);
-            showText();
+                showText();
+                editItem(item);
+                
             }
        });
 }
@@ -281,12 +288,35 @@ public class Main extends javax.swing.JFrame {
        pictureImage.repaint();
        String quantityToString = Integer.toString(data.getQuantity());
         String priceToString = Integer.toString(data.getPrice());
+        String idToString = Integer.toString(data.getId());
        bookTitle.setText(data.getBookTitle());
        bookAuthor.setText(data.getBookAuthor());
        bookDescription.setText(data.getBookDescription());
        bookQuantity.setText(quantityToString);
        bookPrice.setText(priceToString);
+       bookId.setText(idToString);
      
+   }
+   public void editItem(ModelItem data){
+       String idToString = Integer.toString(data.getId());
+       String pcount = Integer.toString(data.getPageCount());
+       String bPrice = Integer.toString(data.getPrice());
+       String pQuantity = Integer.toString(data.getQuantity());
+       addBooks.pic.setImage(data.getCoverImage());
+       addBooks.pic.repaint();
+       addBooks.bTitle.setText(data.getBookTitle());
+       addBooks.bookID.setText(idToString);
+       addBooks.bAuthor.setText(data.getBookAuthor());
+       addBooks.bPublisher.setText(data.getPublisher());
+       addBooks.bDate.setText(data.getPublicationDate());
+       addBooks.bDescription.setText(data.getBookDescription());
+       addBooks.bookPrice.setText(bPrice);
+       addBooks.pCount.setText(pcount);
+       addBooks.quantity.setText(pQuantity);
+       addBooks.bCategory.setSelectedItem(data.getBookCategory());
+       addBooks.bLanguage.setSelectedItem(data.getLanguage());
+       addBooks.bFormat.setSelectedItem(data.getFormat());
+       addBooks.bEdition.setSelectedItem(data.getEdition());
    }
  
     @SuppressWarnings("unchecked")
@@ -317,6 +347,8 @@ public class Main extends javax.swing.JFrame {
         pictureImage = new library.components.PictureBox();
         bookPrice = new javax.swing.JLabel();
         lbPrice = new javax.swing.JLabel();
+        bookId = new javax.swing.JLabel();
+        edit = new library.button.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -340,7 +372,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        search.setForeground(new java.awt.Color(51, 51, 51));
+        search.setForeground(new java.awt.Color(102, 102, 102));
         search.setText("Search");
         search.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         search.setShadowColor(new java.awt.Color(252, 209, 209));
@@ -355,6 +387,11 @@ public class Main extends javax.swing.JFrame {
         search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchActionPerformed(evt);
+            }
+        });
+        search.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchKeyReleased(evt);
             }
         });
 
@@ -507,7 +544,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(button5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(button7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 501, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         roundPanel5.setBackground(new java.awt.Color(15, 4, 76));
@@ -549,10 +586,26 @@ public class Main extends javax.swing.JFrame {
         lbPrice.setForeground(new java.awt.Color(255, 255, 255));
         lbPrice.setText("Price:");
 
+        bookId.setForeground(new java.awt.Color(255, 255, 255));
+        bookId.setText("jLabel2");
+
+        edit.setText("Edit");
+        edit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout roundPanel5Layout = new javax.swing.GroupLayout(roundPanel5);
         roundPanel5.setLayout(roundPanel5Layout);
         roundPanel5Layout.setHorizontalGroup(
             roundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollBookDes, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bookId)
+                .addGap(39, 39, 39))
             .addGroup(roundPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(roundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -560,18 +613,18 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(bookAuthor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(roundPanel5Layout.createSequentialGroup()
                         .addGroup(roundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pictureImage, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bookQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(roundPanel5Layout.createSequentialGroup()
                                 .addComponent(lbPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, 0)
-                                .addComponent(bookPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(pictureImage, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bookQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(rentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39))
-            .addComponent(scrollBookDes, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(bookPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(8, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel5Layout.createSequentialGroup()
+                        .addComponent(edit, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         roundPanel5Layout.setVerticalGroup(
             roundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -585,13 +638,19 @@ public class Main extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollBookDes, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(roundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bookPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rentButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(bookQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(roundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(roundPanel5Layout.createSequentialGroup()
+                        .addGroup(roundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bookPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(89, 89, 89)
+                        .addComponent(bookQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(roundPanel5Layout.createSequentialGroup()
+                        .addGroup(roundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rentButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(21, 21, 21)
+                        .addComponent(bookId)))
                 .addContainerGap())
         );
 
@@ -607,7 +666,7 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(roundPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(roundPanel1Layout.createSequentialGroup()
                         .addGap(31, 31, 31)
-                        .addComponent(roundPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 1024, Short.MAX_VALUE)
+                        .addComponent(roundPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 1022, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(roundPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
@@ -652,6 +711,7 @@ public class Main extends javax.swing.JFrame {
 
     private void button4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button4ActionPerformed
         Forms(addBooks);
+         search.setText("Search Books");
         SwingUtilities.invokeLater(() -> {
         addBooks.userId.removeAll();
         addBooks.userId.repaint();
@@ -664,6 +724,7 @@ public class Main extends javax.swing.JFrame {
 
     private void button5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button5ActionPerformed
         Forms(addcustomer);
+         search.setText("Search Customer");
         SwingUtilities.invokeLater(() -> {
         addcustomer.userId.removeAll();
         addcustomer.userId.repaint();
@@ -737,17 +798,30 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_searchFocusGained
 
     private void searchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchFocusLost
-       search.setText("Seach Books");
+    
     }//GEN-LAST:event_searchFocusLost
 
     private void button7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button7ActionPerformed
         Forms(renterData);
+         search.setText("Search Renter");
         renterData.textVisibleFalse();
         
         
         
         refreshRenter();
     }//GEN-LAST:event_button7ActionPerformed
+
+    private void searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchKeyReleased
+       searchCustomer();
+        searchBooks();
+         searchRenterv2();
+    }//GEN-LAST:event_searchKeyReleased
+
+    private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
+        testData();
+        
+        Forms(addBooks);
+    }//GEN-LAST:event_editActionPerformed
 
    
     public static void main(String args[]) {
@@ -793,6 +867,7 @@ public class Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bookAuthor;
     private library.swing.TextPane bookDescription;
+    private javax.swing.JLabel bookId;
     private javax.swing.JLabel bookPrice;
     private javax.swing.JLabel bookQuantity;
     private javax.swing.JLabel bookTitle;
@@ -801,6 +876,7 @@ public class Main extends javax.swing.JFrame {
     private library.button.Button button5;
     private library.button.Button button6;
     private library.button.Button button7;
+    private library.button.Button edit;
     public javax.swing.JLabel id;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

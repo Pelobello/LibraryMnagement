@@ -47,11 +47,11 @@ public class PopulateRenterController {
      public void SearchRenter(String uId,String searchTextField){
         try {
             
-            String sql = "SELECT * FROM customer_rented_books_data_v2 WHERE userId = ? And ctr LIKE ? ";
+            String sql = "SELECT * FROM customer_rented_books_data_v2 WHERE userId = ? And (ctr LIKE ? OR lastName LIKE ?)ORDER BY userID";
             PreparedStatement p = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             p.setString(1, uId);
             p.setString(2, "%" +searchTextField+ "%");
-//            p.setString(3, "%" +searchTextField+ "%");
+            p.setString(3, "%" +searchTextField+ "%");
            
             ResultSet rs = p.executeQuery();
             while (rs.next()) {                

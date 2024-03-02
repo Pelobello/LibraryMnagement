@@ -26,30 +26,31 @@ import javax.swing.JOptionPane;
 import library.controller.AddUserController;
 import library.controller.userController;
 import library.database.DatabaseConnection;
+import library.forms.RenterData;
 import library.formsPopUp.Terms_Service;
+import library.main.Main;
 import library.model.ModelUserData;
 import raven.glasspanepopup.GlassPanePopup;
 
-/**
- *
- * @author USER
- */
+
 public class Sign_up extends javax.swing.JFrame {
     
     private DateChooser dateChooser = new DateChooser();
     private ModelUserData userData;
     private AddUserController addUserController;
-    private Terms_Service terms_service;
-    public Sign_up() {
+    
+    private Main main;
+    public Sign_up() throws SQLException, ClassNotFoundException, ParseException {
         initComponents();
         userData = new ModelUserData();
         addUserController = new AddUserController();
-         setBackground(new Color(0,0,0,0));
+         setBackground(new Color(0,0,0,0));   
         dateChooser.setDateFormat(new SimpleDateFormat("yyyy-MM-dd"));
         dateChooser.setTextField(bDate);
-        userID.setVisible(false);
-        GlassPanePopup.install(this);
-        terms_service = new Terms_Service();
+        userID.setVisible(false);     
+        
+        
+        
          initMoving(this);
     }
 private int x;
@@ -456,7 +457,7 @@ private int y;
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
-      GlassPanePopup.showPopup(terms_service);
+
     }//GEN-LAST:event_jLabel9MouseClicked
 
     /**
@@ -489,7 +490,17 @@ private int y;
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Sign_up().setVisible(true);
+                
+                try {
+                    new Sign_up().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Sign_up.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Sign_up.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ParseException ex) {
+                    Logger.getLogger(Sign_up.class.getName()).log(Level.SEVERE, null, ex);
+                }
+              
             }
         });
     }

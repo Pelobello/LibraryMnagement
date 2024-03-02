@@ -45,6 +45,7 @@ private RenterReceipt renterReceipt;
           updateBookQuantity = new UpdateBooksController();
           userId.setVisible(false);
           updatedQuantity.setVisible(false);
+         
         
     }
     public void showBookData(ModelRentData data){

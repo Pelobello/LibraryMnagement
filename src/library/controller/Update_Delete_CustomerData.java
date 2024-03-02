@@ -11,7 +11,7 @@ public class Update_Delete_CustomerData {
    
     public void DeleteCustomerData(AddCustomerController data){
         try {
-        String sql = "DELETE FROM custumer_data WHERE id LIKE ?";
+        String sql = "DELETE FROM custumer_data WHERE id = ?";
         p = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
         p.setInt(1, data.getIdNumber());
         p.executeUpdate();

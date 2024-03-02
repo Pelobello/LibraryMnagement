@@ -27,7 +27,9 @@ public class PopulateBooksController {
     }
 
     private AddBooks addBooks;
+    private ModelItem data;
     public PopulateBooksController() {
+        data = new ModelItem();
         
     }
     public void searchBooks(String userId,String titleTextField){
@@ -55,7 +57,7 @@ public class PopulateBooksController {
                            rs.getInt("Quantity"), 
                            rs.getInt("price"),
                            (icon)));
-                  
+                 
             }
       
         } catch (Exception e) {
@@ -64,40 +66,41 @@ public class PopulateBooksController {
     }
    
     
-    public void populate(String userId){
+  public void populate(String userId) {
+    try {
+        String sql = "SELECT * FROM library_data WHERE userId = ?";
+        PreparedStatement p = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
+        p.setString(1, userId);
+        ResultSet rs = p.executeQuery();
 
-        try {
-           String sql = "SELECT * FROM library_data WHERE userId = ?";
-          
-                    PreparedStatement p = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-                     
-                p.setString(1, userId);
-                ResultSet rs = p.executeQuery();
-    
-            while (rs.next()) {                
-                
-                 byte[] blobData = rs.getBytes("CoverImage");
+        while (rs.next()) {
+            byte[] blobData = rs.getBytes("CoverImage");
             ImageIcon icon = new ImageIcon(blobData);
-       
-                 library.addBooks(new ModelItem(
-                           rs.getString("BTitle")
-                           , rs.getString("BAuthor")
-                           , rs.getString("Publisher")
-                           , rs.getString("PublicationDate")
-                           , rs.getString("BookDescription")
-                           , rs.getString("BookCategory"),
-                           rs.getString("Language"),
-                           rs.getString("Format"),
-                           rs.getString("Edition"), 
-                           rs.getInt("PageCount"),
-                           rs.getInt("Quantity"), 
-                           rs.getInt("price"),
-                           (icon)));
- 
-                }     
-  
-        } catch (Exception e) {
-            e.printStackTrace();
+
+            ModelItem item = new ModelItem(
+                    rs.getString("BTitle"),
+                    rs.getString("BAuthor"),
+                    rs.getString("Publisher"),
+                    rs.getString("PublicationDate"),
+                    rs.getString("BookDescription"),
+                    rs.getString("BookCategory"),
+                    rs.getString("Language"),
+                    rs.getString("Format"),
+                    rs.getString("Edition"),
+                    rs.getInt("PageCount"),
+                    rs.getInt("Quantity"),
+                    rs.getInt("price"),
+                    (icon));
+
+            // Set the ID separately
+            item.setId(rs.getInt("id"));
+
+            // Add the item to the library
+            library.addBooks(item);
         }
+
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+}
 }

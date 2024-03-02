@@ -103,7 +103,7 @@ private Update_Delete_CustomerData ud_customerData;
 }
   private void updateCustomerData(){
       if (lbID.getText().equals("")) {
-        JOptionPane.showMessageDialog(this, "Invalid Data to Delete");
+        JOptionPane.showMessageDialog(this, "Invalid Data to Update");
     }else {
         int idData = Integer.parseInt(lbID.getText());
         if (addCostomerControll != null) {
@@ -159,6 +159,43 @@ private Update_Delete_CustomerData ud_customerData;
                }
                model.addRow(v);
            }
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+   }
+   public void searchCustomerData(String userID, String searchField){
+       try {
+           DefaultTableModel model =(DefaultTableModel)customerTable.getModel();
+           model.setRowCount(0);
+           String sql = "SELECT * FROM custumer_data WHERE cUID = ? AND (customerUserId LIKE ? OR lastName LIKE ?) ORDER BY cUID";
+           PreparedStatement p = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
+           p.setString(1, userID);
+            p.setString(2, "%"+searchField.trim()+"%");
+             p.setString(3, "%"+searchField.trim()+"%");
+             ResultSet rs = p.executeQuery();
+           while (rs.next()) {               
+               Vector v = new Vector();
+               for (int i = 0; i < 35; i++) {
+                   v.add(rs.getInt("id"));
+                   v.add(rs.getString("cUID"));
+                   v.add(rs.getString("customerUserId"));
+                   v.add(rs.getString("lastName"));
+                   v.add(rs.getString("firstName"));
+                   v.add(rs.getString("birthDate"));
+                   v.add(rs.getString("age"));
+                   v.add(rs.getString("contactNumber"));
+                   v.add(rs.getString("province"));
+                   v.add(rs.getString("city"));
+                   v.add(rs.getString("barangay"));
+                   v.add(rs.getString("country"));
+                   v.add(rs.getString("postalCode"));
+  
+               }
+               model.addRow(v);
+           }
+           
+           
+           
        } catch (Exception e) {
            e.printStackTrace();
        }

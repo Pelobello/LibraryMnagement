@@ -26,6 +26,7 @@ import library.controller.BookReturnedController;
 import library.controller.PopulateRenterController;
 import library.event.EventRenter;
 import library.formsPopUp.RenterReceipt;
+import library.formsPopUp.Terms_Service;
 import library.main.Main;
 import static library.main.Main.generateCTR;
 import library.model.ModelRenter;
@@ -200,6 +201,7 @@ public class RenterData extends javax.swing.JPanel {
         
         
          receiptData();
+         
         GlassPanePopup.showPopup(renterReceipt);
         textRemover();
         refreshRenter();
@@ -263,6 +265,7 @@ public class RenterData extends javax.swing.JPanel {
         returnBook = new BookReturnedController();
         populateData = new PopulateRenterController(this);
         renterReceipt = new RenterReceipt();
+       
         Date Tdate = new Date();
        textVisibleFalse();
         String fd = df.format(Tdate);
@@ -556,7 +559,7 @@ public class RenterData extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
-//       returnRentedBooks();
+
            if (lbCTR.getText().equals("") || rentedBook.getText().equals("") ||quantity.getText().equals("")||cash.getText().equals("")||change.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "invalid Data!");
         }else{
