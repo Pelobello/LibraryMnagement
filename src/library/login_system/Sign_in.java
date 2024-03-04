@@ -368,9 +368,9 @@ public class Sign_in extends javax.swing.JFrame {
 
     private void userNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_userNameKeyTyped
         if (userName.getText().equals("")) {
-            userName.setOpaque(false);
+            
         }else{
-            userName.setOpaque(true);
+           
         }
         lbEmail.setForeground(new Color(51,51,51));
         lbPassword.setForeground(new Color(51,51,51));
@@ -381,9 +381,8 @@ public class Sign_in extends javax.swing.JFrame {
         char[] passwordChars = passWord.getPassword();
 
     if (passwordChars.length == 0) {
-        passWord.setOpaque(false);
+       
     } else {
-        passWord.setOpaque(true);
     }
       lbEmail.setForeground(new Color(51,51,51));
         lbPassword.setForeground(new Color(51,51,51));

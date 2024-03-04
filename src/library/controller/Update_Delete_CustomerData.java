@@ -1,6 +1,7 @@
 
 package library.controller;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import library.database.DatabaseConnection;
 
 
@@ -41,6 +42,21 @@ public class Update_Delete_CustomerData {
             
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+    
+      public boolean alreadyExistingCustomer(AddCustomerController dataExisting){
+        try {
+            String sql = "SELECT * FROM custumer_data WHERE cUID = ? AND (lastName = ? OR firstName = ?)ORDER BY cUID";
+            p = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
+            p.setString(1, dataExisting.getUserId());
+            p.setString(2, dataExisting.getLastName());
+            p.setString(3, dataExisting.getFirstName());
+            ResultSet rs = p.executeQuery();
+            return rs.next();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }

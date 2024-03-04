@@ -42,7 +42,7 @@ public class Sign_up extends javax.swing.JFrame {
     private Main main;
     public Sign_up() throws SQLException, ClassNotFoundException, ParseException {
         initComponents();
-        userData = new ModelUserData();
+        userData = new ModelUserData(); 
         addUserController = new AddUserController();
          setBackground(new Color(0,0,0,0));   
         dateChooser.setDateFormat(new SimpleDateFormat("yyyy-MM-dd"));

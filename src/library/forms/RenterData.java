@@ -5,6 +5,7 @@
 package library.forms;
 
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -58,13 +59,26 @@ public class RenterData extends javax.swing.JPanel {
             }
   
         });
+        renter.addMouseListener(new MouseAdapter() {
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // Set the cursor to the hand cursor
+        renter.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // Optionally, reset the cursor when the mouse exits the component
+        renter.setCursor(Cursor.getDefaultCursor());
+    }
+});
         panelData.add(renter);
         repaint();
         revalidate();
          
         String inputString1 = renter.returnDate.getText(); 
         String inputString2 = renter.dateToday.getText();
-
+       
         try {
             LocalDateTime date1 = LocalDate.parse(inputString1, dtf).atStartOfDay();
             LocalDateTime date2 = LocalDate.parse(inputString2, dtf).atStartOfDay();
@@ -76,6 +90,7 @@ public class RenterData extends javax.swing.JPanel {
             renter.lapses.setText(db);
             renter.penalties.setText(String.valueOf(totalDataAmount));
             Date Tdate = new Date();
+            
       
         String fd = df.format(Tdate);
         DT.setText(fd);
@@ -270,6 +285,7 @@ public class RenterData extends javax.swing.JPanel {
        textVisibleFalse();
         String fd = df.format(Tdate);
         DT.setText(fd);
+        ID.setVisible(false);
    
     }
 
@@ -379,6 +395,7 @@ public class RenterData extends javax.swing.JPanel {
 
         DL.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
+        cash.setShadowColor(new java.awt.Color(51, 51, 51));
         cash.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cashActionPerformed(evt);
@@ -393,6 +410,7 @@ public class RenterData extends javax.swing.JPanel {
             }
         });
 
+        change.setShadowColor(new java.awt.Color(51, 51, 51));
         change.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 changeKeyTyped(evt);
@@ -516,6 +534,7 @@ public class RenterData extends javax.swing.JPanel {
         jScrollPane3.setViewportView(roundPanel2);
 
         button1.setText("Book Return");
+        button1.setShadowColor(new java.awt.Color(51, 51, 51));
         button1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 button1ActionPerformed(evt);

@@ -45,6 +45,7 @@ import library.forms.AddCustomer;
 import library.forms.RentBooks;
 import library.forms.RenterData;
 import library.formsPopUp.RenterReceipt;
+import library.login_system.Sign_in;
 import static library.main.Main.main;
 import library.model.ModelItem;
 import library.model.ModelRentData;
@@ -255,6 +256,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
     }
+    
     public void testData(){
        
   myLibrary.setEvent(new EventItem() {
@@ -263,7 +265,10 @@ public class Main extends javax.swing.JFrame {
              myLibrary.setSelected(com);
                 showItem(item);
                 showText();
-                editItem(item);
+               
+                    editItem(item);
+                           
+                   
                 
             }
        });
@@ -325,7 +330,6 @@ public class Main extends javax.swing.JFrame {
 
         roundPanel1 = new library.components.RoundPanel();
         roundPanel3 = new library.components.RoundPanel();
-        jButton1 = new javax.swing.JButton();
         search = new library.textfield.TextField();
         roundPanel4 = new library.components.RoundPanel();
         panelMoving = new library.components.RoundPanel();
@@ -337,6 +341,9 @@ public class Main extends javax.swing.JFrame {
         button6 = new library.button.Button();
         button7 = new library.button.Button();
         pictureBox1 = new library.components.PictureBox();
+        Exit = new library.button.Button();
+        LogOut = new library.button.Button();
+        jLabel2 = new javax.swing.JLabel();
         roundPanel5 = new library.components.RoundPanel();
         bookTitle = new javax.swing.JLabel();
         bookAuthor = new javax.swing.JLabel();
@@ -363,14 +370,6 @@ public class Main extends javax.swing.JFrame {
         roundPanel3.setRoundBottomLeft(20);
         roundPanel3.setRoundBottomRight(25);
         roundPanel3.setRoundTopRight(25);
-
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton1.setText("x");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         search.setForeground(new java.awt.Color(102, 102, 102));
         search.setText("Search");
@@ -401,10 +400,8 @@ public class Main extends javax.swing.JFrame {
             roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel3Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(search, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
-                .addGap(697, 697, 697)
-                .addComponent(jButton1)
-                .addContainerGap())
+                .addComponent(search, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                .addGap(735, 735, 735))
         );
         roundPanel3Layout.setVerticalGroup(
             roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -412,10 +409,6 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE)
                 .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(24, Short.MAX_VALUE))
-            .addGroup(roundPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         roundPanel4.setBackground(new java.awt.Color(255, 255, 255));
@@ -435,7 +428,7 @@ public class Main extends javax.swing.JFrame {
         button3.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         button3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         button3.setIconTextGap(20);
-        button3.setShadowColor(new java.awt.Color(245, 163, 202));
+        button3.setShadowColor(new java.awt.Color(102, 102, 102));
         button3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 button3ActionPerformed(evt);
@@ -448,7 +441,7 @@ public class Main extends javax.swing.JFrame {
         button4.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         button4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         button4.setIconTextGap(20);
-        button4.setShadowColor(new java.awt.Color(245, 163, 202));
+        button4.setShadowColor(new java.awt.Color(102, 102, 102));
         button4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 button4ActionPerformed(evt);
@@ -461,18 +454,19 @@ public class Main extends javax.swing.JFrame {
         button5.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         button5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         button5.setIconTextGap(20);
-        button5.setShadowColor(new java.awt.Color(245, 163, 202));
+        button5.setShadowColor(new java.awt.Color(102, 102, 102));
         button5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 button5ActionPerformed(evt);
             }
         });
 
+        id.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         id.setForeground(new java.awt.Color(102, 102, 102));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel1.setText("userId:");
+        jLabel1.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel1.setText("USERID:");
 
         button6.setBackground(new java.awt.Color(245, 238, 230));
         button6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/library/image/icons8_combo_chart_40px.png"))); // NOI18N
@@ -480,7 +474,7 @@ public class Main extends javax.swing.JFrame {
         button6.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         button6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         button6.setIconTextGap(20);
-        button6.setShadowColor(new java.awt.Color(245, 163, 202));
+        button6.setShadowColor(new java.awt.Color(102, 102, 102));
         button6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 button6ActionPerformed(evt);
@@ -493,7 +487,7 @@ public class Main extends javax.swing.JFrame {
         button7.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         button7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         button7.setIconTextGap(20);
-        button7.setShadowColor(new java.awt.Color(245, 163, 202));
+        button7.setShadowColor(new java.awt.Color(102, 102, 102));
         button7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 button7ActionPerformed(evt);
@@ -501,6 +495,35 @@ public class Main extends javax.swing.JFrame {
         });
 
         pictureBox1.setImage(new javax.swing.ImageIcon(getClass().getResource("/library/image/SGN_02_21_2024_1708507009000-removebg.png"))); // NOI18N
+
+        Exit.setBackground(new java.awt.Color(245, 238, 230));
+        Exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/library/image/icons8_cancel_40px.png"))); // NOI18N
+        Exit.setText("Exit");
+        Exit.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
+        Exit.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Exit.setIconTextGap(20);
+        Exit.setShadowColor(new java.awt.Color(102, 102, 102));
+        Exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExitActionPerformed(evt);
+            }
+        });
+
+        LogOut.setBackground(new java.awt.Color(245, 238, 230));
+        LogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/library/image/icons8_logout_40px.png"))); // NOI18N
+        LogOut.setText("Log Out");
+        LogOut.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
+        LogOut.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        LogOut.setIconTextGap(20);
+        LogOut.setShadowColor(new java.awt.Color(102, 102, 102));
+        LogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LogOutActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel2.setText("BibleothecaHarmoy V1");
 
         javax.swing.GroupLayout panelMovingLayout = new javax.swing.GroupLayout(panelMoving);
         panelMoving.setLayout(panelMovingLayout);
@@ -515,9 +538,13 @@ public class Main extends javax.swing.JFrame {
                             .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(button6, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(button7, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(button7, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Exit, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelMovingLayout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelMovingLayout.createSequentialGroup()
@@ -529,9 +556,9 @@ public class Main extends javax.swing.JFrame {
             panelMovingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMovingLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelMovingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                .addGroup(panelMovingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(id, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(4, 4, 4)
                 .addComponent(pictureBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -544,7 +571,13 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(button5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(button7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+                .addComponent(LogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Exit, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addComponent(jLabel2)
+                .addContainerGap())
         );
 
         roundPanel5.setBackground(new java.awt.Color(15, 4, 76));
@@ -591,6 +624,11 @@ public class Main extends javax.swing.JFrame {
 
         edit.setText("Edit");
         edit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        edit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editMouseClicked(evt);
+            }
+        });
         edit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editActionPerformed(evt);
@@ -601,7 +639,6 @@ public class Main extends javax.swing.JFrame {
         roundPanel5.setLayout(roundPanel5Layout);
         roundPanel5Layout.setHorizontalGroup(
             roundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollBookDes, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel5Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bookId)
@@ -611,26 +648,30 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(roundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(bookTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bookAuthor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(roundPanel5Layout.createSequentialGroup()
-                        .addGroup(roundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pictureImage, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bookQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(roundPanel5Layout.createSequentialGroup()
-                                .addComponent(lbPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(bookPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(8, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel5Layout.createSequentialGroup()
                         .addComponent(edit, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(roundPanel5Layout.createSequentialGroup()
+                        .addGroup(roundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(scrollBookDes)
+                            .addGroup(roundPanel5Layout.createSequentialGroup()
+                                .addGroup(roundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(pictureImage, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(bookQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(roundPanel5Layout.createSequentialGroup()
+                                        .addComponent(lbPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, 0)
+                                        .addComponent(bookPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 2, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         roundPanel5Layout.setVerticalGroup(
             roundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundPanel5Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addComponent(pictureImage, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                .addComponent(pictureImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bookTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
@@ -666,7 +707,7 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(roundPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(roundPanel1Layout.createSequentialGroup()
                         .addGap(31, 31, 31)
-                        .addComponent(roundPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 1022, Short.MAX_VALUE)
+                        .addComponent(roundPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(roundPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
@@ -689,13 +730,13 @@ public class Main extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(roundPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(roundPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addContainerGap())
         );
 
         pack();
@@ -706,12 +747,14 @@ public class Main extends javax.swing.JFrame {
         Forms(myLibrary);
         search.setText("Search Books");
         refreshUI();
+        addBooks.setTextFieldToNone();
 
     }//GEN-LAST:event_button3ActionPerformed
 
     private void button4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button4ActionPerformed
         Forms(addBooks);
          search.setText("Search Books");
+        
         SwingUtilities.invokeLater(() -> {
         addBooks.userId.removeAll();
         addBooks.userId.repaint();
@@ -758,6 +801,7 @@ public class Main extends javax.swing.JFrame {
 
     private void button6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button6ActionPerformed
            Forms(dashboard);
+            addBooks.setTextFieldToNone();
            search.setText("Search Borrower");
           try {
               refreshDashboardUI();
@@ -768,10 +812,6 @@ public class Main extends javax.swing.JFrame {
           }
            textRemover();
     }//GEN-LAST:event_button6ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       System.exit(0);
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
         
@@ -805,7 +845,8 @@ public class Main extends javax.swing.JFrame {
         Forms(renterData);
          search.setText("Search Renter");
         renterData.textVisibleFalse();
-        
+         addBooks.setTextFieldToNone();
+         textRemover();
         
         
         refreshRenter();
@@ -818,10 +859,35 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_searchKeyReleased
 
     private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
+   
         testData();
-        
-        Forms(addBooks);
+        textRemover();
+         Forms(addBooks);
     }//GEN-LAST:event_editActionPerformed
+
+    private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_ExitActionPerformed
+
+    private void LogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogOutActionPerformed
+          try {
+              Sign_in si = new Sign_in();
+              
+              si.setVisible(true);
+              this.dispose();
+          } catch (SQLException ex) {
+              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+          } catch (ClassNotFoundException ex) {
+              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+          } catch (ParseException ex) {
+              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+          }
+      
+    }//GEN-LAST:event_LogOutActionPerformed
+
+    private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editMouseClicked
 
    
     public static void main(String args[]) {
@@ -865,6 +931,8 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private library.button.Button Exit;
+    private library.button.Button LogOut;
     private javax.swing.JLabel bookAuthor;
     private library.swing.TextPane bookDescription;
     private javax.swing.JLabel bookId;
@@ -878,8 +946,8 @@ public class Main extends javax.swing.JFrame {
     private library.button.Button button7;
     private library.button.Button edit;
     public javax.swing.JLabel id;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lbPrice;
     private library.components.RoundPanel panelMoving;
     private library.components.PictureBox pictureBox1;

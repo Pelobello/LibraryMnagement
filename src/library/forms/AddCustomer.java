@@ -24,8 +24,6 @@ import javax.swing.table.TableModel;
 import library.controller.Update_Delete_CustomerData;
 import static library.forms.RentBooks.generateCTR;
 
-
-
 public class AddCustomer extends javax.swing.JPanel {
 
 private AddCustomerController addCostomerControll;
@@ -43,6 +41,9 @@ private Update_Delete_CustomerData ud_customerData;
         centerRendererV2 = new DefaultTableCellRenderer();
         tableTextCenter();
         populateCustomerData(userId.getText());
+        lbID.setVisible(false);
+        CtID.setVisible(false);
+        userId.setVisible(false);
  
     }
     
@@ -193,9 +194,7 @@ private Update_Delete_CustomerData ud_customerData;
                }
                model.addRow(v);
            }
-           
-           
-           
+  
        } catch (Exception e) {
            e.printStackTrace();
        }
@@ -231,7 +230,7 @@ private Update_Delete_CustomerData ud_customerData;
         JOptionPane.showMessageDialog(this, "Error adding book: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     } 
     }
-    
+   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -595,15 +594,21 @@ private Update_Delete_CustomerData ud_customerData;
     }// </editor-fold>//GEN-END:initComponents
 
     private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
-     
     try {
-        addCustomerData();
+         addCostomerControll.setUserId(userId.getText());
+         addCostomerControll.setLastName(lName.getText());
+         addCostomerControll.setFirstName(fName.getText());
+        if (ud_customerData.alreadyExistingCustomer(addCostomerControll)) {
+            JOptionPane.showMessageDialog(this, "Customer Already Exist");
+        }else{
+             addCustomerData();
+        }
+       
     } catch (SQLException ex) {
         Logger.getLogger(AddCustomer.class.getName()).log(Level.SEVERE, null, ex);
     } catch (IOException ex) {
         Logger.getLogger(AddCustomer.class.getName()).log(Level.SEVERE, null, ex);
-    }
-        
+    }     
     }//GEN-LAST:event_button2ActionPerformed
 
     private void cityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cityActionPerformed

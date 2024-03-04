@@ -5,8 +5,10 @@
 package library.forms;
 
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.ImageIcon;
@@ -53,6 +55,19 @@ private EventItem event;
           
           }
       });
+      item.addMouseListener(new MouseAdapter() {
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // Set the cursor to the hand cursor
+        item.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // Optionally, reset the cursor when the mouse exits the component
+        item.setCursor(Cursor.getDefaultCursor());
+    }
+});
 
       panelItem1.add(item);
       repaint();

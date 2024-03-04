@@ -55,12 +55,9 @@ private RenterReceipt renterReceipt;
         bookSQuantity.setText(newQuantity);
         price.setText(newPrice);
     }
-      public static String generateCTR() {
-        
+      public static String generateCTR() {  
         UUID uuid = UUID.randomUUID();
-
         String userId = uuid.toString().replace("-", "").substring(0, 6);
-
         return userId;
     }
   public void CalculateTotal(){
@@ -103,6 +100,8 @@ private RenterReceipt renterReceipt;
             JOptionPane.showMessageDialog(this, "Inefficient Book Supply!");
         } else if (cashChange < 0) {
             JOptionPane.showMessageDialog(this, "Insufficient Amount");
+        } else if(lName.getText().equals("") || fName.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Please Fill out all Fields!");
         } else {
             updateBookQuantity(totalDataQuantity);
             processRentData();
@@ -201,12 +200,9 @@ private void resetCounter() {
            } catch (Exception e) {
                e.printStackTrace();
            }
-       }
-      
-       
+       }    
    }
-   
-   
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

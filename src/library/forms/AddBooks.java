@@ -55,7 +55,7 @@ public class AddBooks extends javax.swing.JPanel {
         dateChooser.setTextField(bDate);
         library = new MyLibrary();   
         populateBooks = new PopulateBooksController(library);
-
+        userId.setVisible(false);
         init();
         
     }
@@ -548,10 +548,8 @@ public class AddBooks extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
- if (alreadyExisting()) {
-           JOptionPane.showMessageDialog(this, "Invalid");
-        }else{
-            int reply = JOptionPane.showConfirmDialog(this, "Are you sure you want to Update this Book Data?");
+
+         int reply = JOptionPane.showConfirmDialog(this, "Are you sure you want to Update this Book Data?");
         if (reply == JOptionPane.YES_OPTION) {
             updateBooksButton();
             setTextFieldToNone();
@@ -559,9 +557,11 @@ public class AddBooks extends javax.swing.JPanel {
         else if (reply == JOptionPane.CANCEL_OPTION) {
             setTextFieldToNone();
         }else{
-            
-        } 
+        
         }
+            
+        
+       
         
        
     }//GEN-LAST:event_button1ActionPerformed
