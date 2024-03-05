@@ -37,6 +37,7 @@ import library.controller.userController;
 import library.forms.AddBooks;
 import library.forms.DashBoard;
 import library.main.Main;
+import library.model.ModelNotification;
 import library.model.ModelUserData;
 import library.userId.User_Id_Constructor;
 
@@ -110,8 +111,14 @@ public class Sign_in extends javax.swing.JFrame {
         ModelUserData result = controller.LogIn(login);
         
         if (result != null) {
+            main.imageAvatar.setImage(result.getImageAvatar());
             main.id.setText(result.getUserId());
+            main.email.setText(result.getUserName());
+            main.libraryName.setText(result.getLibraryName());
             main.refreshDashboardUI();
+            main.countNotification();
+            main.refreshNotificastion();
+           
             main.setVisible(true);
              setVisible(false);
         }else{

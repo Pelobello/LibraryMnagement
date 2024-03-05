@@ -618,7 +618,7 @@ public class RenterData extends javax.swing.JPanel {
     private javax.swing.JLabel DT;
     public javax.swing.JLabel ID;
     private javax.swing.JLabel TP;
-    private library.button.Button button1;
+    public library.button.Button button1;
     private library.textfield.TextField cash;
     private library.textfield.TextField change;
     private javax.swing.JLabel jLabel1;

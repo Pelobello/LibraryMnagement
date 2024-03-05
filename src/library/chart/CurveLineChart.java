@@ -267,11 +267,16 @@ public class CurveLineChart extends JComponent {
     }
 
     public SplinePoint[] copyPoint(SplinePoint[] points) {
-        SplinePoint[] newPoints = new SplinePoint[points.length];
-        for (int i = 0; i < points.length; i++) {
-            newPoints[i] = points[i].copy();
-        }
-        return newPoints;
+       if (points == null) {
+        // Handle the case where points is null, you can return null or an empty array based on your requirements
+        return null;
+    }
+
+    SplinePoint[] newPoints = new SplinePoint[points.length];
+    for (int i = 0; i < points.length; i++) {
+        newPoints[i] = points[i].copy();
+    }
+    return newPoints;
     }
 
     private SplinePoint[] toPoint(Rectangle2D rec, int index, double maxValue) {

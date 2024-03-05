@@ -188,7 +188,7 @@ public class AddBooks extends javax.swing.JPanel {
     return outputStream.toByteArray();
 }
     public void selectImage(){
-              JFileChooser imgChooser = new JFileChooser();
+       JFileChooser imgChooser = new JFileChooser();
     FileNameExtensionFilter fn = new FileNameExtensionFilter("IMAGES", "png", "jpg", "jpeg");
     imgChooser.addChoosableFileFilter(fn);
 

@@ -5,9 +5,24 @@
 package library.model;
 
 import java.util.Date;
+import javax.swing.Icon;
 
 
 public class ModelUserData {
+
+    /**
+     * @return the imageAvatar
+     */
+    public Icon getImageAvatar() {
+        return imageAvatar;
+    }
+
+    /**
+     * @param imageAvatar the imageAvatar to set
+     */
+    public void setImageAvatar(Icon imageAvatar) {
+        this.imageAvatar = imageAvatar;
+    }
 
     /**
      * @return the passWord
@@ -62,13 +77,16 @@ public class ModelUserData {
     public ModelUserData() {
     }
 
-    public ModelUserData(String userId, String libraryName, String userName, char[] passWord, Date birthDate) {
+    public ModelUserData(String userId, String libraryName, String userName, char[] passWord, Date birthDate, Icon imageAvatar) {
         this.userId = userId;
         this.libraryName = libraryName;
         this.userName = userName;
         this.passWord = passWord;
         this.birthDate = birthDate;
+        this.imageAvatar = imageAvatar;
     }
+
+  
 
   
    
@@ -78,4 +96,5 @@ public class ModelUserData {
     private String userName;
     private char [] passWord;
     private Date birthDate;
+    private Icon imageAvatar;
 }
