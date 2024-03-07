@@ -127,8 +127,7 @@ public class Sign_in extends javax.swing.JFrame {
             main.id.setText(result.getUserId());
             main.email.setText(result.getUserName());
             main.libraryName.setText(result.getLibraryName());
-            main.birthDate.setText(formattedBirthDate);
-            
+            main.birthDate.setText(formattedBirthDate);            
             main.refreshDashboardUI();
             main.countNotification();
             main.refreshNotificastion();
