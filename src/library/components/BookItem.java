@@ -10,10 +10,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import library.model.ModelItem;
 
-/**
- *
- * @author USER
- */
+
 public class BookItem extends javax.swing.JPanel {
 
    

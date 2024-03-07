@@ -535,7 +535,9 @@ private int y;
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
-
+        TermsAndCondition terms = new TermsAndCondition();
+        terms.setVisible(true);
+        setVisible(false);
     }//GEN-LAST:event_jLabel9MouseClicked
 
     private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed

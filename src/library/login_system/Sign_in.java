@@ -23,6 +23,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,6 +36,7 @@ import javax.swing.UIManager;
 import library.controller.PopulateBooksController;
 import library.controller.PopulateDashboardController;
 import library.controller.userController;
+import library.forms.AccountInformation;
 import library.forms.AddBooks;
 import library.forms.DashBoard;
 import library.main.Main;
@@ -48,6 +51,7 @@ public class Sign_in extends javax.swing.JFrame {
     private User_Id_Constructor userIdC;
     private AddBooks addbooks;
     private Sign_up sign_up;
+    private AccountInformation accountInfo;
     
     public Sign_in() throws SQLException, ClassNotFoundException, ParseException {
         initComponents();
@@ -56,6 +60,7 @@ public class Sign_in extends javax.swing.JFrame {
         dashboard = new DashBoard();
         addbooks = new AddBooks();
         sign_up = new Sign_up();
+        accountInfo = new AccountInformation();
        
         passWord.putClientProperty(FlatClientProperties.STYLE, "showRevealButton:true;"+ "showCapsLock:true");
      
@@ -103,7 +108,8 @@ public class Sign_in extends javax.swing.JFrame {
             userController controller = new userController();
         String username = userName.getText();
         char [] password = passWord.getPassword();
-        
+       
+
         ModelUserData login = new ModelUserData();
         login.setUserName(username);
         login.setPassWord(password);
@@ -111,13 +117,24 @@ public class Sign_in extends javax.swing.JFrame {
         ModelUserData result = controller.LogIn(login);
         
         if (result != null) {
+             Date birthDate = result.getBirthDate();
+
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd,yyyy"); 
+            String formattedBirthDate = dateFormat.format(birthDate);
+        
             main.imageAvatar.setImage(result.getImageAvatar());
             main.id.setText(result.getUserId());
             main.email.setText(result.getUserName());
             main.libraryName.setText(result.getLibraryName());
+            main.birthDate.setText(formattedBirthDate);
+            
             main.refreshDashboardUI();
             main.countNotification();
             main.refreshNotificastion();
+            
+            
+           
            
             main.setVisible(true);
              setVisible(false);

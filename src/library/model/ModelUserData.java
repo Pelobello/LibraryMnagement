@@ -11,6 +11,20 @@ import javax.swing.Icon;
 public class ModelUserData {
 
     /**
+     * @return the newPassword
+     */
+    public char[] getNewPassword() {
+        return newPassword;
+    }
+
+    /**
+     * @param newPassword the newPassword to set
+     */
+    public void setNewPassword(char[] newPassword) {
+        this.newPassword = newPassword;
+    }
+
+    /**
      * @return the imageAvatar
      */
     public Icon getImageAvatar() {
@@ -90,7 +104,7 @@ public class ModelUserData {
 
   
    
-
+    private char [] newPassword;
     private String userId;
     private String libraryName;
     private String userName;

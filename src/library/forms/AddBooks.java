@@ -131,6 +131,7 @@ public class AddBooks extends javax.swing.JPanel {
     int addQuantity = Integer.parseInt(quantity.getText());
      int addbookPrice = Integer.parseInt(bookPrice.getText());
      
+     
     byte[] imageBytes;
 
     

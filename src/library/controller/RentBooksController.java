@@ -181,10 +181,7 @@ public class RentBooksController {
         this.totalQuantity = totalQuantity;
     }
 
-   
-
-   
-
+ 
     private String userId;
     private String ctr;
     private String bookName;

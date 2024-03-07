@@ -39,6 +39,7 @@ import library.controller.PopulateRenterController;
 import library.database.DatabaseConnection;
 import library.event.EventItem;
 import library.event.EventRenter;
+import library.forms.AccountInformation;
 import library.forms.AddBooks;
 import library.forms.DashBoard;
 import library.forms.MyLibrary;
@@ -71,11 +72,12 @@ public class Main extends javax.swing.JFrame {
       private PopulateRenterController populateRenter;
       private NotifyPopUp notification;
       private ModelNotification modelNotify;
+      private AccountInformation accountinformation;
      
     public Main() throws SQLException, ClassNotFoundException, ParseException  {
       
     initComponents();
-        
+        accountinformation = new AccountInformation();
         notification = new NotifyPopUp();
         modelNotify = new ModelNotification();
         dashboard = new DashBoard();
@@ -85,7 +87,7 @@ public class Main extends javax.swing.JFrame {
         rentBooks = new RentBooks();  
         renterData = new RenterData();
         populateDashboard = new PopulateDashboardController();
-        
+        birthDate.setVisible(false);
         countNotification();
         testRenterData();
         
@@ -351,6 +353,7 @@ public class Main extends javax.swing.JFrame {
         imageAvatar = new library.components.ImageAvatar();
         email = new javax.swing.JLabel();
         notificationBtn = new library.button.BadgeButton();
+        birthDate = new javax.swing.JLabel();
         roundPanel4 = new library.components.RoundPanel();
         panelMoving = new library.components.RoundPanel();
         button3 = new library.button.Button();
@@ -419,6 +422,11 @@ public class Main extends javax.swing.JFrame {
 
         imageAvatar.setBorderSize(1);
         imageAvatar.setImage(new javax.swing.ImageIcon(getClass().getResource("/library/image/jw.jpg"))); // NOI18N
+        imageAvatar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imageAvatarMouseClicked(evt);
+            }
+        });
 
         email.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         email.setForeground(new java.awt.Color(102, 102, 102));
@@ -468,6 +476,8 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
+        birthDate.setText("jLabel3");
+
         javax.swing.GroupLayout roundPanel3Layout = new javax.swing.GroupLayout(roundPanel3);
         roundPanel3.setLayout(roundPanel3Layout);
         roundPanel3Layout.setHorizontalGroup(
@@ -475,6 +485,8 @@ public class Main extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel3Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(78, 78, 78)
+                .addComponent(birthDate, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -487,6 +499,10 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19))
+            .addGroup(roundPanel3Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addComponent(birthDate, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         roundPanel4.setBackground(new java.awt.Color(255, 255, 255));
@@ -601,8 +617,8 @@ public class Main extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(153, 153, 153));
         jLabel2.setText("BibleothecaHarmoy V1");
 
-        libraryName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        libraryName.setForeground(new java.awt.Color(51, 51, 51));
+        libraryName.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        libraryName.setForeground(new java.awt.Color(153, 153, 153));
         libraryName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         imageAvatar2.setBorderColor(new java.awt.Color(255, 255, 255));
@@ -993,6 +1009,17 @@ public class Main extends javax.swing.JFrame {
        setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_notificationBtnMouseExited
 
+    private void imageAvatarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageAvatarMouseClicked
+       accountinformation.userId.setText(id.getText());
+       accountinformation.libraryName.setText(libraryName.getText());
+       accountinformation.email.setText(email.getText());
+       accountinformation.imagePicture.setImage(imageAvatar.getImage());
+       accountinformation.birthDate.setText(birthDate.getText());
+        accountinformation.hidePasswordField();
+        accountinformation.button1.setVisible(true);
+        Forms(accountinformation);
+    }//GEN-LAST:event_imageAvatarMouseClicked
+
    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1037,6 +1064,7 @@ public class Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private library.button.Button Exit;
     private library.button.Button LogOut;
+    public javax.swing.JLabel birthDate;
     private javax.swing.JLabel bookAuthor;
     private library.swing.TextPane bookDescription;
     private javax.swing.JLabel bookId;

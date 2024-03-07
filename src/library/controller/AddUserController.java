@@ -18,6 +18,8 @@ import java.sql.SQLException;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import library.forms.AccountInformation;
 
 
 public class AddUserController {
@@ -52,6 +54,29 @@ public class AddUserController {
             
             p.executeUpdate();
            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public boolean updatePassword(ModelUserData data){
+        try {
+            String sql = "UPDATE user_info SET passWord = ? WHERE userId = ? AND passWord = ?";
+           PreparedStatement p = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
+           p.setString(1, new String(data.getNewPassword()));
+           p.setString(2, data.getUserId());
+           p.setString(3, new String(data.getPassWord()));
+           
+            int rowsUpdated = p.executeUpdate();
+            if (rowsUpdated > 0) {
+           JOptionPane.showMessageDialog(null, "Change Password Succesfull");
+               
+            return true;
+        } else {
+          
+                JOptionPane.showMessageDialog(null, "Incorrect CurrentPassword");
+            return false;
+        }
         } catch (Exception e) {
             e.printStackTrace();
             return false;
