@@ -16,7 +16,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="bookTitle" alignment="0" max="32767" attributes="0"/>
+          <Component id="bookTitle" alignment="0" min="-2" pref="263" max="-2" attributes="0"/>
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -48,7 +48,7 @@
                               <Component id="price" min="-2" pref="7" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="34" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <Component id="bookImage" alignment="1" max="32767" attributes="0"/>
               </Group>

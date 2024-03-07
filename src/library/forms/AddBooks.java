@@ -56,6 +56,7 @@ public class AddBooks extends javax.swing.JPanel {
         library = new MyLibrary();   
         populateBooks = new PopulateBooksController(library);
         userId.setVisible(false);
+        bookID.setVisible(false);
         init();
         
     }
@@ -258,9 +259,6 @@ public class AddBooks extends javax.swing.JPanel {
         bEdition = new javax.swing.JComboBox<>();
         jLabel14 = new javax.swing.JLabel();
         addImage = new library.button.Button();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        bDescription = new javax.swing.JTextPane();
         quantity = new library.textfield.TextField();
         pCount = new library.textfield.TextField();
         jLabel6 = new javax.swing.JLabel();
@@ -270,6 +268,8 @@ public class AddBooks extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         addBook1 = new library.button.Button();
         bookID = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        bDescription = new javax.swing.JTextPane();
 
         bTitle.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
@@ -322,19 +322,19 @@ public class AddBooks extends javax.swing.JPanel {
         jLabel8.setText("Select Book Category*");
 
         bCategory.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        bCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        bCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fiction", "Mystery/Thriller", "Science Fiction (Sci-Fi)", "Fantasy", "Romance", "Historical Fiction", "Horror", "Adventure", "Non-fiction", "Biography/Autobiography", "Memoir", "Self-help", "Business/Finance", "Science", "Travel", "Poetry", "Graphic Novel/Comics", "Young Adult (YA)", "Children's", "Classics", "Crime", "Humor", "Philosophy", "Psychology", "Religion/Spirituality", "Art/Photography", "Cooking/Food", "History", "Politics" }));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel12.setText("Select Language");
 
         bLanguage.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        bLanguage.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        bLanguage.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "English", "Spanish", "Mandarin Chinese", "Hindi", "Arabic", "French", "Russian", "Portuguese", "Bengali", "Urdu", "German", "Japanese", "Swahili", "Italian", "Dutch", "Korean", "Turkish", "Vietnamese", "Tamil", "Punjabi", "Filipino" }));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel13.setText("Select Format*");
 
         bFormat.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        bFormat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        bFormat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hardcover", "Paperback", "E-book (Electronic Book)", "Audiobook", "Large Print", "Pocket-sized", "Graphic Novel", "Interactive E-book", "Boxed Set", "Pop-up Book", "Board Book (for children)", "Comic Book", "Digital Comic", "Audio CD (for audiobooks)", "MP3 Audiobook", "Kindle Edition", "Nook Book", "PDF (Portable Document Format)", "ePub", "Mobi (Mobipocket)", "Paperback Original", "Braille Book", "Audio Cassette (for audiobooks, less common now)" }));
         bFormat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bFormatActionPerformed(evt);
@@ -342,7 +342,7 @@ public class AddBooks extends javax.swing.JPanel {
         });
 
         bEdition.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        bEdition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        bEdition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "First Edition", "Second Edition", "Third Edition", "Fourth Edition", "Fifth Edition", "Sixth Edition", "Seventh Edition", "Eighth Edition", "Ninth Edition", "Tenth Edition", "Eleventh Edition", "Twelfth Edition", "Thirteenth Edition", "Fourteenth Edition", "Fifteenth Edition", "Sixteenth Edition", "Seventeenth Edition", "Eighteenth Edition", "Nineteenth Edition", "Twentieth Edition", "......." }));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel14.setText("Edition*");
@@ -360,14 +360,6 @@ public class AddBooks extends javax.swing.JPanel {
                 addImageActionPerformed(evt);
             }
         });
-
-        bDescription.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        bDescription.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        bDescription.setDragEnabled(true);
-        bDescription.setPreferredSize(new java.awt.Dimension(25, 25));
-        jScrollPane2.setViewportView(bDescription);
-
-        jScrollPane1.setViewportView(jScrollPane2);
 
         quantity.setText("0");
         quantity.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -407,6 +399,12 @@ public class AddBooks extends javax.swing.JPanel {
             }
         });
 
+        bDescription.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        bDescription.setForeground(new java.awt.Color(102, 102, 102));
+        bDescription.setMinimumSize(new java.awt.Dimension(25, 29));
+        bDescription.setPreferredSize(new java.awt.Dimension(25, 29));
+        jScrollPane2.setViewportView(bDescription);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -425,9 +423,11 @@ public class AddBooks extends javax.swing.JPanel {
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(bEdition, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bFormat, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bCategory, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -521,7 +521,8 @@ public class AddBooks extends javax.swing.JPanel {
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(bDate, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(pCount, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)
@@ -529,7 +530,7 @@ public class AddBooks extends javax.swing.JPanel {
                             .addComponent(quantity, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(bookPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))
-                        .addGap(14, 14, 14)
+                        .addGap(10, 10, 10)
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -544,7 +545,8 @@ public class AddBooks extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(bEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -663,7 +665,6 @@ public class AddBooks extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     public library.textfield.TextField pCount;
     public library.components.PictureBox pic;

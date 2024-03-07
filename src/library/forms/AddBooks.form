@@ -31,9 +31,12 @@
                           <Component id="jLabel4" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jScrollPane1" max="32767" attributes="0"/>
-                          <Component id="jLabel5" pref="371" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                              <Component id="jScrollPane2" min="-2" pref="345" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jLabel5" min="-2" pref="371" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="bEdition" alignment="0" max="32767" attributes="0"/>
@@ -152,8 +155,9 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="bDate" min="-2" pref="50" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jScrollPane1" min="-2" pref="311" max="-2" attributes="0"/>
+                          <Component id="jScrollPane2" min="-2" pref="299" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="pCount" alignment="3" min="-2" pref="51" max="-2" attributes="0"/>
                           <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -162,7 +166,7 @@
                           <Component id="bookPrice" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
                           <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Component id="jLabel8" min="-2" pref="25" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="bCategory" min="-2" pref="40" max="-2" attributes="0"/>
@@ -180,6 +184,7 @@
               <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="bEdition" min="-2" pref="43" max="-2" attributes="0"/>
+              <EmptySpace pref="19" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -333,11 +338,36 @@
           <Font name="Segoe UI" size="18" style="0"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="29">
+            <StringItem index="0" value="Fiction"/>
+            <StringItem index="1" value="Mystery/Thriller"/>
+            <StringItem index="2" value="Science Fiction (Sci-Fi)"/>
+            <StringItem index="3" value="Fantasy"/>
+            <StringItem index="4" value="Romance"/>
+            <StringItem index="5" value="Historical Fiction"/>
+            <StringItem index="6" value="Horror"/>
+            <StringItem index="7" value="Adventure"/>
+            <StringItem index="8" value="Non-fiction"/>
+            <StringItem index="9" value="Biography/Autobiography"/>
+            <StringItem index="10" value="Memoir"/>
+            <StringItem index="11" value="Self-help"/>
+            <StringItem index="12" value="Business/Finance"/>
+            <StringItem index="13" value="Science"/>
+            <StringItem index="14" value="Travel"/>
+            <StringItem index="15" value="Poetry"/>
+            <StringItem index="16" value="Graphic Novel/Comics"/>
+            <StringItem index="17" value="Young Adult (YA)"/>
+            <StringItem index="18" value="Children&apos;s"/>
+            <StringItem index="19" value="Classics"/>
+            <StringItem index="20" value="Crime"/>
+            <StringItem index="21" value="Humor"/>
+            <StringItem index="22" value="Philosophy"/>
+            <StringItem index="23" value="Psychology"/>
+            <StringItem index="24" value="Religion/Spirituality"/>
+            <StringItem index="25" value="Art/Photography"/>
+            <StringItem index="26" value="Cooking/Food"/>
+            <StringItem index="27" value="History"/>
+            <StringItem index="28" value="Politics"/>
           </StringArray>
         </Property>
       </Properties>
@@ -360,11 +390,28 @@
           <Font name="Segoe UI" size="18" style="0"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="21">
+            <StringItem index="0" value="English"/>
+            <StringItem index="1" value="Spanish"/>
+            <StringItem index="2" value="Mandarin Chinese"/>
+            <StringItem index="3" value="Hindi"/>
+            <StringItem index="4" value="Arabic"/>
+            <StringItem index="5" value="French"/>
+            <StringItem index="6" value="Russian"/>
+            <StringItem index="7" value="Portuguese"/>
+            <StringItem index="8" value="Bengali"/>
+            <StringItem index="9" value="Urdu"/>
+            <StringItem index="10" value="German"/>
+            <StringItem index="11" value="Japanese"/>
+            <StringItem index="12" value="Swahili"/>
+            <StringItem index="13" value="Italian"/>
+            <StringItem index="14" value="Dutch"/>
+            <StringItem index="15" value="Korean"/>
+            <StringItem index="16" value="Turkish"/>
+            <StringItem index="17" value="Vietnamese"/>
+            <StringItem index="18" value="Tamil"/>
+            <StringItem index="19" value="Punjabi"/>
+            <StringItem index="20" value="Filipino"/>
           </StringArray>
         </Property>
       </Properties>
@@ -387,11 +434,30 @@
           <Font name="Segoe UI" size="18" style="0"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="23">
+            <StringItem index="0" value="Hardcover"/>
+            <StringItem index="1" value="Paperback"/>
+            <StringItem index="2" value="E-book (Electronic Book)"/>
+            <StringItem index="3" value="Audiobook"/>
+            <StringItem index="4" value="Large Print"/>
+            <StringItem index="5" value="Pocket-sized"/>
+            <StringItem index="6" value="Graphic Novel"/>
+            <StringItem index="7" value="Interactive E-book"/>
+            <StringItem index="8" value="Boxed Set"/>
+            <StringItem index="9" value="Pop-up Book"/>
+            <StringItem index="10" value="Board Book (for children)"/>
+            <StringItem index="11" value="Comic Book"/>
+            <StringItem index="12" value="Digital Comic"/>
+            <StringItem index="13" value="Audio CD (for audiobooks)"/>
+            <StringItem index="14" value="MP3 Audiobook"/>
+            <StringItem index="15" value="Kindle Edition"/>
+            <StringItem index="16" value="Nook Book"/>
+            <StringItem index="17" value="PDF (Portable Document Format)"/>
+            <StringItem index="18" value="ePub"/>
+            <StringItem index="19" value="Mobi (Mobipocket)"/>
+            <StringItem index="20" value="Paperback Original"/>
+            <StringItem index="21" value="Braille Book"/>
+            <StringItem index="22" value="Audio Cassette (for audiobooks, less common now)"/>
           </StringArray>
         </Property>
       </Properties>
@@ -409,11 +475,28 @@
           <Font name="Segoe UI" size="18" style="0"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="21">
+            <StringItem index="0" value="First Edition"/>
+            <StringItem index="1" value="Second Edition"/>
+            <StringItem index="2" value="Third Edition"/>
+            <StringItem index="3" value="Fourth Edition"/>
+            <StringItem index="4" value="Fifth Edition"/>
+            <StringItem index="5" value="Sixth Edition"/>
+            <StringItem index="6" value="Seventh Edition"/>
+            <StringItem index="7" value="Eighth Edition"/>
+            <StringItem index="8" value="Ninth Edition"/>
+            <StringItem index="9" value="Tenth Edition"/>
+            <StringItem index="10" value="Eleventh Edition"/>
+            <StringItem index="11" value="Twelfth Edition"/>
+            <StringItem index="12" value="Thirteenth Edition"/>
+            <StringItem index="13" value="Fourteenth Edition"/>
+            <StringItem index="14" value="Fifteenth Edition"/>
+            <StringItem index="15" value="Sixteenth Edition"/>
+            <StringItem index="16" value="Seventeenth Edition"/>
+            <StringItem index="17" value="Eighteenth Edition"/>
+            <StringItem index="18" value="Nineteenth Edition"/>
+            <StringItem index="19" value="Twentieth Edition"/>
+            <StringItem index="20" value="......."/>
           </StringArray>
         </Property>
       </Properties>
@@ -445,38 +528,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addImageActionPerformed"/>
       </Events>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-      <SubComponents>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane2">
-          <AuxValues>
-            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-          </AuxValues>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-          <SubComponents>
-            <Component class="javax.swing.JTextPane" name="bDescription">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="18" style="0"/>
-                </Property>
-                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Text Cursor"/>
-                </Property>
-                <Property name="dragEnabled" type="boolean" value="true"/>
-                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[25, 25]"/>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-              </AuxValues>
-            </Component>
-          </SubComponents>
-        </Container>
-      </SubComponents>
-    </Container>
     <Component class="library.textfield.TextField" name="quantity">
       <Properties>
         <Property name="text" type="java.lang.String" value="0"/>
@@ -555,5 +606,33 @@
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
     </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextPane" name="bDescription">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="18" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="66" green="66" red="66" type="rgb"/>
+            </Property>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[25, 29]"/>
+            </Property>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[25, 29]"/>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
+        </Component>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>
