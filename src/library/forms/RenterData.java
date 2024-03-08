@@ -10,6 +10,9 @@ import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -17,6 +20,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
@@ -25,6 +30,7 @@ import library.components.BookItem;
 import library.components.RenterItem;
 import library.controller.BookReturnedController;
 import library.controller.PopulateRenterController;
+import library.controller.RentBooksController;
 import library.event.EventRenter;
 import library.formsPopUp.RenterReceipt;
 import library.formsPopUp.Terms_Service;
@@ -201,8 +207,14 @@ public class RenterData extends javax.swing.JPanel {
     }
      
     
-    public void returnRentedBooks(){
+    public void returnRentedBooks() throws ParseException, SQLException, IOException, ClassNotFoundException{
+        double totalAmount = Double.parseDouble(TP.getText());
+        double bookPrice = Double.parseDouble(price.getText());
         double changeToString = Double.parseDouble(change.getText());
+        int totalquantity = Integer.parseInt(quantity.getText());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    Date convertDate = dateFormat.parse(lbDateRented.getText());
+    Date convertReturnDate = dateFormat.parse(lbReturnDate.getText());
         if (lbCTR.getText().equals("") || rentedBook.getText().equals("") ||quantity.getText().equals("")||cash.getText().equals("")||change.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "invalid Data!");
         }else if (changeToString < 0){
@@ -211,6 +223,8 @@ public class RenterData extends javax.swing.JPanel {
         else{
         int priceData = Integer.parseInt(quantity.getText());
         returnBook.returnBook(rentedBook.getText(), priceData);
+        rentBooksControl = new RentBooksController(ID.getText(), lbCTR.getText(), rentedBook.getText(), lbFname.getText(), lbLname.getText(), convertDate, convertReturnDate, totalAmount, bookPrice, totalquantity);
+        rentBooksControl.rentBooksToDatabase();
         returnBook.deleteBookRented(lbCTR.getText());
         JOptionPane.showMessageDialog(this, "The Book Returned Succesfully...");
         
@@ -269,7 +283,7 @@ public class RenterData extends javax.swing.JPanel {
     private PopulateRenterController populateData;
     private BookReturnedController returnBook;
     private RenterReceipt renterReceipt;
-    
+    private RentBooksController rentBooksControl;
     public RenterData() {
         initComponents();
         setOpaque(false);
@@ -280,6 +294,7 @@ public class RenterData extends javax.swing.JPanel {
         returnBook = new BookReturnedController();
         populateData = new PopulateRenterController(this);
         renterReceipt = new RenterReceipt();
+        rentBooksControl = new RentBooksController();
        
         Date Tdate = new Date();
        textVisibleFalse();
@@ -583,7 +598,17 @@ public class RenterData extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "invalid Data!");
         }else{
                
-        returnRentedBooks();
+               try {
+                   returnRentedBooks();
+               } catch (ParseException ex) {
+                   Logger.getLogger(RenterData.class.getName()).log(Level.SEVERE, null, ex);
+               } catch (SQLException ex) {
+                   Logger.getLogger(RenterData.class.getName()).log(Level.SEVERE, null, ex);
+               } catch (IOException ex) {
+                   Logger.getLogger(RenterData.class.getName()).log(Level.SEVERE, null, ex);
+               } catch (ClassNotFoundException ex) {
+                   Logger.getLogger(RenterData.class.getName()).log(Level.SEVERE, null, ex);
+               }
            }
         
        
