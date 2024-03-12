@@ -804,8 +804,8 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(roundPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(roundPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 780, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addComponent(roundPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
+                        .addGap(12, 12, 12)
                         .addComponent(roundPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(roundPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0))
@@ -862,6 +862,7 @@ public class Main extends javax.swing.JFrame {
     });
         
         textRemover();
+         addBooks.setTextFieldToNone();
     }//GEN-LAST:event_button4ActionPerformed
 
     private void button5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button5ActionPerformed
@@ -880,6 +881,7 @@ public class Main extends javax.swing.JFrame {
         addcustomer.CtID.revalidate();
         
         textRemover();
+         addBooks.setTextFieldToNone();
     }//GEN-LAST:event_button5ActionPerformed
 
     private void rentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentButtonActionPerformed

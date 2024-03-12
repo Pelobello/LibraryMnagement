@@ -131,10 +131,7 @@ public class Sign_in extends javax.swing.JFrame {
             main.refreshDashboardUI();
             main.countNotification();
             main.refreshNotificastion();
-            
-            
-           
-           
+ 
             main.setVisible(true);
              setVisible(false);
         }else{

@@ -78,12 +78,15 @@
                               <Component id="passwordField1" max="32767" attributes="0"/>
                               <Component id="p1lb" min="-2" pref="160" max="-2" attributes="0"/>
                               <Component id="passwordField2" alignment="0" min="-2" pref="170" max="-2" attributes="0"/>
-                              <Component id="p3lb" min="-2" pref="161" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="changePasswordBtn" alignment="0" pref="169" max="32767" attributes="0"/>
-                                  <Component id="passwordField3" alignment="0" max="32767" attributes="0"/>
+                              <Component id="changePasswordBtn" alignment="0" pref="172" max="32767" attributes="0"/>
+                              <Component id="passwordField3" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="p2lb" min="-2" pref="160" max="-2" attributes="0"/>
+                                      <Component id="p3lb" min="-2" pref="151" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <Component id="p2lb" pref="172" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -125,11 +128,11 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="passwordField1" min="-2" pref="54" max="-2" attributes="0"/>
-                                  <EmptySpace pref="42" max="32767" attributes="0"/>
+                                  <EmptySpace pref="10" max="32767" attributes="0"/>
                                   <Component id="p2lb" min="-2" pref="28" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="passwordField2" min="-2" pref="54" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                   <Component id="p3lb" min="-2" pref="22" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="passwordField3" min="-2" pref="54" max="-2" attributes="0"/>

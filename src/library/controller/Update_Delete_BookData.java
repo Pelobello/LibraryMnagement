@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import library.database.DatabaseConnection;
 import library.model.ModelItem;
 public class Update_Delete_BookData {
@@ -37,6 +38,7 @@ public class Update_Delete_BookData {
             p = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             p.setInt(1, idData.getId());
             p.executeUpdate();
+             JOptionPane.showMessageDialog(null, "Succesfully Deleted");
         } catch (Exception e) {
         }
     }
@@ -64,6 +66,7 @@ public class Update_Delete_BookData {
         p.setInt(14, data.getId());
        
         p.executeUpdate();
+       
           
         
 
