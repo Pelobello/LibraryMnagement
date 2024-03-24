@@ -167,6 +167,29 @@ public class RentBooksController {
              e.printStackTrace();
         }
     }
+      public void addtoPopular()throws SQLException, IOException, ClassNotFoundException{
+        try {
+            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+            java.sql.Date sqlReturnDate = new java.sql.Date(returnDate.getTime());
+
+            PreparedStatement p = DatabaseConnection.getInstance().getConnection().prepareStatement("insert into popularbooks(userId,ctr,bookRented,firstName,lastName,dateRented,dateReturn,totalAmount,totalQuantity,bookPrice)values(?,?,?,?,?,?,?,?,?,?)");
+            p.setString(1, userId);
+            p.setString(2, ctr);
+            p.setString(3, bookName);
+            p.setString(4, customerFirstName);
+            p.setString(5, customerLastName);
+            p.setDate(6, sqlDate);
+            p.setDate(7, sqlReturnDate);
+            p.setInt(8, (int) totalAmount);
+            p.setInt(9, totalQuantity);
+            p.setInt(10, (int) bookPrice);
+            
+            p.execute();
+            
+        } catch (Exception e) {
+             e.printStackTrace();
+        }
+    }
 
     public RentBooksController(String userId, String ctr, String bookName, String customerFirstName, String customerLastName, Date date, Date returnDate, double totalAmount, double bookPrice, int totalQuantity) {
         this.userId = userId;

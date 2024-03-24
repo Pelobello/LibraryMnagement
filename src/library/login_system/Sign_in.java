@@ -189,7 +189,6 @@ public class Sign_in extends javax.swing.JFrame {
         roundPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         userName.setForeground(new java.awt.Color(51, 51, 51));
-        userName.setText("dazzlepelobello11@gmail.com");
         userName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         userName.setShadowColor(new java.awt.Color(15, 4, 76));
         userName.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -232,7 +231,6 @@ public class Sign_in extends javax.swing.JFrame {
         lbPassword.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         passWord.setForeground(new java.awt.Color(51, 51, 51));
-        passWord.setText("test");
         passWord.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         passWord.setShadowColor(new java.awt.Color(15, 4, 76));
         passWord.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -381,8 +379,9 @@ public class Sign_in extends javax.swing.JFrame {
     }//GEN-LAST:event_SignInActionPerformed
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        sign_up.setVisible(true);
+        
         sign_up.userID.setText(generateUserId());
+        sign_up.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_jLabel5MouseClicked
 

@@ -46,6 +46,7 @@ import library.forms.AddBooks;
 import library.forms.DashBoard;
 import library.forms.MyLibrary;
 import library.forms.AddCustomer;
+import library.forms.RecommendedBooks;
 import library.forms.RentBooks;
 import library.forms.RenterData;
 import library.formsPopUp.NotifyPopUp;
@@ -75,10 +76,12 @@ public class Main extends javax.swing.JFrame {
       private NotifyPopUp notification;
       private ModelNotification modelNotify;
       private AccountInformation accountinformation;
+      private RecommendedBooks recommendedBooks;
      
     public Main() throws SQLException, ClassNotFoundException, ParseException  {
       
     initComponents();
+        recommendedBooks = new RecommendedBooks();
         accountinformation = new AccountInformation();
         notification = new NotifyPopUp();
         modelNotify = new ModelNotification();
@@ -115,6 +118,7 @@ public class Main extends javax.swing.JFrame {
        populateRenter.populateData(id.getText());
         roundPanel4.setLayout(new BorderLayout());
         search.setText("Search Borrower");
+        
         bookDescription.setBackground(new Color(15,4,76,255));
         roundPanel4.setLayout(new BorderLayout());
         addBooks.userId.setText(id.getText());
@@ -371,6 +375,7 @@ public class Main extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         libraryName = new javax.swing.JLabel();
         imageAvatar2 = new library.components.ImageAvatar();
+        button8 = new library.button.Button();
         roundPanel5 = new library.components.RoundPanel();
         bookTitle = new javax.swing.JLabel();
         bookAuthor = new javax.swing.JLabel();
@@ -626,6 +631,19 @@ public class Main extends javax.swing.JFrame {
         imageAvatar2.setBorderSize(0);
         imageAvatar2.setImage(new javax.swing.ImageIcon(getClass().getResource("/library/image/SGN_02_21_2024_1708507009000-removebg.png"))); // NOI18N
 
+        button8.setBackground(new java.awt.Color(245, 238, 230));
+        button8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/library/image/icons8_p_40px.png"))); // NOI18N
+        button8.setText("Popular Books");
+        button8.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
+        button8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        button8.setIconTextGap(20);
+        button8.setShadowColor(new java.awt.Color(102, 102, 102));
+        button8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button8ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelMovingLayout = new javax.swing.GroupLayout(panelMoving);
         panelMoving.setLayout(panelMovingLayout);
         panelMovingLayout.setHorizontalGroup(
@@ -650,7 +668,8 @@ public class Main extends javax.swing.JFrame {
                         .addGap(0, 0, 0)
                         .addGroup(panelMovingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(imageAvatar2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(button8, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         panelMovingLayout.setVerticalGroup(
             panelMovingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -673,7 +692,9 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(button5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(button7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 282, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(button8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 226, Short.MAX_VALUE)
                 .addComponent(LogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Exit, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1020,6 +1041,12 @@ public class Main extends javax.swing.JFrame {
         Forms(accountinformation);
     }//GEN-LAST:event_imageAvatarMouseClicked
 
+    private void button8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button8ActionPerformed
+        recommendedBooks.populateTodaysData(id.getText());
+        recommendedBooks.populateThiMonthsData(id.getText());
+        Forms(recommendedBooks);
+    }//GEN-LAST:event_button8ActionPerformed
+
    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1076,6 +1103,7 @@ public class Main extends javax.swing.JFrame {
     private library.button.Button button5;
     private library.button.Button button6;
     private library.button.Button button7;
+    private library.button.Button button8;
     private library.button.Button edit;
     public javax.swing.JLabel email;
     public javax.swing.JLabel id;

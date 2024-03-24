@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch4jConfig>
+  <dontWrapJar>false</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar>C:\Users\USER\Documents\NetBeansProjects\LibraryManagementFinal\dist\Library_Management_System.jar</jar>
+  <outfile>C:\Users\USER\Documents\NetBeansProjects\LibraryManagementFinal\LMS.exe</outfile>
+  <errTitle></errTitle>
+  <cmdLine></cmdLine>
+  <chdir>.</chdir>
+  <priority>normal</priority>
+  <downloadUrl></downloadUrl>
+  <supportUrl></supportUrl>
+  <stayAlive>true</stayAlive>
+  <restartOnCrash>false</restartOnCrash>
+  <manifest></manifest>
+  <icon>C:\Users\USER\Videos\King the land\report ppt\SGN_02_21_2024_1708507009000-removebg.ico</icon>
+  <jre>
+    <path>%JAVA_HOME%;%PATH%</path>
+    <requiresJdk>true</requiresJdk>
+    <requires64Bit>true</requires64Bit>
+    <minVersion>1.0.4</minVersion>
+    <maxVersion></maxVersion>
+  </jre>
+</launch4jConfig>

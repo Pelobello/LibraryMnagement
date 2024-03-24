@@ -132,6 +132,7 @@ private Update_Delete_CustomerData ud_customerData;
         }
     }
   }
+@SuppressWarnings("unchecked")
    public void populateCustomerData(String UserId){
        try {
            DefaultTableModel model = (DefaultTableModel)customerTable.getModel();
@@ -164,6 +165,9 @@ private Update_Delete_CustomerData ud_customerData;
            e.printStackTrace();
        }
    }
+@SuppressWarnings("unchecked")
+
+
    public void searchCustomerData(String userID, String searchField){
        try {
            DefaultTableModel model =(DefaultTableModel)customerTable.getModel();

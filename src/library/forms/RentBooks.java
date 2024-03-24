@@ -148,6 +148,7 @@ private void processRentData() throws ParseException, SQLException, IOException,
 
     rentBooksControl.rentBooksToDatabase();
     rentBooksControl.rentBooksToDatabaseV2();
+    rentBooksControl.addtoPopular();
     receiptData();
     GlassPanePopup.showPopup(renterReceipt);
     textRemover();

@@ -24,6 +24,7 @@ import java.time.Month;
 import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -57,9 +58,9 @@ public class Sign_up extends javax.swing.JFrame {
          setBackground(new Color(0,0,0,0));   
         dateChooser.setDateFormat(new SimpleDateFormat("yyyy-MM-dd"));
         dateChooser.setTextField(bDate);
-        userID.setVisible(false);     
+        userID.setVisible(true);     
         
-        
+        userID.setText(generateUserId());
         
          initMoving(this);
     }
@@ -156,6 +157,13 @@ private int y;
     /**
      * Adds user data to the system after successful validation.
      */
+     public static String generateUserId() {
+        // Generate a random UUID
+        UUID uuid = UUID.randomUUID();
+        String userId = uuid.toString().replace("-", "").substring(0, 6);
+
+        return userId;
+    }
     private void addUserData() {
         try {
             Icon picIcon = imageAvatar.getImage();
@@ -171,6 +179,7 @@ private int y;
 
             controller.registerUser(new ModelUserData(id, libraryN, uName, pWord, parseDate, new ImageIcon(imageBytes)));
             JOptionPane.showMessageDialog(this, "Successfully Registered");
+            userID.setText(generateUserId());
             textRemover();
 
         } catch (Exception e) {
@@ -196,40 +205,49 @@ private int y;
 
     return outputStream.toByteArray();
 }
-    public void selectImage(){
-       JFileChooser imgChooser = new JFileChooser();
-    FileNameExtensionFilter fn = new FileNameExtensionFilter("IMAGES", "png", "jpg", "jpeg");
+    public void selectImage() {
+    JFileChooser imgChooser = new JFileChooser();
+    FileNameExtensionFilter fn = new FileNameExtensionFilter( "All Files","png", "jpg", "jpeg");
     imgChooser.addChoosableFileFilter(fn);
 
-    int showOpenDialog = imgChooser.showOpenDialog(null);
+    int showOpenDialog = imgChooser.showOpenDialog(this);
 
     if (showOpenDialog == JFileChooser.APPROVE_OPTION) {
         File selectedFile = imgChooser.getSelectedFile();
-
+        
         String fileName = selectedFile.getName();
         String extension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
 
         if (!extension.equals("png") && !extension.equals("jpg") && !extension.equals("jpeg")) {
             JOptionPane.showMessageDialog(this, "Not an image, Please try again!!");
         } else {
-            if (selectedFile != null) {
-                try {
-                    BufferedImage originalImage = ImageIO.read(selectedFile);             
-                    int targetWidth = 800;
-                    int targetHeight = (int) ((double) originalImage.getHeight() / originalImage.getWidth() * targetWidth);
-                    Image resizedImage = originalImage.getScaledInstance(targetWidth, targetHeight, Image.SCALE_SMOOTH);                
-                    ImageIcon imgIcon = new ImageIcon(resizedImage);
-                    imageAvatar.setImage(imgIcon);
-                    imageAvatar.repaint();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                System.out.println("No file selected");
-            }
+           if (selectedFile != null) {
+    try {
+        BufferedImage originalImage = ImageIO.read(selectedFile);
+
+        // Check if the image is null
+        if (originalImage == null) {
+            JOptionPane.showMessageDialog(this, "Error reading image, Please try again!!");
+            return;
+        }
+
+        int targetWidth = 800;
+        int targetHeight = (int) ((double) originalImage.getHeight() / originalImage.getWidth() * targetWidth);
+        Image resizedImage = originalImage.getScaledInstance(targetWidth, targetHeight, Image.SCALE_SMOOTH);                
+        ImageIcon imgIcon = new ImageIcon(resizedImage);
+        imageAvatar.setImage(imgIcon);
+        imageAvatar.repaint();
+    } catch (IOException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error reading image, Please try again!!");
+    }
+} else {
+    System.out.println("No file selected");
+}
         }
     }
     }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

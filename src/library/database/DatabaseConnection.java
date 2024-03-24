@@ -33,4 +33,16 @@ public class DatabaseConnection {
     public Connection getConnection() {
         return connection;
     }
+    
 }
+//String server = "192.168.113.188";
+//        String port = "3306";
+//        String database ="library_management_data";
+//        String user = "LibraryManagementSystem";
+//        String password = "Gw@poko1234567890";
+//blic void ConnectToDatabase() throws  SQLException, ClassNotFoundException{
+//        String server = "192.168.133.146";
+//        String port = "3306";
+//        String database ="library_management_data";
+//        String user = "LibraryManagementSystem";
+//        String password = "Gw@poko1234567890";
